@@ -6,6 +6,7 @@ namespace dotapi.Services
 	interface IAuthenticationService
 	{
 		void Login(LoginModel model);
+		string StatusText();
 	}
 	
     public class AuthenticationService : ServiceBase, IAuthenticationService
@@ -14,5 +15,10 @@ namespace dotapi.Services
         {
             throw new NotImplementedException();
         }
+		
+		public string StatusText()
+		{
+			return "Injected";
+		}
     }
 }

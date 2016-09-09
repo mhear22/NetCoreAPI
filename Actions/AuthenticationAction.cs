@@ -1,4 +1,5 @@
 using dotapi.Actions;
+using dotapi.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace dotapi 
@@ -12,7 +13,7 @@ namespace dotapi
 		
 		public IActionResult DoThing()
 		{
-			return Ok("The thing has been done!");
+			return Ok(S<IAuthenticationService>().StatusText());
 		} 
 	}
 	
