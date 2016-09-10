@@ -1,22 +1,29 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Reflection;
 using dotapi.Repositories.Attributes;
+using dotapi.Repositories.Helpers;
 
 namespace dotapi.Repositories
 {
 	interface IRepo<IRow>
 	{
 		IRow Get(string Id);
+		string Put(IRow Item);
+		void Delete(string Id);
 	}
 	
 	public class RepoBase<T> : IRepo<T>
 	{
 		private static SqlConnection Conn = null;
 		
+		private DtoReader<T> table = new DtoReader<T>(); 
+		
 		private string TableName = "";
-		private List<string> ColumnNames = new List<string>(); 
+		private string PrimaryKey = "";
+		private List<string> ColumnNames = new List<string>();
 		
 		public RepoBase()
 		{
@@ -78,7 +85,26 @@ namespace dotapi.Repositories
 		
 		public T Get(string Id)
 		{
-			return default(T);
+			var command = new SqlCommand();
+			command.CommandText = "SELECT * FROM @Param1 WHERE @Param2 = @Param3";
+			var param1 = new PB("@Param1", TableName);
+			var Param2 = new PB("@Param2", PrimaryKey);
+			var Param3 = new PB("@Param3", Id);
+			
+			throw new NotImplementedException();
+			using(var db = Conn)
+			{
+			}
+		}
+		
+		public string Put(T item)
+		{
+			throw new NotImplementedException();
+		}
+		
+		public void Delete(string Id)
+		{
+			
 		}
 	}
 }
