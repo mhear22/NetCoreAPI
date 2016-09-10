@@ -1,5 +1,7 @@
 using System;
 using dotapi.Models.Authentication;
+using dotapi.Models.Repositories;
+using dotapi.Repositories;
 
 namespace dotapi.Services
 {
@@ -11,6 +13,8 @@ namespace dotapi.Services
 	
     public class AuthenticationService : ServiceBase, IAuthenticationService
     {
+		private static RepoBase<UserDto> userRepo = new RepoBase<UserDto>();
+		
         public void Login(LoginModel model)
         {
             throw new NotImplementedException();
@@ -18,6 +22,7 @@ namespace dotapi.Services
 		
 		public string StatusText()
 		{
+			userRepo.Get("");
 			return "Injected";
 		}
     }
