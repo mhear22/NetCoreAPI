@@ -1,7 +1,7 @@
 namespace dotapi.Models.Repositories
 {
-	interface IRow 
+	interface IRow
 	{
 		string Id { get; set; }
-	} 
+	}
 }
