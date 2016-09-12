@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace dotapi.Repositories
 {
-	public class AppContext : DbContext
+	public class DatabaseContext : DbContext
 	{
-		public AppContext(DbContextOptions<AppContext> options)
+		public DatabaseContext(DbContextOptions<DatabaseContext> options)
 			: base(options)
 		{
 			

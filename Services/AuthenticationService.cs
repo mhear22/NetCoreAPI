@@ -1,6 +1,5 @@
 using System;
 using dotapi.Models.Authentication;
-using dotapi.Models.Repositories;
 using dotapi.Repositories;
 
 namespace dotapi.Services
@@ -13,6 +12,12 @@ namespace dotapi.Services
 	
     public class AuthenticationService : ServiceBase, IAuthenticationService
     {
+		public AuthenticationService(DatabaseContext context)
+			: base(context)
+		{
+			
+		}
+		
         public void Login(LoginModel model)
         {
             throw new NotImplementedException();
