@@ -6,16 +6,23 @@ namespace dotapi.Tests
 {
 	public class ServiceTestBase
 	{
-		internal DatabaseContext Context;
+		private DbContextOptions<DatabaseContext> options;
+		internal DatabaseContext Context
+		{
+			get 
+			{
+				return new DatabaseContext(options);
+			}
+		}
 		public ServiceTestBase()
 		{
 			var ServiceProvider = new ServiceCollection()
-				.AddDbContext<DatabaseContext>()
+				.AddEntityFrameworkInMemoryDatabase()
 				.BuildServiceProvider();
 			var builder = new DbContextOptionsBuilder<DatabaseContext>();
 			builder.UseInMemoryDatabase()
 				.UseInternalServiceProvider(ServiceProvider);
-            Context = new DatabaseContext(builder.Options);
+            options = builder.Options;
 		}
 	}
 }
