@@ -2,6 +2,7 @@ using System;
 using dotapi.Models.Repositories;
 using dotapi.Repositories;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace dotapi.Services
 {
@@ -41,9 +42,9 @@ namespace dotapi.Services
 		
 		private string HashPassword(string Password)
 		{
-			var bytes = Convert.FromBase64String(Password);
+			var bytes = Encoding.UTF8.GetBytes(Password);
 			var hash = SHA256.Create().ComputeHash(bytes);
-			var hashString = Convert.ToBase64String(hash);
+			var hashString = Encoding.UTF8.GetString(hash);
 			return hashString;
 		}
 	}
