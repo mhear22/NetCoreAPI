@@ -1,5 +1,4 @@
 using dotapi.Repositories;
-using Microsoft.AspNetCore.Mvc;
 
 namespace dotapi.Services
 {

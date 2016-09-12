@@ -1,5 +1,3 @@
-using System;
-
 namespace dotapi.Models.Repositories
 {
     public class UserDto : IRow
