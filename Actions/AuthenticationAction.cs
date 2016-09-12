@@ -13,7 +13,7 @@ namespace dotapi
 		
 		public IActionResult DoThing()
 		{
-			return Ok(S<IAuthenticationService>().StatusText());
+			return Ok("abcd");
 		} 
 	}
 	
