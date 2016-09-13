@@ -44,7 +44,11 @@ namespace dotapi.Services
 		{
 			var bytes = Encoding.UTF8.GetBytes(Password);
 			var hash = SHA256.Create().ComputeHash(bytes);
-			var hashString = Encoding.UTF8.GetString(hash);
+			var hashString = "";
+			foreach(var x in hash)
+			{
+				hashString += String.Format("{0:x2}", x);
+			}
 			return hashString;
 		}
 	}

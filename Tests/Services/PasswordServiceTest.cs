@@ -6,10 +6,12 @@ namespace dotapi.Tests
 {
 	public class PasswordServiceTest : ServiceTestBase
 	{
-		private PasswordService _service;
-		public PasswordServiceTest()
-		{
-			_service = new PasswordService(Context);
+		private PasswordService _service
+		{ 
+			get
+			{ 
+				return new PasswordService(Context);
+			}
 		}
 		
 		[Fact]
@@ -26,7 +28,7 @@ namespace dotapi.Tests
 		
 		
 		//Fails due to context being unavailable
-		//[Fact]
+		[Fact]
 		public void TestHashesAreDifferent()
 		{
 			_service.SetPassword("a", "password1");
