@@ -26,8 +26,6 @@ namespace dotapi.Tests
 			
 		}
 		
-		
-		//Fails due to context being unavailable
 		[Fact]
 		public void TestHashesAreDifferent()
 		{
@@ -40,7 +38,15 @@ namespace dotapi.Tests
 			Assert.True(row1 != null);
 			Assert.True(row2 != null);
 			Assert.True(row1.Hash != row2.Hash);
+		}
+		
+		[Fact]
+		public void TestHashesAreTheSameWithTheSameSalt()
+		{
+			_service.SetPassword("a", "test");
+			var row = Context.Passwords.FirstOrDefault(x=>x.UserId == "a");
 			
+			Assert.True(_service.CheckPassword("a", "test"),"Passwords are not checked correctly");
 		}
 	}
 }

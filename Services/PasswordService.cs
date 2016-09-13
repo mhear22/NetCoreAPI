@@ -3,6 +3,7 @@ using dotapi.Models.Repositories;
 using dotapi.Repositories;
 using System.Security.Cryptography;
 using System.Text;
+using System.Linq;
 
 namespace dotapi.Services
 {
@@ -19,7 +20,14 @@ namespace dotapi.Services
 			
 		public bool CheckPassword(string UserId, string Password)
 		{
-			return false;
+			var row = Context.Passwords
+				.Where(x=>x.UserId == UserId)
+				.OrderByDescending(x=>x.DateSet)
+				.FirstOrDefault();
+				
+			var hash = HashPassword(Password + row.Id);
+			
+			return hash == row.Hash;
 		}
 		
 		public void SetPassword(string UserId, string Password)
