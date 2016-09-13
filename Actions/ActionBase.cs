@@ -11,7 +11,7 @@ namespace dotapi.Actions
 		private ICollection<Func<IActionResult>> _actions = new List<Func<IActionResult>>();
 		private HttpRequest Request;
 		
-		public void AddAction(Func<IActionResult> action)
+		internal void AddAction(Func<IActionResult> action)
 		{
 			_actions.Add(action);
 		}

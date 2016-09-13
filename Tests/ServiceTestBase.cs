@@ -1,3 +1,4 @@
+using System.Net;
 using dotapi.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,7 +23,7 @@ namespace dotapi.Tests
 			var builder = new DbContextOptionsBuilder<DatabaseContext>();
 			builder.UseInMemoryDatabase()
 				.UseInternalServiceProvider(ServiceProvider);
-            options = builder.Options;
+			options = builder.Options;
 		}
 	}
 }
