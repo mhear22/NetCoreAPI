@@ -1,4 +1,3 @@
-using System.Net;
 using dotapi.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;

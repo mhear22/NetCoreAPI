@@ -1,4 +1,3 @@
-using System.Linq;
 using dotapi.Models.Authentication;
 using dotapi.Services;
 using Xunit;
