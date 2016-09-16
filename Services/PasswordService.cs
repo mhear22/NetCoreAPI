@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace dotapi.Services
 {
-	interface IPasswordService
+	public interface IPasswordService
 	{
 		void SetPassword(string UserId, string Password);
 		bool CheckPassword(string UserId, string Password);
@@ -41,11 +41,8 @@ namespace dotapi.Services
 			
 			row.Hash = HashPassword(Password + row.Id);
 			
-			using(var db = Context)
-			{
-				db.Passwords.Add(row);
-				db.SaveChanges();
-			}
+			Context.Passwords.Add(row);
+			Context.SaveChanges();
 		}
 		
 		private string HashPassword(string Password)
