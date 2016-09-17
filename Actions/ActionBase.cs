@@ -46,6 +46,11 @@ namespace dotapi.Actions
 		{
 			return Respond(payload, HttpStatusCode.OK);
 		}
+		
+		internal IActionResult BadRequest(object payload = null)
+		{
+			return Respond(payload, HttpStatusCode.BadRequest);
+		}
 		private IActionResult Respond(object payload, HttpStatusCode code = HttpStatusCode.InternalServerError)
 		{
 			var response = new JsonResult(payload);

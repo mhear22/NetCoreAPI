@@ -8,7 +8,7 @@ namespace dotapi.Controllers
 		[Route("status")]
 		public IActionResult Get()
 		{
-			return new AuthenticationAction().WithRequest(Request);
+			return Ok("Server Up");
 		}
 	} 
 }

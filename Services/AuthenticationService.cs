@@ -9,6 +9,7 @@ namespace dotapi.Services
 	interface IAuthenticationService
 	{
 		UserModel Get(string Id);
+		UserModel GetByUsername(string Name);
 		UserModel Login(LoginModel model);
 		UserModel CreateUser(CreateUserModel model);
 	}
@@ -64,10 +65,5 @@ namespace dotapi.Services
 				return user.ToModel();
 			return null;
         }
-
-        public string StatusText()
-		{
-			return "Injected";
-		}
     }
 }
