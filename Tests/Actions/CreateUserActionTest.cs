@@ -1,3 +1,4 @@
+using dotapi.Models.Authentication;
 using Xunit;
 
 namespace dotapi.Tests.Actions
@@ -10,8 +11,15 @@ namespace dotapi.Tests.Actions
 		[Fact]
 		public void CreateSingleUser()
 		{
-			// /users 
-			//Assert.True(result != null);
+			var model = new CreateUserModel()
+			{
+				Username = "test",
+				Email = "test@test.com",
+				Password = "password"
+			};
+			var response = Post("/users", model);
+			
+			Assert.True(response != null);
 		}
 	}
 }
