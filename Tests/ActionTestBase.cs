@@ -12,7 +12,7 @@ namespace dotapi.Tests
 	public class ActionTestBase
 	{
 		private TestServer _server;
-		private HttpClient _client;
+		internal HttpClient _client;
 		public ActionTestBase()
 		{
 			_server = new TestServer(new WebHostBuilder()

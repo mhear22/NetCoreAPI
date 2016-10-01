@@ -1,4 +1,4 @@
-using dotapi.Models.Authentication;
+using dotapi.Tests.Fixtures;
 using Xunit;
 
 namespace dotapi.Tests.Actions
@@ -11,13 +11,8 @@ namespace dotapi.Tests.Actions
 		[Fact]
 		public void CreateSingleUser()
 		{
-			var model = new CreateUserModel()
-			{
-				Username = "test",
-				Email = "test@test.com",
-				Password = "password"
-			};
-			var response = Post("/users", model);
+			var fixture = new UserFixture(_client);
+			var response = fixture.Generate();
 			
 			Assert.True(response != null);
 		}
