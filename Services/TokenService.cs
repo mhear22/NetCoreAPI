@@ -1,5 +1,7 @@
 using System;
+using System.Linq;
 using dotapi.Models.Authentication;
+using dotapi.Models.Repositories;
 using dotapi.Repositories;
 
 namespace dotapi.Services
@@ -11,16 +13,28 @@ namespace dotapi.Services
 	}
     public class TokenService : ServiceBase, ITokenService
     {
-		public TokenService(IDatabaseContext context) : base(context) { }
+		public TokenService(DatabaseContext context) : base(context) { }
 		
         public string Create(string UserId)
         {
-            throw new NotImplementedException();
+			var token = Guid.NewGuid().ToString();
+			
+			Context.Sessions.Add(new SessionDto(){
+				Id = token,
+				UserId = UserId,
+				SetTime = DateTime.Now.ToUniversalTime()
+			});
+			
+			Context.SaveChanges();
+			
+			return token;
         }
 
         public TokenModel Get(string Token)
         {
-            throw new NotImplementedException();
+			return Context.Sessions
+				.FirstOrDefault(x=>x.Id == Token)
+				.ToModel();
         }
     }
 }

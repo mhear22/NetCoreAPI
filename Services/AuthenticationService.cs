@@ -24,7 +24,7 @@ namespace dotapi.Services
 			_tokenService = tokenService;
 		}
 		
-		private UserDto GetDTO(string UserIdOrName)
+		private UserDto GetDto(string UserIdOrName)
 		{
 			return Context.Users
 				.FirstOrDefault(x=>
@@ -34,7 +34,7 @@ namespace dotapi.Services
 		}
 		public UserModel Get(string UserIdOrName)
 		{
-			return GetDTO(UserIdOrName).ToModel();
+			return GetDto(UserIdOrName).ToModel();
 		}
         public UserModel CreateUser(CreateUserModel model)
         {
@@ -53,7 +53,7 @@ namespace dotapi.Services
 		
         public string Login(LoginModel model)
         {
-			var user = GetDTO(model.Username);
+			var user = GetDto(model.Username);
 			if(_passwordService.CheckPassword(user.Id, model.Password))
 				return _tokenService.Create(user.Id);
 			return null;

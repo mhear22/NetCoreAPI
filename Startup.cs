@@ -30,6 +30,7 @@ namespace dotapi
 			services.AddDbContext<DatabaseContext>(options => options.UseInMemoryDatabase(),ServiceLifetime.Transient);
 			services.AddSingleton<IAuthenticationService, AuthenticationService>();
 			services.AddSingleton<IPasswordService, PasswordService>();
+			services.AddSingleton<ITokenService, TokenService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
