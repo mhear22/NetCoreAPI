@@ -8,7 +8,7 @@ namespace dotapi.Controllers
 	{
 		[Route("users")]
 		[HttpPost]
-		public IActionResult CreateUser(CreateUserModel model)
+		public IActionResult CreateUser([FromBody]CreateUserModel model)
 		{
 			return new CreateUserAction(model).WithRequest(Request);
 		}

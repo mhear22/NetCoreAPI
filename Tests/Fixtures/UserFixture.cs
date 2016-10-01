@@ -12,7 +12,7 @@ namespace dotapi.Tests.Fixtures
 			: base(client)
 		{ }
 		
-		public UserModel Generate()
+		public CreateUserModel Generate()
 		{
 			var model = new CreateUserModel()
 			{
@@ -25,9 +25,14 @@ namespace dotapi.Tests.Fixtures
 			
 			Assert.True(request.StatusCode == HttpStatusCode.OK);
 			
-			return JsonConvert.DeserializeObject<UserModel>(
+			var responseModel = JsonConvert.DeserializeObject<UserModel>(
 				request.Content.ReadAsStringAsync().Result
 			);
+			
+			Assert.True(responseModel.Email == model.Email);
+			Assert.True(responseModel.Username == model.Username);
+			
+			return model; 
 		}
 	}
 }

@@ -26,7 +26,10 @@ namespace dotapi.Tests.Fixtures
 		
 		internal HttpResponseMessage Post(string url,object data = null)
 		{
-			HttpContent content = new StringContent(JsonConvert.SerializeObject(data),Encoding.UTF8, "application/json");
+			var serialised = JsonConvert.SerializeObject(data);
+			
+			HttpContent content = new StringContent(serialised,Encoding.UTF8, "application/json");
+			
 			return _client.PostAsync(url, content).Result;
 		}
 		
