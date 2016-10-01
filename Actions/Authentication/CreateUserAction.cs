@@ -14,7 +14,7 @@ namespace dotapi.Actions.Authentication
 		
 		public IActionResult ValidateModel(CreateUserModel model)
 		{
-			var duplicate = S<IAuthenticationService>().GetByUsername(model.Username);
+			var duplicate = S<IAuthenticationService>().Get(model.Username);
 			if(duplicate == null)
 				return null;
 			return BadRequest("Username already taken");

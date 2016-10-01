@@ -24,28 +24,29 @@ namespace dotapi.Tests
 		
 		
 		[Fact]
-		public void CreateUserTest()
+		public void AuthService_WithValidCreds_CreatesUser()
 		{
 			_service.CreateUser(TestModel);
 			
 			var row = Context.Users.Where(x=>x.EmailAddress == TestModel.Email);
+			
 			Assert.True(row != null,"Row not created");
 		}
 		
 		[Fact]
-		public void GetByUsername_CanFindUser()
+		public void AuthService_Get_CanFindUser()
 		{
 			_service.CreateUser(TestModel);
 			
-			var result = _service.GetByUsername(TestModel.Username);
+			var result = _service.Get(TestModel.Username);
 			
 			Assert.NotNull(result);
 		}
 		
 		[Fact]
-		public void CreateUserAndLogin()
+		public void AuthService_WithValidCreds_CanLogin()
 		{
-			CreateUserTest();
+			_service.CreateUser(TestModel);
 			
 			var response = _service.Login(new LoginModel(){
 				Username = TestModel.Email,

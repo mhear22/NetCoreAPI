@@ -19,5 +19,12 @@ namespace dotapi.Controllers
 		{
 			return Ok();
 		}
+		
+		[Route("users/{userIdOrName}")]
+		[HttpGet]
+		public IActionResult GetUser(string userIdOrName)
+		{
+			return new GetUserAction(userIdOrName).WithRequest(Request);
+		}
 	}
 }

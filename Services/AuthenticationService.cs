@@ -8,8 +8,7 @@ namespace dotapi.Services
 {
 	interface IAuthenticationService
 	{
-		UserModel Get(string Id);
-		UserModel GetByUsername(string Name);
+		UserModel Get(string UserIdOrName);
 		UserModel Login(LoginModel model);
 		UserModel CreateUser(CreateUserModel model);
 	}
@@ -23,26 +22,18 @@ namespace dotapi.Services
 			_passwordService = passwordService;
 		}
 		
-		private UserDto GetDto(string Id)
+		private UserDto GetDTO(string UserIdOrName)
 		{
-			return Context.Users.FirstOrDefault(x=>x.Id == Id);
+			return Context.Users
+				.FirstOrDefault(x=>
+					x.Id == UserIdOrName || 
+					x.Username == UserIdOrName || 
+					x.EmailAddress == UserIdOrName);
 		}
-		
-		private UserDto GetDtoByUsername(string Name)
+		public UserModel Get(string UserIdOrName)
 		{
-			return Context.Users.FirstOrDefault(x=>x.Username == Name || x.EmailAddress == Name);
+			return GetDTO(UserIdOrName).ToModel();
 		}
-		
-		public UserModel GetByUsername(string Name)
-		{
-			return GetDtoByUsername(Name).ToModel();
-		}
-		
-		public UserModel Get(string Id)
-		{
-			return GetDto(Id).ToModel();
-		}
-		
         public UserModel CreateUser(CreateUserModel model)
         {
 			var userDto = new UserDto()
@@ -60,7 +51,7 @@ namespace dotapi.Services
 
         public UserModel Login(LoginModel model)
         {
-			var user = GetDtoByUsername(model.Username);
+			var user = GetDTO(model.Username);
 			if(_passwordService.CheckPassword(user.Id, model.Password))
 				return user.ToModel();
 			return null;
