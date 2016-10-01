@@ -1,3 +1,4 @@
+using System;
 using System.Net;
 using System.Net.Http;
 using dotapi.Models.Authentication;
@@ -12,18 +13,14 @@ namespace dotapi.Tests.Fixtures
 			: base(client)
 		{ }
 		
-		public CreateUserModel Generate()
+		public CreateUserModel Generate(CreateUserModel model)
 		{
-			var model = new CreateUserModel()
-			{
-				Username = RandomString(),
-				Email = RandomString() + "@" + RandomString(),
-				Password = RandomString()
-			};
-			
 			var request = Post("/users", model);
 			
-			Assert.True(request.StatusCode == HttpStatusCode.OK);
+			if(request.StatusCode != HttpStatusCode.OK)
+			{
+				return null;
+			}
 			
 			var responseModel = JsonConvert.DeserializeObject<UserModel>(
 				request.Content.ReadAsStringAsync().Result
@@ -33,6 +30,17 @@ namespace dotapi.Tests.Fixtures
 			Assert.True(responseModel.Username == model.Username);
 			
 			return model; 
+		}
+		public CreateUserModel Generate()
+		{
+			var model = new CreateUserModel()
+			{
+				Username = RandomString(),
+				Email = RandomString() + "@" + RandomString(),
+				Password = RandomString()
+			};
+			
+			return Generate(model);
 		}
 	}
 }

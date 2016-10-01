@@ -30,7 +30,7 @@ namespace dotapi.Services
 		
 		private UserDto GetDtoByUsername(string Name)
 		{
-			return Context.Users.FirstOrDefault(x=>x.EmailAddress == Name);
+			return Context.Users.FirstOrDefault(x=>x.Username == Name || x.EmailAddress == Name);
 		}
 		
 		public UserModel GetByUsername(string Name)

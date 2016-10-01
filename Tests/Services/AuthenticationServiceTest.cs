@@ -26,15 +26,20 @@ namespace dotapi.Tests
 		[Fact]
 		public void CreateUserTest()
 		{
-			var usermodel = new CreateUserModel();
-			usermodel.Email = "test@test.com";
-			usermodel.Password = "password";
-			usermodel.Username = "test";
+			_service.CreateUser(TestModel);
 			
-			_service.CreateUser(usermodel);
-			
-			var row = Context.Users.Where(x=>x.EmailAddress == usermodel.Email);
+			var row = Context.Users.Where(x=>x.EmailAddress == TestModel.Email);
 			Assert.True(row != null,"Row not created");
+		}
+		
+		[Fact]
+		public void GetByUsername_CanFindUser()
+		{
+			_service.CreateUser(TestModel);
+			
+			var result = _service.GetByUsername(TestModel.Username);
+			
+			Assert.NotNull(result);
 		}
 		
 		[Fact]
