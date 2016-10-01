@@ -9,17 +9,19 @@ namespace dotapi.Services
 	interface IAuthenticationService
 	{
 		UserModel Get(string UserIdOrName);
-		UserModel Login(LoginModel model);
+		string Login(LoginModel model);
 		UserModel CreateUser(CreateUserModel model);
 	}
 	
     public class AuthenticationService : ServiceBase, IAuthenticationService
     {
 		private IPasswordService _passwordService;
-		public AuthenticationService(DatabaseContext context, IPasswordService passwordService)
+		private ITokenService _tokenService;
+		public AuthenticationService(DatabaseContext context, IPasswordService passwordService, ITokenService tokenService)
 			: base(context)
 		{
 			_passwordService = passwordService;
+			_tokenService = tokenService;
 		}
 		
 		private UserDto GetDTO(string UserIdOrName)
@@ -48,12 +50,12 @@ namespace dotapi.Services
 			
 			return Get(userDto.Id);
         }
-
-        public UserModel Login(LoginModel model)
+		
+        public string Login(LoginModel model)
         {
 			var user = GetDTO(model.Username);
 			if(_passwordService.CheckPassword(user.Id, model.Password))
-				return user.ToModel();
+				return _tokenService.Create(user.Id);
 			return null;
         }
     }

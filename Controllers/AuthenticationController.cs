@@ -17,7 +17,7 @@ namespace dotapi.Controllers
 		[HttpPost]
 		public IActionResult Login(LoginModel model)
 		{
-			return Ok();
+			return new LoginAction(model).WithRequest(Request);
 		}
 		
 		[Route("users/{userIdOrName}")]

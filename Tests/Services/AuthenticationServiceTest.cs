@@ -11,7 +11,7 @@ namespace dotapi.Tests
 		{
 			get 
 			{
-				return new AuthenticationService(Context, new PasswordService(Context));
+				return new AuthenticationService(Context, new PasswordService(Context), new TokenService(Context));
 			}
 		}
 		
