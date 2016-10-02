@@ -7,11 +7,11 @@ namespace dotapi.Tests.Actions.Auth
 	public class GetUserActionTests : AuthenticationActionTestBase
 	{
 		[Fact]
-		public void GetUserAction_WithNoUsers_Returns400()
+		public void GetUserAction_WithNoUsers_Returns404()
 		{
 			var request = _users.GetUserRequest(Guid.NewGuid().ToString());
 			
-			Assert.True(request.StatusCode == HttpStatusCode.BadRequest);
+			Assert.True(request.StatusCode == HttpStatusCode.NotFound);
 		}
 		
 		[Fact]

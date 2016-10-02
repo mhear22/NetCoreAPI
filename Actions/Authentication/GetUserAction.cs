@@ -13,7 +13,7 @@ namespace dotapi.Actions.Authentication
 		{
 			var user = S<IAuthenticationService>().Get(userIdOrName);
 			if(user == null)
-				return BadRequest();
+				return NotFound();
 			return Ok(user);
 		}
 	}
