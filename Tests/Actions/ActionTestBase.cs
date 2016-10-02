@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.TestHost;
 using Newtonsoft.Json;
 using Xunit;
 
-namespace dotapi.Tests
+namespace dotapi.Tests.Actions
 {
 	public class ActionTestBase
 	{

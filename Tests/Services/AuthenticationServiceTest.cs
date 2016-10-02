@@ -3,7 +3,7 @@ using dotapi.Models.Authentication;
 using dotapi.Services;
 using Xunit;
 
-namespace dotapi.Tests
+namespace dotapi.Tests.Services
 {
 	public class AuthenticationServiceTest : ServiceTestBase
 	{

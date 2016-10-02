@@ -2,7 +2,7 @@ using System.Linq;
 using dotapi.Services;
 using Xunit;
 
-namespace dotapi.Tests
+namespace dotapi.Tests.Services
 {
 	public class PasswordServiceTest : ServiceTestBase
 	{

@@ -2,7 +2,7 @@ using dotapi.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace dotapi.Tests
+namespace dotapi.Tests.Services
 {
 	public class ServiceTestBase
 	{
