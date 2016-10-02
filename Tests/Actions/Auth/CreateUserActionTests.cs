@@ -5,22 +5,9 @@ using Xunit;
 
 namespace dotapi.Tests.Actions.Auth
 {
-	public class CreateUserActionTest : ActionTestBase
+	public class CreateUserActionTest : AuthenticationActionTestBase
 	{
-		private UserFixture _users;
-		
-		public CreateUserActionTest()
-			: base()
-		{
-			_users = new UserFixture(_client);
-		}
-		
-		private CreateUserModel model = new CreateUserModel()
-		{
-			Password = "abcd",
-			Username = "test",
-			Email = "test@test.com"
-		};
+		public CreateUserActionTest() : base() { }
 		
 		[Fact]
 		public void CreateUserAction_WithCorrectCreds_CreatesUser()

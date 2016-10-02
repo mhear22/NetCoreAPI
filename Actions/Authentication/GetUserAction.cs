@@ -11,7 +11,10 @@ namespace dotapi.Actions.Authentication
 		}
 		public IActionResult GetUser(string userIdOrName)
 		{
-			return Ok(S<IAuthenticationService>().Get(userIdOrName));
+			var user = S<IAuthenticationService>().Get(userIdOrName);
+			if(user == null)
+				return BadRequest();
+			return Ok(user);
 		}
 	}
 	
