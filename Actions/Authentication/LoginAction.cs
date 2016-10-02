@@ -14,7 +14,10 @@ namespace dotapi.Actions.Authentication
 		
 		public IActionResult Login(LoginModel model)
 		{
-			return Ok(S<IAuthenticationService>().Login(model));
+			var token = S<IAuthenticationService>().Login(model);
+			if(token == null)
+				return BadRequest();
+			return Ok(token);
 		}
 	}
 }

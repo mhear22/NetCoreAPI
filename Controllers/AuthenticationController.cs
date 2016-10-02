@@ -15,7 +15,7 @@ namespace dotapi.Controllers
 		
 		[Route("sessions")]
 		[HttpPost]
-		public IActionResult Login(LoginModel model)
+		public IActionResult Login([FromBody]LoginModel model)
 		{
 			return new LoginAction(model).WithRequest(Request);
 		}

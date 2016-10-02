@@ -17,7 +17,7 @@ namespace dotapi.Tests.Actions.Auth
 		[Fact]
 		public void GetUserAction_WithUsers_Returns200FromEmail()
 		{
-			_users.CreateUser(TestModel);
+			_users.Generate(TestModel);
 			
 			var response = _users.GetUser(TestModel.Email);
 			

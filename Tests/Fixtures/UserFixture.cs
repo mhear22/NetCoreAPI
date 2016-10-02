@@ -13,19 +13,22 @@ namespace dotapi.Tests.Fixtures
 			: base(client)
 		{ }
 		
-		public HttpResponseMessage CreateUser(CreateUserModel model)
+		
+		public HttpResponseMessage CreateUserRequest(CreateUserModel model)
 		{
 			return Post("/users", model);
 		}
-		
+		public HttpResponseMessage GetSessionTokenRequest(LoginModel model)
+		{
+			return Post("/sessions", model);
+		} 
 		public HttpResponseMessage GetUserRequest(string UserId)
 		{
-			return Get("users/" + UserId);
+			return Get("/users/" + UserId);
 		}
-		
 		public CreateUserModel Generate(CreateUserModel model)
 		{
-			var request = CreateUser(model);
+			var request = CreateUserRequest(model);
 			
 			if(request.StatusCode != HttpStatusCode.Created)
 				return null;
@@ -50,18 +53,26 @@ namespace dotapi.Tests.Fixtures
 			
 			return Generate(model);
 		}
-		
 		public UserModel GetUser(string UserId)
 		{
 			var request = GetUserRequest(UserId);
 			
 			if(request.StatusCode != HttpStatusCode.OK)
 				return null;
-			var responseModel = JsonConvert.DeserializeObject<UserModel>(
+			return JsonConvert.DeserializeObject<UserModel>(
+				request.Content.ReadAsStringAsync().Result
+			);
+		}
+		public string GetSessionToken(LoginModel model)
+		{
+			var request = GetSessionTokenRequest(model);
+			
+			if(request.StatusCode != HttpStatusCode.OK)
+				return null;
+			return JsonConvert.DeserializeObject<string>(
 				request.Content.ReadAsStringAsync().Result
 			);
 			
-			return responseModel;
 		}
 	}
 }
