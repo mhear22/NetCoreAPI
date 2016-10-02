@@ -13,5 +13,15 @@ namespace dotapi.Tests.Actions.Auth
 			
 			Assert.True(request.StatusCode == HttpStatusCode.BadRequest);
 		}
+		
+		[Fact]
+		public void GetUserAction_WithUsers_Returns200FromEmail()
+		{
+			_users.CreateUser(TestModel);
+			
+			var response = _users.GetUser(TestModel.Email);
+			
+			Assert.True(response.Email == TestModel.Email);
+		}
 	}
 }

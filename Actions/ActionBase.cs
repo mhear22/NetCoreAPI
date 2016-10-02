@@ -47,6 +47,11 @@ namespace dotapi.Actions
 			return Respond(payload, HttpStatusCode.OK);
 		}
 		
+		internal IActionResult Created(object payload = null)
+		{
+			return Respond(payload, HttpStatusCode.Created);
+		}
+		
 		internal IActionResult BadRequest(object payload = null)
 		{
 			return Respond(payload, HttpStatusCode.BadRequest);

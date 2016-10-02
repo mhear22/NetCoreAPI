@@ -22,7 +22,7 @@ namespace dotapi.Actions.Authentication
 		
 		public IActionResult CreateUser(CreateUserModel model)
 		{
-			return Ok(S<IAuthenticationService>().CreateUser(model));
+			return Created(S<IAuthenticationService>().CreateUser(model));
 		}
 	}
 }

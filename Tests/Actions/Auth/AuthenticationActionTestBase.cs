@@ -13,7 +13,7 @@ namespace dotapi.Tests.Actions
 			this._users = new UserFixture(_client);
 		}
 		
-		internal CreateUserModel model = new CreateUserModel()
+		internal CreateUserModel TestModel = new CreateUserModel()
 		{
 			Password = "abcd",
 			Username = "test",

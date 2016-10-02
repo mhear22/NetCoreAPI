@@ -23,7 +23,7 @@ namespace dotapi.Tests.Actions.Auth
 		[Fact]
 		public void CreateUserAction_WithCorrectCreds_CreatesUserWithHardwiredCreds()
 		{
-			var response = _users.Generate(model);
+			var response = _users.Generate(TestModel);
 
 			Assert.NotNull(response);
 		}
@@ -31,12 +31,12 @@ namespace dotapi.Tests.Actions.Auth
 		[Fact]
 		public void CreateUserAction_WithDuplicateCreds_Fails()
 		{
-			_users.Generate(model);
+			_users.Generate(TestModel);
 			
 			CreateUserModel result = null;
 			try
 			{
-				result = _users.Generate(model);
+				result = _users.Generate(TestModel);
 			}
 			catch { }
 			

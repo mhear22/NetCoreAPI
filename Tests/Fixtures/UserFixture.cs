@@ -27,7 +27,7 @@ namespace dotapi.Tests.Fixtures
 		{
 			var request = CreateUser(model);
 			
-			if(request.StatusCode != HttpStatusCode.OK)
+			if(request.StatusCode != HttpStatusCode.Created)
 				return null;
 			
 			var responseModel = JsonConvert.DeserializeObject<UserModel>(
@@ -55,7 +55,7 @@ namespace dotapi.Tests.Fixtures
 		{
 			var request = GetUserRequest(UserId);
 			
-			if(request.StatusCode != HttpStatusCode.Created)
+			if(request.StatusCode != HttpStatusCode.OK)
 				return null;
 			var responseModel = JsonConvert.DeserializeObject<UserModel>(
 				request.Content.ReadAsStringAsync().Result
