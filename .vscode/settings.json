@@ -8,5 +8,7 @@
 		"bin/**/*":true,
 		"obj/**/*":true,
 		"Properties/**/*":true
-	}
+	},
+	"telemetry.enableTelemetry": false,
+	"editor.codeLens": false
 }
