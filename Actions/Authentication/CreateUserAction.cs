@@ -14,6 +14,8 @@ namespace dotapi.Actions.Authentication
 		
 		public IActionResult ValidateModel(CreateUserModel model)
 		{
+			if(model==null)
+				return BadRequest("No Data");
 			var duplicate = S<IAuthenticationService>().Get(model.Username);
 			if(duplicate == null)
 				return null;
