@@ -5,23 +5,23 @@ using Microsoft.Extensions.Configuration;
 
 namespace dotapi
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            var config = new ConfigurationBuilder()
-                .AddCommandLine(args)
-                .Build();
-            
-            var host = new WebHostBuilder()
-                .UseConfiguration(config)
-                .UseKestrel()
-                .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseIISIntegration()
-                .UseStartup<Startup>()
-                .Build();
+	public class Program
+	{
+		public static void Main(string[] args)
+		{
+			var config = new ConfigurationBuilder()
+				.AddCommandLine(args)
+				.Build();
+			
+			var host = new WebHostBuilder()
+				.UseConfiguration(config)
+				.UseKestrel()
+				.UseContentRoot(Directory.GetCurrentDirectory())
+				.UseIISIntegration()
+				.UseStartup<Startup>()
+				.Build();
 
-            host.Run();
-        }
-    }
+			host.Run();
+		}
+	}
 }

@@ -10,5 +10,5 @@
 		"Properties/**/*":true
 	},
 	"telemetry.enableTelemetry": false,
-	"editor.codeLens": false
+	"editor.codeLens": true
 }

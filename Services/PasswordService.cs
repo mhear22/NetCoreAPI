@@ -20,7 +20,7 @@ namespace dotapi.Services
 			
 		public bool CheckPassword(string UserId, string Password)
 		{
-			var row = Context.Passwords
+			var row = Context.passwords
 				.Where(x=>x.UserId == UserId)
 				.OrderByDescending(x=>x.DateSet)
 				.FirstOrDefault();
@@ -41,7 +41,7 @@ namespace dotapi.Services
 			
 			row.Hash = HashPassword(Password + row.Id);
 			
-			Context.Passwords.Add(row);
+			Context.passwords.Add(row);
 			Context.SaveChanges();
 		}
 		

@@ -9,8 +9,8 @@ namespace dotapi.Repositories
 			: base(options)
 		{ }
 		
-		public DbSet<UserDto> Users { get; set; }
-		public DbSet<PasswordDto> Passwords { get; set; }
-		public DbSet<SessionDto> Sessions { get; set; }
+		public DbSet<UserDto> users { get; set; }
+		public DbSet<PasswordDto> passwords { get; set; }
+		public DbSet<SessionDto> sessions { get; set; }
 	}
 }

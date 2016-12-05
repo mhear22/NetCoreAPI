@@ -19,7 +19,7 @@ namespace dotapi.Services
         {
 			var token = Guid.NewGuid().ToString();
 			
-			Context.Sessions.Add(new SessionDto(){
+			Context.sessions.Add(new SessionDto(){
 				Id = token,
 				UserId = UserId,
 				SetTime = DateTime.Now.ToUniversalTime()
@@ -32,7 +32,7 @@ namespace dotapi.Services
 
         public TokenModel Get(string Token)
         {
-			return Context.Sessions
+			return Context.sessions
 				.FirstOrDefault(x=>x.Id == Token)
 				.ToModel();
         }

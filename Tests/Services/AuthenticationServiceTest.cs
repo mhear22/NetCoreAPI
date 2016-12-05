@@ -28,7 +28,7 @@ namespace dotapi.Tests.Services
 		{
 			_service.CreateUser(TestModel);
 			
-			var row = Context.Users.Where(x=>x.EmailAddress == TestModel.Email);
+			var row = Context.users.Where(x=>x.EmailAddress == TestModel.Email);
 			
 			Assert.True(row != null,"Row not created");
 		}

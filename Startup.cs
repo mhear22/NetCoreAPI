@@ -1,11 +1,12 @@
 using dotapi.Repositories;
 using dotapi.Services;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using MySQL.Data.EntityFrameworkCore.Extensions;
+using Microsoft.EntityFrameworkCore;
 
 namespace dotapi
 {
@@ -16,7 +17,6 @@ namespace dotapi
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
         }
@@ -26,6 +26,7 @@ namespace dotapi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+			var connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddMvc();
 			services.AddCors(x=>{
 				x.AddPolicy("cors", z=> z.AllowAnyOrigin()
@@ -34,7 +35,13 @@ namespace dotapi
 					.AllowCredentials()
 				);
 			});
-			services.AddDbContext<DatabaseContext>(options => options.UseInMemoryDatabase(),ServiceLifetime.Transient);
+			
+			services.AddDbContext<DatabaseContext>(options => { 
+				options.UseMySQL(connectionString);
+			},ServiceLifetime.Transient);
+			
+			//services.AddDbContext<DatabaseContext>(options => options.UseInMemoryDatabase(),ServiceLifetime.Transient);
+			
 			services.AddSingleton<IAuthenticationService, AuthenticationService>();
 			services.AddSingleton<IPasswordService, PasswordService>();
 			services.AddSingleton<ITokenService, TokenService>();

@@ -17,6 +17,7 @@
 	"Microsoft.EntityFrameworkCore": "1.0.0",
 	"Microsoft.EntityFrameworkCore.InMemory": "1.0.0",
 	"Microsoft.EntityFrameworkCore.Relational": "1.0.0",
+	"MySql.Data.EntityFrameworkCore":"7.0.6-ir31",
 	"xunit":"2.2.0-beta2-build3300",
 	"dotnet-test-xunit" : "1.0.0-rc2-build10015",
 	"Microsoft.AspNetCore.Http": "1.0.0",
@@ -40,7 +41,10 @@
   "buildOptions": {
     "emitEntryPoint": true,
     "preserveCompilationContext": true,
-	"debugType": "portable"
+	"debugType": "portable",
+	"copyToOutput": {
+		"include": "appsettings.json"
+	}
   },
 
   "runtimeOptions": {

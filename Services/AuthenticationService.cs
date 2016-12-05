@@ -26,7 +26,7 @@ namespace dotapi.Services
 		
 		private UserDto GetDto(string UserIdOrName)
 		{
-			return Context.Users
+			return Context.users
 				.FirstOrDefault(x=>
 					x.Id == UserIdOrName || 
 					x.Username == UserIdOrName || 
@@ -44,7 +44,7 @@ namespace dotapi.Services
 				EmailAddress = model.Email,
 				Id = Guid.NewGuid().ToString()
 			};
-			Context.Users.Add(userDto);
+			Context.users.Add(userDto);
 			Context.SaveChanges();
 			_passwordService.SetPassword(userDto.Id, model.Password);
 			
