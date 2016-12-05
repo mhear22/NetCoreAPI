@@ -16,7 +16,7 @@ namespace dotapi.Tests.Actions
 		public ActionTestBase()
 		{
 			_server = new TestServer(new WebHostBuilder()
-				.UseStartup<Startup>());
+				.UseStartup<TestStartup>());
 			_client = _server.CreateClient();
 		}
 	}

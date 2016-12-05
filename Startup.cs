@@ -10,8 +10,23 @@ using Microsoft.EntityFrameworkCore;
 
 namespace dotapi
 {
+	public class TestStartup : Startup
+	{
+		public TestStartup() 
+			: base(true)
+		{
+			
+		}
+	}
     public class Startup
     {
+		private bool IsTesting = false;
+		public Startup() { }
+		public Startup(bool isTesting)
+		{ 
+			IsTesting = isTesting;
+		}
+		
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -26,7 +41,7 @@ namespace dotapi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-			var connectionString = Configuration.GetConnectionString("DefaultConnection");
+			var connectionString = this.Configuration.GetConnectionString("DefaultConnection");
             services.AddMvc();
 			services.AddCors(x=>{
 				x.AddPolicy("cors", z=> z.AllowAnyOrigin()
@@ -35,12 +50,15 @@ namespace dotapi
 					.AllowCredentials()
 				);
 			});
+			if(IsTesting) {
+				services.AddDbContext<DatabaseContext>(options => options.UseInMemoryDatabase(),ServiceLifetime.Transient);
+			}
+			else {
+				services.AddDbContext<DatabaseContext>(options => { 
+					options.UseMySQL(connectionString);
+				});
+			}
 			
-			services.AddDbContext<DatabaseContext>(options => { 
-				options.UseMySQL(connectionString);
-			},ServiceLifetime.Transient);
-			
-			//services.AddDbContext<DatabaseContext>(options => options.UseInMemoryDatabase(),ServiceLifetime.Transient);
 			
 			services.AddSingleton<IAuthenticationService, AuthenticationService>();
 			services.AddSingleton<IPasswordService, PasswordService>();
