@@ -13,21 +13,16 @@ namespace dotapi
 {
 	public class TestStartup : Startup
 	{
-		public TestStartup() 
-			: base(true) 
+		public TestStartup(IHostingEnvironment env) 
+			: base(env, true) 
 		{ }
 	}
 	public class Startup
 	{
 		private bool IsTesting = false;
-		public Startup() { }
-		public Startup(bool isTesting)
-		{ 
-			IsTesting = isTesting;
-		}
-		
-		public Startup(IHostingEnvironment env)
+		public Startup(IHostingEnvironment env, bool IsTesting = false)
 		{
+			this.IsTesting = IsTesting;
 			var builder = new ConfigurationBuilder()
 				.SetBasePath(env.ContentRootPath)
 				.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
