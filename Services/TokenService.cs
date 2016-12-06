@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using dotapi.Models.Authentication;
 using dotapi.Models.Repositories;
 using dotapi.Repositories;
@@ -13,28 +12,27 @@ namespace dotapi.Services
 	}
     public class TokenService : ServiceBase, ITokenService
     {
-		public TokenService(DatabaseContext context) : base(context) { }
+		private IRepository<SessionDto> sessionRepo; 
+		public TokenService(DatabaseContext context, IRepository<SessionDto> sessionRepo) 
+			: base(context)
+		{
+			this.sessionRepo = sessionRepo;
+		}
 		
         public string Create(string UserId)
         {
 			var token = Guid.NewGuid().ToString();
-			
-			Context.sessions.Add(new SessionDto(){
+			sessionRepo.Create(new SessionDto(){
 				Id = token,
 				UserId = UserId,
 				SetTime = DateTime.Now.ToUniversalTime()
 			});
-			
-			Context.SaveChanges();
-			
 			return token;
         }
 
         public TokenModel Get(string Token)
         {
-			return Context.sessions
-				.FirstOrDefault(x=>x.Id == Token)
-				.ToModel();
+			return sessionRepo.Get(Token).ToModel();
         }
     }
 }

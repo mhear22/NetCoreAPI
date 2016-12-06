@@ -1,4 +1,6 @@
 using System.Linq;
+using dotapi.Models.Repositories;
+using dotapi.Repositories;
 using dotapi.Services;
 using Xunit;
 
@@ -9,8 +11,8 @@ namespace dotapi.Tests.Services
 		private PasswordService _service
 		{ 
 			get
-			{ 
-				return new PasswordService(Context);
+			{
+				return new PasswordService(Context, new Repository<PasswordDto>(Context));
 			}
 		}
 		

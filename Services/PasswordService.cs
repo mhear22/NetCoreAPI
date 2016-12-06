@@ -15,12 +15,16 @@ namespace dotapi.Services
 	
 	public class PasswordService : ServiceBase, IPasswordService 
 	{
-		public PasswordService(DatabaseContext context) 
-			: base(context) { }
+		private IRepository<PasswordDto> _passwordRepo;
+		public PasswordService(DatabaseContext context, IRepository<PasswordDto> passwordRepo)
+			: base(context)
+		{
+			this._passwordRepo = passwordRepo;
+		}
 			
 		public bool CheckPassword(string UserId, string Password)
 		{
-			var row = Context.passwords
+			var row = _passwordRepo
 				.Where(x=>x.UserId == UserId)
 				.OrderByDescending(x=>x.DateSet)
 				.FirstOrDefault();
@@ -41,8 +45,7 @@ namespace dotapi.Services
 			
 			row.Hash = HashPassword(Password + row.Id);
 			
-			Context.passwords.Add(row);
-			Context.SaveChanges();
+			_passwordRepo.Create(row);
 		}
 		
 		private string HashPassword(string Password)
@@ -50,6 +53,7 @@ namespace dotapi.Services
 			var bytes = Encoding.UTF8.GetBytes(Password);
 			var hash = SHA256.Create().ComputeHash(bytes);
 			var hashString = "";
+			
 			foreach(var x in hash)
 			{
 				hashString += String.Format("{0:x2}", x);

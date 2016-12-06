@@ -7,19 +7,18 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MySQL.Data.EntityFrameworkCore.Extensions;
 using Microsoft.EntityFrameworkCore;
+using dotapi.Models.Repositories;
 
 namespace dotapi
 {
 	public class TestStartup : Startup
 	{
 		public TestStartup() 
-			: base(true)
-		{
-			
-		}
+			: base(true) 
+		{ }
 	}
-    public class Startup
-    {
+	public class Startup
+	{
 		private bool IsTesting = false;
 		public Startup() { }
 		public Startup(bool isTesting)
@@ -27,22 +26,22 @@ namespace dotapi
 			IsTesting = isTesting;
 		}
 		
-        public Startup(IHostingEnvironment env)
-        {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddEnvironmentVariables();
-            Configuration = builder.Build();
-        }
+		public Startup(IHostingEnvironment env)
+		{
+			var builder = new ConfigurationBuilder()
+				.SetBasePath(env.ContentRootPath)
+				.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+				.AddEnvironmentVariables();
+			Configuration = builder.Build();
+		}
 
-        public IConfigurationRoot Configuration { get; }
+		public IConfigurationRoot Configuration { get; private set; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
-        {
+		// This method gets called by the runtime. Use this method to add services to the container.
+		public void ConfigureServices(IServiceCollection services)
+		{
 			var connectionString = this.Configuration.GetConnectionString("DefaultConnection");
-            services.AddMvc();
+			services.AddMvc();
 			services.AddCors(x=>{
 				x.AddPolicy("cors", z=> z.AllowAnyOrigin()
 					.AllowAnyMethod()
@@ -63,13 +62,17 @@ namespace dotapi
 			services.AddSingleton<IAuthenticationService, AuthenticationService>();
 			services.AddSingleton<IPasswordService, PasswordService>();
 			services.AddSingleton<ITokenService, TokenService>();
-        }
+			
+			services.AddSingleton<IRepository<SessionDto>, Repository<SessionDto>>();
+			services.AddSingleton<IRepository<PasswordDto>, Repository<PasswordDto>>();
+			services.AddSingleton<IRepository<UserDto>, Repository<UserDto>>();
+		}
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
-        {
+		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+		public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+		{
 			app.UseCors("cors");
-            app.UseMvc();
-        }
-    }
+			app.UseMvc();
+		}
+	}
 }

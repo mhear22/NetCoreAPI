@@ -1,5 +1,7 @@
 using System.Linq;
 using dotapi.Models.Authentication;
+using dotapi.Models.Repositories;
+using dotapi.Repositories;
 using dotapi.Services;
 using Xunit;
 
@@ -9,9 +11,13 @@ namespace dotapi.Tests.Services
 	{
 		private IAuthenticationService _service
 		{
-			get 
+			get
 			{
-				return new AuthenticationService(Context, new PasswordService(Context), new TokenService(Context));
+				var pwdrepo = new Repository<PasswordDto>(Context);
+				var sess = new Repository<SessionDto>(Context);
+				var usr = new Repository<UserDto>(Context);
+				
+				return new AuthenticationService(Context, new PasswordService(Context, pwdrepo), new TokenService(Context,sess), usr);
 			}
 		}
 		
