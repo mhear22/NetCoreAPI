@@ -20,8 +20,8 @@ namespace dotapi.Repositories
 	public class Repository<T> : IRepository<T>
 		where T : class, IRow
 	{
-		private IDatabaseContext Context;
-		public Repository(IDatabaseContext context)
+		private DatabaseContext Context;
+		public Repository(DatabaseContext context)
 		{
 			this.Context = context;
 		}
