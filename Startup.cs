@@ -54,13 +54,12 @@ namespace dotapi
 			}
 			
 			
-			services.AddSingleton<IAuthenticationService, AuthenticationService>();
-			services.AddSingleton<IPasswordService, PasswordService>();
-			services.AddSingleton<ITokenService, TokenService>();
-			
-			services.AddSingleton<IRepository<SessionDto>, Repository<SessionDto>>();
-			services.AddSingleton<IRepository<PasswordDto>, Repository<PasswordDto>>();
-			services.AddSingleton<IRepository<UserDto>, Repository<UserDto>>();
+			services.AddScoped<IAuthenticationService, AuthenticationService>();
+			services.AddScoped<IPasswordService, PasswordService>();
+			services.AddScoped<ITokenService, TokenService>();
+			services.AddScoped<IRepository<SessionDto>, Repository<SessionDto>>();
+			services.AddScoped<IRepository<PasswordDto>, Repository<PasswordDto>>();
+			services.AddScoped<IRepository<UserDto>, Repository<UserDto>>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
