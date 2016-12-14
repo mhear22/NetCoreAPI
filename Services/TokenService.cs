@@ -9,6 +9,7 @@ namespace dotapi.Services
 	{
 		TokenModel Get(string Token);
 		string Create(string UserId);
+		string Delete(string Token);
 	}
     public class TokenService : ServiceBase, ITokenService
     {
@@ -28,6 +29,12 @@ namespace dotapi.Services
 				SetTime = DateTime.Now.ToUniversalTime()
 			});
 			return token;
+        }
+
+        public string Delete(string Token)
+        {
+			sessionRepo.Delete(Token);
+			return Token;
         }
 
         public TokenModel Get(string Token)

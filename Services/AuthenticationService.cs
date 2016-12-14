@@ -9,6 +9,7 @@ namespace dotapi.Services
 	interface IAuthenticationService
 	{
 		UserModel Get(string UserIdOrName);
+		string Logout(string Id);
 		string Login(LoginModel model);
 		UserModel CreateUser(CreateUserModel model);
 	}
@@ -61,5 +62,10 @@ namespace dotapi.Services
 				return _tokenService.Create(user.Id);
 			return null;
 		}
-	}
+
+        public string Logout(string Id)
+        {
+			return _tokenService.Delete(Id);
+        }
+    }
 }

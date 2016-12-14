@@ -20,6 +20,13 @@ namespace dotapi.Controllers
 			return new LoginAction(model).WithRequest(Request);
 		}
 		
+		[Route("sessions")]
+		[HttpDelete]
+		public IActionResult Logout(string Token)
+		{
+			return new LogoutAction(Token).WithRequest(Request);
+		}
+		
 		[Route("users/{userIdOrName}")]
 		[HttpGet]
 		public IActionResult GetUser(string userIdOrName)
