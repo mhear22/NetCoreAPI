@@ -31,6 +31,11 @@ namespace dotapi.Repositories
 			return Context.Set<T>().AsNoTracking().Where(query);
 		}
 		
+		public IQueryable<TResult> Select<TResult>(Expression<Func<T, TResult>> query)
+		{
+			return Context.Set<T>().AsNoTracking().Select(query);
+		}
+		
 		public T Get(string Id)
 		{
 			return Where(x=>x.Id == Id).FirstOrDefault();
