@@ -8,6 +8,9 @@ using Microsoft.Extensions.Logging;
 using MySQL.Data.EntityFrameworkCore.Extensions;
 using Microsoft.EntityFrameworkCore;
 using dotapi.Models.Repositories;
+using System.IO;
+using Microsoft.Extensions.PlatformAbstractions;
+using Swashbuckle.Swagger.Model;
 
 namespace dotapi
 {
@@ -35,8 +38,12 @@ namespace dotapi
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			var connectionString = this.Configuration.GetConnectionString("DefaultConnection");
+			var connectionString = Configuration.GetConnectionString("DefaultConnection");
+			var basePath = PlatformServices.Default.Application.ApplicationBasePath;
+			var xmlPath = Path.Combine(basePath, "DOTNETCore.xml");
+			
 			services.AddMvc();
+			
 			services.AddCors(x=>{
 				x.AddPolicy("cors", z=> z.AllowAnyOrigin()
 					.AllowAnyMethod()
@@ -53,20 +60,34 @@ namespace dotapi
 				});
 			}
 			
-			
 			services.AddScoped<IAuthenticationService, AuthenticationService>();
 			services.AddScoped<IPasswordService, PasswordService>();
 			services.AddScoped<ITokenService, TokenService>();
 			services.AddScoped<IRepository<SessionDto>, Repository<SessionDto>>();
 			services.AddScoped<IRepository<PasswordDto>, Repository<PasswordDto>>();
 			services.AddScoped<IRepository<UserDto>, Repository<UserDto>>();
+			services.AddSwaggerGen();
+			services.ConfigureSwaggerGen(x =>
+			{
+				x.SingleApiVersion(new Info
+				{
+					Version = "v1",
+					Title = "App",
+					Description = "Api",
+					TermsOfService = "None",
+				});
+				x.IncludeXmlComments(xmlPath);
+				x.DescribeAllEnumsAsStrings();
+			});
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
 		{
+			app.UseSwagger();
+			app.UseSwaggerUi();
 			app.UseCors("cors");
-			app.UseMvc();
+			app.UseMvcWithDefaultRoute();
 		}
 	}
 }
