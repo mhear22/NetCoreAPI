@@ -5,13 +5,18 @@ namespace dotapi.Actions.Authentication
 {
 	public class UserAction : ActionBase
 	{
-		public UserAction(string userIdOrName)
+		public UserAction() { }
+		
+		protected IActionResult CurrentUserBySession()
 		{
-			AddAction(() => CheckValidUser(userIdOrName));
+			
+			//var user = S<ITokenService>().Get().UserId;
+			return null;
 		}
-		public IActionResult CheckValidUser(string username)
+		
+		protected IActionResult UserByNameOrId(string UserNameOrId)
 		{
-			var user = S<IAuthenticationService>().Get(username);
+			var user = S<IAuthenticationService>().Get(UserNameOrId);
 			if(user == null)
 				return BadRequest("User Doesnt Exist");
 			return null;

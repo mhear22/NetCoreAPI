@@ -33,5 +33,12 @@ namespace dotapi.Controllers
 		{
 			return new GetUserAction(userIdOrName).WithRequest(Request);
 		}
+		
+		[Route("currentuser")]
+		[HttpGet]
+		public IActionResult GetCurrentUser()
+		{
+			return new GetCurrentUserAction().WithRequest(Request);
+		}
 	}
 }

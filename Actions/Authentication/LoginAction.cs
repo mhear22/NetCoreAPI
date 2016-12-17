@@ -7,8 +7,8 @@ namespace dotapi.Actions.Authentication
 	public class LoginAction : UserAction
 	{
 		public LoginAction(LoginModel model)
-			: base(model.Username)
 		{
+			AddAction(() => UserByNameOrId(model.Username));
 			AddAction(() => Login(model));
 		}
 		
