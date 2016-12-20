@@ -12,6 +12,7 @@ namespace dotapi.Services
 		string Logout(string Id);
 		string Login(LoginModel model);
 		UserModel CreateUser(CreateUserModel model);
+		UserModel UpdateUser(string Id,UserModel model);
 	}
 	
 	public class AuthenticationService : ServiceBase, IAuthenticationService
@@ -46,7 +47,7 @@ namespace dotapi.Services
 			var userDto = new UserDto()
 			{
 				Username = model.Username,
-				EmailAddress = model.Email,
+				EmailAddress = model.EmailAddress,
 				Id = Guid.NewGuid().ToString()
 			};
 			
@@ -63,9 +64,14 @@ namespace dotapi.Services
 			return null;
 		}
 
-        public string Logout(string Id)
-        {
+		public string Logout(string Id)
+		{
 			return _tokenService.Delete(Id);
-        }
-    }
+		}
+
+		public UserModel UpdateUser(string Id, UserModel model)
+		{
+			return _userRepo.Update(Id, model.ToDTO()).ToModel();
+		}
+	}
 }

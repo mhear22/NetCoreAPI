@@ -40,5 +40,12 @@ namespace dotapi.Controllers
 		{
 			return new GetCurrentUserAction().WithRequest(Request);
 		}
+		
+		[Route("users/{userIdOrName}")]
+		[HttpPut]
+		public IActionResult UpdateUser(string userIdOrName, [FromBody] UserModel model)
+		{
+			return new UpdateUserAction(userIdOrName, model).WithRequest(Request);
+		}
 	}
 }

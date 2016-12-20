@@ -17,7 +17,7 @@ namespace dotapi.Tests.Actions
 		{
 			Password = "abcd",
 			Username = "test",
-			Email = "test@test.com"
+			EmailAddress = "test@test.com"
 		};
 		
 	}

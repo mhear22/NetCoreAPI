@@ -13,7 +13,6 @@ namespace dotapi.Tests.Fixtures
 			: base(client)
 		{ }
 		
-		
 		public HttpResponseMessage CreateUserRequest(CreateUserModel model)
 		{
 			return Post("/users", model);
@@ -26,6 +25,21 @@ namespace dotapi.Tests.Fixtures
 		{
 			return Get("/users/" + UserId);
 		}
+		
+		public HttpResponseMessage UpdateUserRequest(string UserId, UserModel model)
+		{
+			return Put("/users/" + UserId, model);
+		}
+		
+		public UserModel Update(string UserId, UserModel model)
+		{
+			var request = UpdateUserRequest(UserId, model);
+			var result = JsonConvert.DeserializeObject<UserModel>(
+				request.Content.ReadAsStringAsync().Result
+			);
+			
+			return result;
+		}
 		public CreateUserModel Generate(CreateUserModel model)
 		{
 			var request = CreateUserRequest(model);
@@ -37,7 +51,7 @@ namespace dotapi.Tests.Fixtures
 				request.Content.ReadAsStringAsync().Result
 			);
 			
-			Assert.True(responseModel.Email == model.Email);
+			Assert.True(responseModel.EmailAddress == model.EmailAddress);
 			Assert.True(responseModel.Username == model.Username);
 			
 			return model; 
@@ -47,7 +61,7 @@ namespace dotapi.Tests.Fixtures
 			var model = new CreateUserModel()
 			{
 				Username = RandomString(),
-				Email = RandomString() + "@" + RandomString(),
+				EmailAddress = RandomString() + "@" + RandomString(),
 				Password = RandomString()
 			};
 			

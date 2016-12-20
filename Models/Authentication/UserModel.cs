@@ -4,8 +4,9 @@ namespace dotapi.Models.Authentication
 {
 	public class UserModel
 	{
+		public string Id;
 		public string Username;
-		public string Email;
+		public string EmailAddress;
 	}
 	
 	public static class UserModelExtentions
@@ -15,10 +16,21 @@ namespace dotapi.Models.Authentication
 			if(dto == null) { return null; }
 			return new UserModel()
 			{
+				Id = dto.Id,
 				Username = dto.Username,
-				Email = dto.EmailAddress
+				EmailAddress = dto.EmailAddress
+			};
+		}
+		
+		public static UserDto ToDTO(this UserModel model)
+		{
+			if(model == null) { return null; }
+			return new UserDto()
+			{
+				Id = model.Id,
+				Username = model.Username,
+				EmailAddress = model.EmailAddress
 			};
 		}
 	}
-	
 }

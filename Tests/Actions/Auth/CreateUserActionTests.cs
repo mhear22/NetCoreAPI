@@ -15,7 +15,7 @@ namespace dotapi.Tests.Actions.Auth
 			var response = _users.Generate();
 			
 			Assert.NotNull(response);
-			Assert.NotNull(response.Email);
+			Assert.NotNull(response.EmailAddress);
 			Assert.NotNull(response.Password);
 			Assert.NotNull(response.Username);
 		}

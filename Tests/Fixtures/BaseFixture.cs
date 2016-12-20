@@ -40,8 +40,9 @@ namespace dotapi.Tests.Fixtures
 		
 		internal HttpResponseMessage Put(string url, object data = null)
 		{
-			HttpContent content = new StringContent(JsonConvert.SerializeObject(data),Encoding.UTF8,"application,json");
-			return _client.PutAsync(url, content).Result;
+			var stringData = JsonConvert.SerializeObject(data);
+			HttpContent content = new StringContent(stringData,Encoding.UTF8,"application/json");
+			return _client.PutAsync(url, content).Result; 
 		}
 		
 		internal HttpResponseMessage Delete(string url)

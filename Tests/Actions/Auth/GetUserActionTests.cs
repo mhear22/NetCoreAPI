@@ -19,9 +19,9 @@ namespace dotapi.Tests.Actions.Auth
 		{
 			_users.Generate(TestModel);
 			
-			var response = _users.GetUser(TestModel.Email);
+			var response = _users.GetUser(TestModel.EmailAddress);
 			
-			Assert.True(response.Email == TestModel.Email);
+			Assert.True(response.EmailAddress == TestModel.EmailAddress);
 		}
 	}
 }

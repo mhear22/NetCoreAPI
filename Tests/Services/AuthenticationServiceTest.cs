@@ -23,7 +23,7 @@ namespace dotapi.Tests.Services
 		
 		private CreateUserModel TestModel = new CreateUserModel()
 		{
-			Email = "test@test.com",
+			EmailAddress = "test@test.com",
 			Password = "password",
 			Username = "test"
 		};
@@ -34,7 +34,7 @@ namespace dotapi.Tests.Services
 		{
 			_service.CreateUser(TestModel);
 			
-			var row = Context.users.Where(x=>x.EmailAddress == TestModel.Email);
+			var row = Context.users.Where(x=>x.EmailAddress == TestModel.EmailAddress);
 			
 			Assert.True(row != null,"Row not created");
 		}
@@ -55,7 +55,7 @@ namespace dotapi.Tests.Services
 			_service.CreateUser(TestModel);
 			
 			var response = _service.Login(new LoginModel(){
-				Username = TestModel.Email,
+				Username = TestModel.EmailAddress,
 				Password = TestModel.Password
 			});
 			

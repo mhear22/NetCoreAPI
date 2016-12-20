@@ -1,3 +1,4 @@
+using dotapi.Models.Authentication;
 using dotapi.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,6 +8,7 @@ namespace dotapi.Actions.Authentication
 	{
 		public UserAction() { }
 		
+		protected UserModel User;
 		protected IActionResult CurrentUserBySession()
 		{
 			
@@ -19,6 +21,7 @@ namespace dotapi.Actions.Authentication
 			var user = S<IAuthenticationService>().Get(UserNameOrId);
 			if(user == null)
 				return BadRequest("User Doesnt Exist");
+			User = user;
 			return null;
 		}
 	}
