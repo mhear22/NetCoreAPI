@@ -1,6 +1,7 @@
 using dotapi.Models.Authentication;
 using dotapi.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Primitives;
 
 namespace dotapi.Actions.User
 {
@@ -11,8 +12,11 @@ namespace dotapi.Actions.User
 		protected UserModel User;
 		protected IActionResult CurrentUserBySession()
 		{
-			
-			//var user = S<ITokenService>().Get().UserId;
+			var x = GetKey("api_key");
+			if(string.IsNullOrWhiteSpace(x))
+				return BadRequest("No Key");
+			var UserId = S<ITokenService>().Get(x).UserId;
+			User = S<IAuthenticationService>().Get(UserId);
 			return null;
 		}
 		

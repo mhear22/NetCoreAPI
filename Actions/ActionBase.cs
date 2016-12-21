@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Primitives;
 
 namespace dotapi.Actions
 {
@@ -10,6 +11,13 @@ namespace dotapi.Actions
 	{
 		private ICollection<Func<IActionResult>> _actions = new List<Func<IActionResult>>();
 		private HttpRequest Request;
+		
+		protected string GetKey(string Key)
+		{
+			StringValues prim = "";
+			Request.Query.TryGetValue(Key, out prim);
+			return prim.ToString();
+		}
 		
 		internal void AddAction(Func<IActionResult> action)
 		{

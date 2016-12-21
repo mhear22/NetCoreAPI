@@ -15,8 +15,7 @@ namespace dotapi.Actions.CurrentUser
 		
 		protected IActionResult GetCurrentUser()
 		{
-			//return S<IAuthenticationService>().Get()
-			return BadRequest();
+			return Ok(User);
 		}
 	}
 }
