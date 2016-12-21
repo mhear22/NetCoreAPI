@@ -11,6 +11,7 @@ using dotapi.Models.Repositories;
 using System.IO;
 using Microsoft.Extensions.PlatformAbstractions;
 using Swashbuckle.Swagger.Model;
+using Newtonsoft.Json.Serialization;
 
 namespace dotapi
 {
@@ -42,7 +43,8 @@ namespace dotapi
 			var basePath = PlatformServices.Default.Application.ApplicationBasePath;
 			var xmlPath = Path.Combine(basePath, "DOTNETCore.xml");
 			
-			services.AddMvc();
+			services.AddMvc()
+				.AddJsonOptions(x=>x.SerializerSettings.ContractResolver = new DefaultContractResolver());
 			
 			services.AddCors(x=>{
 				x.AddPolicy("cors", z=> z.AllowAnyOrigin()
