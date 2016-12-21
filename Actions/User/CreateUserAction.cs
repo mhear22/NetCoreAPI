@@ -2,7 +2,7 @@ using dotapi.Models.Authentication;
 using dotapi.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace dotapi.Actions.Authentication
+namespace dotapi.Actions.User
 {
 	public class CreateUserAction : ActionBase
 	{

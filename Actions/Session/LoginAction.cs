@@ -1,8 +1,9 @@
 using dotapi.Models.Authentication;
+using dotapi.Actions.User;
 using dotapi.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace dotapi.Actions.Authentication
+namespace dotapi.Actions.Session
 {
 	public class LoginAction : UserAction
 	{

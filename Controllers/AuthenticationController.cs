@@ -1,4 +1,6 @@
-using dotapi.Actions.Authentication;
+using dotapi.Actions.User;
+using dotapi.Actions.Session;
+using dotapi.Actions.CurrentUser;
 using dotapi.Models.Authentication;
 using Microsoft.AspNetCore.Mvc;
 
