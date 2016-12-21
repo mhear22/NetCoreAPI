@@ -25,6 +25,7 @@ namespace dotapi.Tests.Actions.Auth
 			Assert.NotNull(result.Id);
 			Assert.NotNull(result.Username);
 			Assert.NotNull(result.EmailAddress);
+			Assert.Equal(update.Username, result.Username);
 		}
 	}
 }

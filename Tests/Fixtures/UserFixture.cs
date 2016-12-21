@@ -28,7 +28,8 @@ namespace dotapi.Tests.Fixtures
 		
 		public HttpResponseMessage UpdateUserRequest(string UserId, UserModel model)
 		{
-			return Put("/users/" + UserId, model);
+			var url = "/users/" + UserId;
+			return Put(url, model);
 		}
 		
 		public UserModel Update(string UserId, UserModel model)
@@ -53,6 +54,8 @@ namespace dotapi.Tests.Fixtures
 			
 			Assert.True(responseModel.EmailAddress == model.EmailAddress);
 			Assert.True(responseModel.Username == model.Username);
+			
+			model.Id = responseModel.Id;
 			
 			return model; 
 		}

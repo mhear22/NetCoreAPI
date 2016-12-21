@@ -51,13 +51,13 @@ namespace dotapi.Repositories
 		public T Update(string Id, T model)
 		{
 			var table = Context.Set<T>();
-			var item = table.FirstOrDefault(x=>x.Id == Id);
+			var item = table.AsNoTracking().FirstOrDefault(x=>x.Id == Id);
 			if(item == null)
 			{
 				throw new KeyNotFoundException($"Could not find {Id}");
 			}
 			item = model;
-			Context.Entry(item).State = EntityState.Modified;
+			Context.Update(item);
 			Context.SaveChanges();
 			return Get(Id);
 		}
