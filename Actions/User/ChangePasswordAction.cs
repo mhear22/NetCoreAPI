@@ -16,6 +16,11 @@ namespace dotapi.Actions.User
 		public IActionResult ValidateModel(ChangePasswordModel model)
 		{
 			var duplicate = S<IAuthenticationService>();
+			
+			//Probably do a role check here instead eventually
+			if(User.Id != CurrentUser.Id)
+				return Unauthorized("Cant change someone elses password");
+				
 			if(!S<IPasswordService>().CheckPassword(User.Id,model.OldPassword))
 				return BadRequest("Old Password is incorrect");
 			//Check password Rules here

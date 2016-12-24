@@ -56,17 +56,22 @@ namespace dotapi.Actions
 			return Respond(payload, HttpStatusCode.OK);
 		}
 		
-		internal IActionResult Created(object payload = null)
+		protected IActionResult Created(object payload = null)
 		{
 			return Respond(payload, HttpStatusCode.Created);
 		}
 		
-		internal IActionResult BadRequest(object payload = null)
+		protected IActionResult BadRequest(object payload = null)
 		{
 			return Respond(payload, HttpStatusCode.BadRequest);
 		}
 		
-		internal IActionResult NotFound(object payload = null)
+		protected IActionResult Unauthorized(object payload = null)
+		{
+			return Respond(payload, HttpStatusCode.Unauthorized);
+		}
+		
+		protected IActionResult NotFound(object payload = null)
 		{
 			return Respond(payload, HttpStatusCode.NotFound);
 		}
