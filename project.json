@@ -44,10 +44,13 @@
 		"emitEntryPoint": true,
 		"preserveCompilationContext": true,
 		"debugType": "portable",
-					"copyToOutput": {
-						"include": "appsettings.json"
-					},
-					"xmlDoc": true
+		"copyToOutput": {
+			"include": "appsettings.json"
+		},
+		"xmlDoc": true,
+		"nowarn": [
+			"CS1591"
+		]
 	},
 
 	"runtimeOptions": {
