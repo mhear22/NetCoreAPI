@@ -9,13 +9,12 @@ namespace dotapi.Actions.CurrentUser
 	{
 		public GetCurrentUserAction()
 		{
-			AddAction(() => CurrentUserBySession());
 			AddAction(() => GetCurrentUser());
 		}
 		
 		protected IActionResult GetCurrentUser()
 		{
-			return Ok(User);
+			return Ok(CurrentUser);
 		}
 	}
 }

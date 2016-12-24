@@ -7,16 +7,20 @@ namespace dotapi.Actions.User
 {
 	public class UserAction : ActionBase
 	{
-		public UserAction() { }
+		public UserAction()
+		{
+			AddAction(() => CurrentUserBySession());
+		}
 		
 		protected UserModel User;
-		protected IActionResult CurrentUserBySession()
+		protected UserModel CurrentUser;
+		private IActionResult CurrentUserBySession()
 		{
 			var x = GetKey("api_key");
 			if(string.IsNullOrWhiteSpace(x))
-				return BadRequest("No Key");
+				return BadRequest("No Logged in user");
 			var UserId = S<ITokenService>().Get(x).UserId;
-			User = S<IAuthenticationService>().Get(UserId);
+			CurrentUser = S<IAuthenticationService>().Get(UserId);
 			return null;
 		}
 		

@@ -9,6 +9,7 @@ namespace dotapi.Actions
 {
 	public class ActionBase
 	{
+
 		private ICollection<Func<IActionResult>> _actions = new List<Func<IActionResult>>();
 		private HttpRequest Request;
 		
