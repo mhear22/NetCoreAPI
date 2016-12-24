@@ -16,10 +16,16 @@ namespace dotapi.Actions.User
 		{
 			if(model==null)
 				return BadRequest("No Data");
+			if(string.IsNullOrWhiteSpace(model.EmailAddress) || string.IsNullOrWhiteSpace(model.Password))
+				return BadRequest("Email address and password is required");
 			var duplicate = S<IAuthenticationService>().Get(model.Username);
-			if(duplicate == null)
-				return null;
-			return BadRequest("Username already taken");
+			var emailDupe = S<IAuthenticationService>().Get(model.EmailAddress);
+			var duplicates = S<IAuthenticationService>().GetDuplicates(model);
+			if(duplicates.Count != 0)
+				return BadRequest("Username or email address already used");
+			if(duplicate != null)
+				return BadRequest("Username already taken");
+			return null;
 		}
 		
 		public IActionResult CreateUser(CreateUserModel model)

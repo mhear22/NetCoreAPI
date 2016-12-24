@@ -3,12 +3,14 @@ using dotapi.Models.Authentication;
 using System;
 using dotapi.Models.Repositories;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace dotapi.Services
 {
 	interface IAuthenticationService
 	{
 		UserModel Get(string UserIdOrName);
+		List<UserModel> GetDuplicates(UserModel model);
 		string Logout(string Id);
 		string Login(LoginModel model);
 		UserModel CreateUser(CreateUserModel model);
@@ -40,6 +42,16 @@ namespace dotapi.Services
 		public UserModel Get(string UserIdOrName)
 		{
 			return GetDto(UserIdOrName).ToModel();
+		}
+		
+		public List<UserModel> GetDuplicates(UserModel model)
+		{
+			return _userRepo.Where(x=>
+				x.EmailAddress == model.EmailAddress ||
+				x.Username == model.Username)
+				.ToList()
+				.Select(x=>x.ToModel())
+				.ToList();
 		}
 		
 		public UserModel CreateUser(CreateUserModel model)

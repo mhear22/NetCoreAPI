@@ -1,3 +1,4 @@
+using System.Linq;
 using dotapi.Models.Authentication;
 using dotapi.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -17,10 +18,12 @@ namespace dotapi.Actions.User
 		{
 			if(model==null)
 				return BadRequest("No Data");
-			var duplicate = S<IAuthenticationService>().Get(model.Username);
-			if(duplicate == null)
-				return null;
-			return BadRequest("Username already taken");
+			var duplicates = S<IAuthenticationService>().GetDuplicates(model)
+				.Where(x=>x.Id != model.Id)
+				.ToList();
+			if(duplicates.Count != 0)
+				return BadRequest("Username already taken");
+			return null;
 		}
 		
 		public IActionResult UpdateUser(string Id, UserModel model)
