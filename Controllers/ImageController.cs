@@ -3,11 +3,20 @@ using dotapi.Actions.Session;
 using dotapi.Actions.CurrentUser;
 using dotapi.Models.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using dotapi.Repositories;
+using dotapi.Services;
 
 namespace dotapi.Controllers
 {
-	public class ImageController : Controller
+	public class ImageController : ApiController
 	{
+		private IImageService imageService;
+		public ImageController(IContext context, IImageService image) 
+			: base(context)
+		{
+			this.imageService = image;
+		}
+		
 		[Route("i/{ImageId}")]
 		[HttpGet]
 		public IActionResult GetImage(string ImageId)

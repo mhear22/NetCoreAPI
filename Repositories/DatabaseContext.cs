@@ -3,7 +3,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace dotapi.Repositories
 {
-	public class DatabaseContext : DbContext
+	public interface IContext 
+	{
+		DbSet<UserDto> users { get; set; }
+		DbSet<PasswordDto> passwords { get; set; }
+		DbSet<SessionDto> sessions { get; set; }
+	}
+	
+	public class DatabaseContext : DbContext, IContext
 	{
 		public DatabaseContext(DbContextOptions<DatabaseContext> options)
 			: base(options)

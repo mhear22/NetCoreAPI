@@ -4,10 +4,10 @@ namespace dotapi.Services
 {
 	public class ServiceBase
 	{
-		public ServiceBase(DatabaseContext context)
+		public ServiceBase(IContext context)
 		{
 			this.Context = context;
 		}
-		internal DatabaseContext Context { get; set; }
+		internal IContext Context { get; set; }
 	}
 }

@@ -61,7 +61,10 @@ namespace dotapi
 					options.UseMySQL(connectionString);
 				});
 			}
+			services.AddScoped<IContext, DatabaseContext>();
 			
+			services.AddScoped<IStorageService, StorageService>();
+			services.AddScoped<IImageService, ImageService>();
 			services.AddScoped<IAuthenticationService, AuthenticationService>();
 			services.AddScoped<IPasswordService, PasswordService>();
 			services.AddScoped<ITokenService, TokenService>();
