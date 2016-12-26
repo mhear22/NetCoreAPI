@@ -64,7 +64,7 @@ namespace dotapi
 			}
 			services.AddScoped<IContext, DatabaseContext>();
 			
-			services.AddScoped<IStorageService, FileStorageService>();
+			services.AddScoped<IStorageService, SQLStorageService>();
 			services.AddScoped<IImageService, ImageService>();
 			services.AddScoped<IAuthenticationService, AuthenticationService>();
 			services.AddScoped<IPasswordService, PasswordService>();

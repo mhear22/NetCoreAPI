@@ -4,10 +4,10 @@ using Xunit;
 
 namespace dotapi.Tests.Services
 {
-    public class FileStorageServiceTests : ServiceTestBase<FileStorageService>
+    public class FileStorageServiceTests : ServiceTestBase<SQLStorageService>
 	{
 		public FileStorageServiceTests()
-			: base((Context) => new FileStorageService(Context))
+			: base((Context) => new SQLStorageService(Context))
 		{ }
 			
 		private StorageModel model = new StorageModel()
