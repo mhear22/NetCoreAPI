@@ -32,12 +32,9 @@ namespace dotapi.Tests.Services
 		where T: ServiceBase
 	{
 		protected T Service;
-		public ServiceTestBase(Func<T> ServiceConstuctor)
-		{
-			Service = ServiceConstuctor();
-		}
 		
 		public ServiceTestBase(Func<DatabaseContext, T> ServiceConstuctor)
+			: base()
 		{
 			Service = ServiceConstuctor(Context);
 		}

@@ -6,7 +6,7 @@ namespace dotapi.Tests.Services
 {
     public class FileStorageServiceTests : ServiceTestBase<FileStorageService>
 	{
-		FileStorageServiceTests()
+		public FileStorageServiceTests()
 			: base((Context) => new FileStorageService(Context))
 		{ }
 			
@@ -16,7 +16,8 @@ namespace dotapi.Tests.Services
 			{
 				0,1,7,0
 			},
-			Filename = "abcd.txt"
+			Filename = "abcd.txt",
+			Path = "test/"
 		};
 		
 		[Fact]

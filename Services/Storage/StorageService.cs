@@ -26,7 +26,7 @@ namespace dotapi.Services.Storage
         public StorageModel Create(StorageModel model)
         {
 			model.DateCreated = DateTime.Now;
-			var path = Path.Combine(Root, model.Path);
+			var path = Root + model.Path;
 			Directory.CreateDirectory(path);
 			File.WriteAllBytes(path, model.data);
 			return model;
