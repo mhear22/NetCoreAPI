@@ -42,7 +42,7 @@ namespace dotapi
 		{
 			var connectionString = Configuration.GetConnectionString("DefaultConnection");
 			var basePath = PlatformServices.Default.Application.ApplicationBasePath;
-			var xmlPath = Path.Combine(basePath, "DOTNETCore.xml");
+			var xmlPath = Path.Combine(basePath, "NetCoreAPI.xml");
 			
 			services.AddMvc()
 				.AddJsonOptions(x=>x.SerializerSettings.ContractResolver = new DefaultContractResolver());
