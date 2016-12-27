@@ -18,7 +18,7 @@ namespace dotapi.Actions.User
 		{
 			var x = GetKey("api_key");
 			if(string.IsNullOrWhiteSpace(x))
-				return BadRequest("No Logged in user");
+				return null;
 			var UserId = S<ITokenService>().Get(x).UserId;
 			CurrentUser = S<IAuthenticationService>().Get(UserId);
 			return null;
