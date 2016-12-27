@@ -13,6 +13,7 @@ namespace dotapi.Models.Authentication
 	{
 		public static TokenModel ToModel(this SessionDto model)
 		{
+			if(model == null) { return null;}
 			return new TokenModel()
 			{
 				UserId = model.UserId,
