@@ -19,8 +19,10 @@ namespace dotapi.Actions.User
 			var x = GetKey("api_key");
 			if(string.IsNullOrWhiteSpace(x))
 				return null;
-			var UserId = S<ITokenService>().Get(x).UserId;
-			CurrentUser = S<IAuthenticationService>().Get(UserId);
+			var userFromToken = S<ITokenService>().Get(x);
+			if(userFromToken == null)
+				return null;
+			CurrentUser = S<IAuthenticationService>().Get(userFromToken.UserId);
 			return null;
 		}
 		
