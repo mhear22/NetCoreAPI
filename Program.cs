@@ -17,6 +17,9 @@ namespace dotapi
 				.UseConfiguration(config)
 				.UseKestrel()
 				.UseContentRoot(Directory.GetCurrentDirectory())
+				.UseUrls(new string[]{
+					"http://::5000"
+				})
 				.UseIISIntegration()
 				.UseStartup<Startup>()
 				.Build();
