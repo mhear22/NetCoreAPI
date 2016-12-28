@@ -5,6 +5,8 @@ using dotapi.Models.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using dotapi.Repositories;
 using dotapi.Services;
+using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 
 namespace dotapi.Controllers
 {
@@ -33,8 +35,9 @@ namespace dotapi.Controllers
 		
 		[Route("i")]
 		[HttpPost]
-		public IActionResult UploadImage()
+		public IActionResult UploadImage(IFormFile file)
 		{
+			
 			return Created("","");
 		}
 		

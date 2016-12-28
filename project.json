@@ -24,6 +24,7 @@
 		"Microsoft.AspNetCore.TestHost": "1.0.0",
 		"Swashbuckle.SwaggerGen": "6.0.0-beta902",
 		"Swashbuckle.SwaggerUi": "6.0.0-beta902",
+		"Moq": "4.6.38-alpha",
 		"AWSSDK.S3": "3.3.5.2"
 	},
 
