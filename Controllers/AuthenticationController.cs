@@ -3,11 +3,14 @@ using dotapi.Actions.Session;
 using dotapi.Actions.CurrentUser;
 using dotapi.Models.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using dotapi.Repositories;
 
 namespace dotapi.Controllers
 {
-	public class AuthenticationController : Controller
+	public class AuthenticationController : ApiController
 	{
+		public AuthenticationController(IContext context) : base(context) { }
+
 		[Route("users")]
 		[HttpPost]
 		public IActionResult CreateUser([FromBody]CreateUserModel model)

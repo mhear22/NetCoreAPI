@@ -1,7 +1,9 @@
 using System;
 using dotapi.Controllers;
 using dotapi.Repositories;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace dotapi.Tests.Controllers
 {
@@ -14,14 +16,25 @@ namespace dotapi.Tests.Controllers
 		public BaseControllerMock(Func<IContext, T> Method)
 		{
 			Initialise();
-			Controller = Method(Context);
+			var controller = Method(Context);
+			Controller = controller;
 		}
 		
 		private void Initialise()
 		{
+			var ServiceProvider = new ServiceCollection()
+				.AddEntityFrameworkInMemoryDatabase()
+				.BuildServiceProvider();
 			var builder = new DbContextOptionsBuilder<DatabaseContext>();
-			builder.UseInMemoryDatabase();
+			builder
+				.UseInMemoryDatabase()
+				.UseInternalServiceProvider(ServiceProvider);
 			Context = new DatabaseContext(builder.Options);
+		}
+		
+		protected void GetMessage(IActionResult message)
+		{
+			
 		}
 	}
 }
