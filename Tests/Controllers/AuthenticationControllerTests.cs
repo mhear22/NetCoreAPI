@@ -1,3 +1,4 @@
+using dotapi.Actions.Session;
 using dotapi.Actions.User;
 using dotapi.Controllers;
 using dotapi.Models.Authentication;
@@ -17,7 +18,11 @@ namespace dotapi.Tests.Controllers
 				var pass = new PasswordService(Context, new Repository<PasswordDto>(Context));
 				var Auth = new AuthenticationService(Context, pass, Token, new Repository<UserDto>(Context));
 				var usr = new UserService(Context, Token, pass, Auth);
-				return new AuthenticationController(Context, new UserAction(usr));
+				
+				var getAction = new GetUserAction(Auth);
+				var log = new LogoutAction(Auth);
+				
+				return new AuthenticationController(Context, new UserAction(usr,Auth),getAction, log);
 			})
 		{ }
 		

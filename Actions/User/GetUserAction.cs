@@ -3,15 +3,27 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace dotapi.Actions.User
 {
-	public class GetUserAction : ActionBase
+	public interface IGetUserAction
 	{
-		public GetUserAction(string userIdOrName)
+		GetUserAction GetUser(string userIdOrName);
+	}
+	
+	public class GetUserAction : ActionBase, IGetUserAction
+	{
+		private IAuthenticationService authService;
+		public GetUserAction(IAuthenticationService auth)
 		{
-			AddAction(() => GetUser(userIdOrName));
+			authService = auth;
 		}
-		public IActionResult GetUser(string userIdOrName)
+		
+		public GetUserAction GetUser(string userIdOrName)
 		{
-			var user = S<IAuthenticationService>().Get(userIdOrName);
+			AddAction(() => Get(userIdOrName));
+			return this;
+		}
+		public IActionResult Get(string userIdOrName)
+		{
+			var user = authService.Get(userIdOrName);
 			if(user == null)
 				return NotFound();
 			return Ok(user);

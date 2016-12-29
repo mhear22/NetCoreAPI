@@ -14,6 +14,7 @@ using Swashbuckle.Swagger.Model;
 using Newtonsoft.Json.Serialization;
 using dotapi.Services.Storage;
 using dotapi.Actions.User;
+using dotapi.Actions.Session;
 
 namespace dotapi
 {
@@ -65,6 +66,8 @@ namespace dotapi
 			}
 			services.AddScoped<IContext, DatabaseContext>();
 			services.AddScoped<IUserAction, UserAction>();
+			services.AddScoped<IGetUserAction, GetUserAction>();
+			services.AddScoped<ILogoutAction, LogoutAction>();
 			services.AddScoped<IStorageService, SQLStorageService>();
 			services.AddScoped<IImageService, ImageService>();
 			services.AddScoped<IAuthenticationService, AuthenticationService>();

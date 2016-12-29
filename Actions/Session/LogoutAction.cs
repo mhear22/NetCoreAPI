@@ -4,17 +4,25 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace dotapi.Actions.Session
 {
-	public class LogoutAction : ActionBase
+	public interface ILogoutAction
 	{
-		public LogoutAction(string Id)
+		LogoutAction Logout(string Id);
+	}
+	
+	public class LogoutAction: ActionBase, ILogoutAction
+	{
+		private IAuthenticationService authService;
+		public LogoutAction(IAuthenticationService authService)
 		{
-			AddAction(() => Logout(Id));
+			this.authService = authService;
 		}
-		
-		public IActionResult Logout(string Id)
+		public LogoutAction Logout(string Id)
 		{
-			var token = S<IAuthenticationService>().Logout(Id);
-			return Ok();
+			AddAction(() => {
+				var token = authService.Logout(Id);
+				return Ok();
+			});
+			return this;
 		}
 	}
 }

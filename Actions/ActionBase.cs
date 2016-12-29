@@ -40,17 +40,6 @@ namespace dotapi.Actions
 			return Respond("No Action returned a response");
 		}
 		
-		internal T S<T>() {return GetService<T>(); }
-		internal T GetService<T>()
-		{
-			var _service = Request.HttpContext.RequestServices.GetService(typeof(T));
-			if(_service==null)
-			{
-				return default(T);
-			}
-			return (T)_service;
-		}
-		
 		internal IActionResult Ok(object payload = null)
 		{
 			return Respond(payload, HttpStatusCode.OK);

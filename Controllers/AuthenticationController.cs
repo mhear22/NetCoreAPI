@@ -9,10 +9,14 @@ namespace dotapi.Controllers
 	public class AuthenticationController : ApiController
 	{
 		private IUserAction userAction;
-		public AuthenticationController(IContext context, IUserAction userAction) 
+		private IGetUserAction getAction;
+		private ILogoutAction logout;
+		public AuthenticationController(IContext context, IUserAction userAction, IGetUserAction getAction, ILogoutAction logout) 
 			: base(context)
 		{
 			this.userAction = userAction;
+			this.getAction = getAction;
+			this.logout = logout;
 		}
 
 		[Route("users")]
@@ -33,14 +37,14 @@ namespace dotapi.Controllers
 		[HttpDelete]
 		public IActionResult Logout(string Token)
 		{
-			return new LogoutAction(Token).WithRequest(Request);
+			return logout.Logout(Token).WithRequest(Request);
 		}
 		
 		[Route("users/{userIdOrName}")]
 		[HttpGet]
 		public IActionResult GetUser(string userIdOrName)
 		{
-			return new GetUserAction(userIdOrName).WithRequest(Request);
+			return getAction.GetUser(userIdOrName).WithRequest(Request);
 		}
 		
 		[Route("currentuser")]

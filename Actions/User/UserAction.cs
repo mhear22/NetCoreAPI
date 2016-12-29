@@ -16,10 +16,12 @@ namespace dotapi.Actions.User
 	}
 	public class UserAction : ActionBase, IUserAction
 	{
+		private IAuthenticationService authService;
 		protected IUserService userService;
-		public UserAction(IUserService userService)
+		public UserAction(IUserService userService, IAuthenticationService auth)
 		{
 			this.userService = userService;
+			this.authService = auth;
 			AddAction(() => CurrentUserBySession());
 		}
 		
@@ -78,7 +80,7 @@ namespace dotapi.Actions.User
 		
 		public IActionResult Login(LoginModel model)
 		{
-			var token = S<IAuthenticationService>().Login(model);
+			var token = authService.Login(model);
 			if(token == null)
 				return BadRequest();
 			return Ok(token);
@@ -96,7 +98,7 @@ namespace dotapi.Actions.User
 		{
 			if(model==null)
 				return BadRequest("No Data");
-			var duplicates = S<IAuthenticationService>().GetDuplicates(model)
+			var duplicates = authService.GetDuplicates(model)
 				.Where(x=>x.Id != model.Id)
 				.ToList();
 			if(duplicates.Count != 0)
@@ -106,7 +108,7 @@ namespace dotapi.Actions.User
 		
 		public IActionResult UpdateUser(string Id, UserModel model)
 		{
-			return Ok(S<IAuthenticationService>().UpdateUser(Id, model));
+			return Ok(authService.UpdateUser(Id, model));
 		}
 		
 		public UserAction CreateUserAction(CreateUserModel model)
@@ -122,9 +124,9 @@ namespace dotapi.Actions.User
 				return BadRequest("No Data");
 			if(string.IsNullOrWhiteSpace(model.EmailAddress) || string.IsNullOrWhiteSpace(model.Password))
 				return BadRequest("Email address and password is required");
-			var duplicate = S<IAuthenticationService>().Get(model.Username);
-			var emailDupe = S<IAuthenticationService>().Get(model.EmailAddress);
-			var duplicates = S<IAuthenticationService>().GetDuplicates(model);
+			var duplicate = authService.Get(model.Username);
+			var emailDupe = authService.Get(model.EmailAddress);
+			var duplicates = authService.GetDuplicates(model);
 			if(duplicates.Count != 0)
 				return BadRequest("Username or email address already used");
 			if(duplicate != null)
@@ -134,7 +136,7 @@ namespace dotapi.Actions.User
 		
 		public IActionResult CreateUser(CreateUserModel model)
 		{
-			return Created(S<IAuthenticationService>().CreateUser(model));
+			return Created(authService.CreateUser(model));
 		}
 		
 		public UserAction GetCurrentUserAction()
