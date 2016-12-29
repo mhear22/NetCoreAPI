@@ -1,6 +1,5 @@
 using dotapi.Actions.User;
 using dotapi.Actions.Session;
-using dotapi.Actions.CurrentUser;
 using dotapi.Models.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using dotapi.Repositories;
@@ -9,20 +8,25 @@ namespace dotapi.Controllers
 {
 	public class AuthenticationController : ApiController
 	{
-		public AuthenticationController(IContext context) : base(context) { }
+		private IUserAction userAction;
+		public AuthenticationController(IContext context, IUserAction userAction) 
+			: base(context)
+		{
+			this.userAction = userAction;
+		}
 
 		[Route("users")]
 		[HttpPost]
 		public IActionResult CreateUser([FromBody]CreateUserModel model)
 		{
-			return new CreateUserAction(model).WithRequest(Request);
+			return userAction.CreateUserAction(model).WithRequest(Request);
 		}
 		
 		[Route("sessions")]
 		[HttpPost]
 		public IActionResult Login([FromBody]LoginModel model)
 		{
-			return new LoginAction(model).WithRequest(Request);
+			return this.userAction.LoginAction(model).WithRequest(Request);
 		}
 		
 		[Route("sessions")]
@@ -43,14 +47,14 @@ namespace dotapi.Controllers
 		[HttpGet]
 		public IActionResult GetCurrentUser()
 		{
-			return new GetCurrentUserAction().WithRequest(Request);
+			return userAction.GetCurrentUserAction().WithRequest(Request);
 		}
 		
 		[Route("users/{userIdOrName}")]
 		[HttpPut]
 		public IActionResult UpdateUser(string userIdOrName, [FromBody] UserModel model)
 		{
-			return new UpdateUserAction(userIdOrName, model).WithRequest(Request);
+			return userAction.UpdateUserAction(userIdOrName, model).WithRequest(Request);
 		}
 	}
 }

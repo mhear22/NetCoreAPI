@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace dotapi.Services
 {
-	interface IAuthenticationService
+	public interface IAuthenticationService
 	{
 		UserModel Get(string UserIdOrName);
 		List<UserModel> GetDuplicates(UserModel model);
@@ -22,7 +22,7 @@ namespace dotapi.Services
 		private IPasswordService _passwordService;
 		private ITokenService _tokenService;
 		private IRepository<UserDto> _userRepo;
-		public AuthenticationService(DatabaseContext context, IPasswordService passwordService, ITokenService tokenService, IRepository<UserDto> userRepo)
+		public AuthenticationService(IContext context, IPasswordService passwordService, ITokenService tokenService, IRepository<UserDto> userRepo)
 			: base(context)
 		{
 			_userRepo = userRepo;

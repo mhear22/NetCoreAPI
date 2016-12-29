@@ -14,7 +14,7 @@ namespace dotapi.Services
     public class TokenService : ServiceBase, ITokenService
     {
 		private IRepository<SessionDto> sessionRepo; 
-		public TokenService(DatabaseContext context, IRepository<SessionDto> sessionRepo) 
+		public TokenService(IContext context, IRepository<SessionDto> sessionRepo) 
 			: base(context)
 		{
 			this.sessionRepo = sessionRepo;

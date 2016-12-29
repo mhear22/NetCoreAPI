@@ -16,7 +16,7 @@ namespace dotapi.Services
 	public class PasswordService : ServiceBase, IPasswordService 
 	{
 		private IRepository<PasswordDto> _passwordRepo;
-		public PasswordService(DatabaseContext context, IRepository<PasswordDto> passwordRepo)
+		public PasswordService(IContext context, IRepository<PasswordDto> passwordRepo)
 			: base(context)
 		{
 			this._passwordRepo = passwordRepo;

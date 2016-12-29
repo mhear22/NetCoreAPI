@@ -13,6 +13,7 @@ using Microsoft.Extensions.PlatformAbstractions;
 using Swashbuckle.Swagger.Model;
 using Newtonsoft.Json.Serialization;
 using dotapi.Services.Storage;
+using dotapi.Actions.User;
 
 namespace dotapi
 {
@@ -63,7 +64,7 @@ namespace dotapi
 				});
 			}
 			services.AddScoped<IContext, DatabaseContext>();
-			
+			services.AddScoped<IUserAction, UserAction>();
 			services.AddScoped<IStorageService, SQLStorageService>();
 			services.AddScoped<IImageService, ImageService>();
 			services.AddScoped<IAuthenticationService, AuthenticationService>();
