@@ -22,7 +22,10 @@ namespace dotapi.Tests.Controllers
 				var getAction = new GetUserAction(Auth);
 				var log = new LogoutAction(Auth);
 				
-				return new AuthenticationController(Context, new UserAction(usr,Auth),getAction, log);
+				//Mock this
+				var curr = new CurrentUserService(Context, Token, usr);
+				
+				return new AuthenticationController(Context, new UserAction(usr,Auth, curr),getAction, log);
 			})
 		{ }
 		

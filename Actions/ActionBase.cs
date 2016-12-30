@@ -9,16 +9,8 @@ namespace dotapi.Actions
 {
 	public class ActionBase
 	{
-
 		private ICollection<Func<IActionResult>> _actions = new List<Func<IActionResult>>();
-		private HttpRequest Request;
-		
-		protected string GetKey(string Key)
-		{
-			StringValues prim = "";
-			Request.Query.TryGetValue(Key, out prim);
-			return prim.ToString();
-		}
+		protected HttpRequest Request { get; private set; }
 		
 		internal void AddAction(Func<IActionResult> action)
 		{

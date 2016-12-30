@@ -17,11 +17,13 @@ namespace dotapi.Actions.User
 	public class UserAction : ActionBase, IUserAction
 	{
 		private IAuthenticationService authService;
-		protected IUserService userService;
-		public UserAction(IUserService userService, IAuthenticationService auth)
+		private ICurrentUserService CurrentUserService;
+		private IUserService userService;
+		public UserAction(IUserService userService, IAuthenticationService auth, ICurrentUserService current)
 		{
 			this.userService = userService;
 			this.authService = auth;
+			this.CurrentUserService = current;
 			AddAction(() => CurrentUserBySession());
 		}
 		
@@ -29,10 +31,7 @@ namespace dotapi.Actions.User
 		protected UserModel CurrentUser;
 		private IActionResult CurrentUserBySession()
 		{
-			var x = GetKey("api_key");
-			if(string.IsNullOrWhiteSpace(x))
-				return null;
-			CurrentUser = userService.GetFromSession(x);
+			CurrentUser = CurrentUserService.GetCurrentUser(Request);
 			return null;
 		}
 		
