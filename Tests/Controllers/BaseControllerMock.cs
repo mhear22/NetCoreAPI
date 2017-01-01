@@ -4,6 +4,7 @@ using dotapi.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Http;
 
 namespace dotapi.Tests.Controllers
 {
@@ -17,6 +18,7 @@ namespace dotapi.Tests.Controllers
 		{
 			Initialise();
 			var controller = Method(Context);
+			controller.ControllerContext = new ControllerContext();
 			Controller = controller;
 		}
 		
@@ -30,11 +32,6 @@ namespace dotapi.Tests.Controllers
 				.UseInMemoryDatabase()
 				.UseInternalServiceProvider(ServiceProvider);
 			Context = new DatabaseContext(builder.Options);
-		}
-		
-		protected void GetMessage(IActionResult message)
-		{
-			
 		}
 	}
 }

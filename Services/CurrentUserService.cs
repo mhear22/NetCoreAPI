@@ -24,7 +24,11 @@ namespace dotapi.Services
 		public UserModel GetCurrentUser(HttpRequest Request)
 		{
 			StringValues prim = "";
-			Request.Query.TryGetValue("api_key", out prim);
+			try
+			{
+				Request.Query.TryGetValue("api_key", out prim);
+			}
+			catch { }
 			var apikey = prim.ToString();
 			var model = tokenService.Get(apikey);
 			if(model == null){return null;}
