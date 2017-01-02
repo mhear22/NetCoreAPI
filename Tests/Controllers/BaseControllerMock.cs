@@ -8,8 +8,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace dotapi.Tests.Controllers
 {
-	public class BaseControllerMock<T>
-		where T : ApiController
+	public class BaseControllerMock<T> where T : ApiController
 	{
 		protected T Controller;
 		protected IContext Context;
@@ -33,5 +32,10 @@ namespace dotapi.Tests.Controllers
 				.UseInternalServiceProvider(ServiceProvider);
 			Context = new DatabaseContext(builder.Options);
 		}
+	}
+	
+	public static class BaseControllerExtentions
+	{
+		
 	}
 }

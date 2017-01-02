@@ -5,6 +5,8 @@ using dotapi.Models.Authentication;
 using dotapi.Models.Repositories;
 using dotapi.Repositories;
 using dotapi.Services;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Xunit;
 
 namespace dotapi.Tests.Controllers
@@ -37,7 +39,15 @@ namespace dotapi.Tests.Controllers
 				EmailAddress = "test@email.com",
 				Password = "password"
 			};
-			var result = Controller.CreateUser(model);
+			
+			var x = new ActionContext();
+			x.HttpContext = new DefaultHttpContext();
+			
+			var z = Controller.CreateUser(model);
+			var task = z.ExecuteResultAsync(x);
+			task.Wait();
+			
+			Assert.NotNull(x);
 		}
 	}
 }
