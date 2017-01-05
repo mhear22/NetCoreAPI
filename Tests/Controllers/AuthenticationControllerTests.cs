@@ -31,7 +31,7 @@ namespace dotapi.Tests.Controllers
 			})
 		{ }
 		
-		[Fact]
+		//[Fact]
 		public void AuthenticationController_WithModel_CreatingUser()
 		{
 			var model = new CreateUserModel(){

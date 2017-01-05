@@ -21,14 +21,6 @@ namespace dotapi.Tests.Actions.Auth
 		}
 		
 		[Fact]
-		public void CreateUserAction_WithCorrectCreds_CreatesUserWithHardwiredCreds()
-		{
-			var response = _users.Generate(TestModel);
-
-			Assert.NotNull(response);
-		}
-		
-		[Fact]
 		public void CreateUserAction_WithDuplicateCreds_Fails()
 		{
 			_users.Generate(TestModel);

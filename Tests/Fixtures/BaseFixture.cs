@@ -15,10 +15,10 @@ namespace dotapi.Tests.Fixtures
 			this._client = client;
 		}
 		
-		private static int counter = 0; 
-		internal static string RandomString()
+		private static int counter = 0;
+		internal string RandomString()
 		{
-			var bytes = DateTime.Now.AddDays(counter).Ticks.ToString()
+			var bytes = DateTime.Now.AddMinutes(counter).Ticks.ToString()
 				.Select(x=>Convert.ToByte(x))
 				.ToArray();
 			return Convert.ToBase64String(MD5.Create().ComputeHash(bytes));
