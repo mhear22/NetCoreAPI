@@ -23,7 +23,7 @@ namespace dotapi
 				.UseIISIntegration()
 				.UseStartup<Startup>()
 				.Build();
-
+		
 			host.Run();
 		}
 	}

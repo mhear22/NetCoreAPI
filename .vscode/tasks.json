@@ -6,17 +6,13 @@
     "tasks": [
         {
             "taskName": "build",
-            "args": [
-                "${workspaceRoot}/project.json"
-            ],
+            "args": [],
             "isBuildCommand": true,
             "problemMatcher": "$msCompile"
         },
 		{
 			"taskName": "test",
-			"args": [
-				"${workspaceRoot}/project.json"
-			],
+			"args": [],
 			"isTestCommand": true
 		}
     ]
