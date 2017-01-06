@@ -4,4 +4,6 @@
 
 bin/
 obj/
+/bin
+/obj
 project.lock.json
