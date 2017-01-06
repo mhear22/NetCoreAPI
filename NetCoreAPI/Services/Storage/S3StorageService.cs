@@ -1,5 +1,4 @@
 using System;
-using Amazon.S3;
 using dotapi.Models.Generic;
 using dotapi.Models.Storage;
 

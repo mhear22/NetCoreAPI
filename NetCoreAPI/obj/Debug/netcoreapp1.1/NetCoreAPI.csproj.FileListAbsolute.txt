@@ -1,0 +1,26 @@
+C:\Users\mhear22\Documents\Visual Studio 2017\Projects\WebApplication1\NetCoreAPI\bin\Debug\netcoreapp1.1\xunit.execution.desktop.dll
+C:\Users\mhear22\Documents\Visual Studio 2017\Projects\WebApplication1\NetCoreAPI\bin\Debug\netcoreapp1.1\NetCoreAPI.deps.json
+C:\Users\mhear22\Documents\Visual Studio 2017\Projects\WebApplication1\NetCoreAPI\bin\Debug\netcoreapp1.1\NetCoreAPI.runtimeconfig.json
+C:\Users\mhear22\Documents\Visual Studio 2017\Projects\WebApplication1\NetCoreAPI\bin\Debug\netcoreapp1.1\NetCoreAPI.runtimeconfig.dev.json
+C:\Users\mhear22\Documents\Visual Studio 2017\Projects\WebApplication1\NetCoreAPI\bin\Debug\netcoreapp1.1\NetCoreAPI.dll
+C:\Users\mhear22\Documents\Visual Studio 2017\Projects\WebApplication1\NetCoreAPI\bin\Debug\netcoreapp1.1\NetCoreAPI.pdb
+C:\Users\mhear22\Documents\Visual Studio 2017\Projects\WebApplication1\NetCoreAPI\bin\Debug\netcoreapp1.1\NetCoreAPI.xml
+C:\Users\mhear22\Documents\Visual Studio 2017\Projects\WebApplication1\NetCoreAPI\obj\Debug\netcoreapp1.1\NetCoreAPI.AssemblyInfo.cs
+C:\Users\mhear22\Documents\Visual Studio 2017\Projects\WebApplication1\NetCoreAPI\obj\Debug\netcoreapp1.1\NetCoreAPI.dll
+C:\Users\mhear22\Documents\Visual Studio 2017\Projects\WebApplication1\NetCoreAPI\obj\Debug\netcoreapp1.1\NetCoreAPI.pdb
+C:\Users\mhear22\Documents\Visual Studio 2017\Projects\WebApplication1\NetCoreAPI\bin\Debug\netcoreapp1.1\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\mhear22\Documents\Visual Studio 2017\Projects\WebApplication1\NetCoreAPI\bin\Debug\netcoreapp1.1\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\mhear22\Documents\Visual Studio 2017\Projects\WebApplication1\NetCoreAPI\obj\Debug\netcoreapp1.1\NetCoreAPI.csprojResolveAssemblyReference.cache
+C:\Git\DotNet\NetCoreAPI\bin\Debug\netcoreapp1.1\Microsoft.DiaSymReader.Native.x86.dll
+C:\Git\DotNet\NetCoreAPI\bin\Debug\netcoreapp1.1\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Git\DotNet\NetCoreAPI\bin\Debug\netcoreapp1.1\xunit.execution.desktop.dll
+C:\Git\DotNet\NetCoreAPI\bin\Debug\netcoreapp1.1\NetCoreAPI.deps.json
+C:\Git\DotNet\NetCoreAPI\bin\Debug\netcoreapp1.1\NetCoreAPI.runtimeconfig.json
+C:\Git\DotNet\NetCoreAPI\bin\Debug\netcoreapp1.1\NetCoreAPI.runtimeconfig.dev.json
+C:\Git\DotNet\NetCoreAPI\bin\Debug\netcoreapp1.1\NetCoreAPI.dll
+C:\Git\DotNet\NetCoreAPI\bin\Debug\netcoreapp1.1\NetCoreAPI.pdb
+C:\Git\DotNet\NetCoreAPI\bin\Debug\netcoreapp1.1\NetCoreAPI.xml
+C:\Git\DotNet\NetCoreAPI\obj\Debug\netcoreapp1.1\NetCoreAPI.csprojResolveAssemblyReference.cache
+C:\Git\DotNet\NetCoreAPI\obj\Debug\netcoreapp1.1\NetCoreAPI.AssemblyInfo.cs
+C:\Git\DotNet\NetCoreAPI\obj\Debug\netcoreapp1.1\NetCoreAPI.dll
+C:\Git\DotNet\NetCoreAPI\obj\Debug\netcoreapp1.1\NetCoreAPI.pdb
