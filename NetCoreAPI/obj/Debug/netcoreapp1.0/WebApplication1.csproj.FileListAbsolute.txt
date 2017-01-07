@@ -1,0 +1,11 @@
+c:\users\mhear22\documents\visual studio 2017\Projects\WebApplication1\src\WebApplication1\bin\Debug\netcoreapp1.0\xunit.execution.desktop.dll
+c:\users\mhear22\documents\visual studio 2017\Projects\WebApplication1\src\WebApplication1\obj\Debug\netcoreapp1.0\WebApplication1.csprojResolveAssemblyReference.cache
+c:\users\mhear22\documents\visual studio 2017\Projects\WebApplication1\src\WebApplication1\obj\Debug\netcoreapp1.0\WebApplication1.AssemblyInfo.cs
+c:\users\mhear22\documents\visual studio 2017\Projects\WebApplication1\src\WebApplication1\bin\Debug\netcoreapp1.0\NetCoreAPI.deps.json
+c:\users\mhear22\documents\visual studio 2017\Projects\WebApplication1\src\WebApplication1\bin\Debug\netcoreapp1.0\NetCoreAPI.runtimeconfig.json
+c:\users\mhear22\documents\visual studio 2017\Projects\WebApplication1\src\WebApplication1\bin\Debug\netcoreapp1.0\NetCoreAPI.runtimeconfig.dev.json
+c:\users\mhear22\documents\visual studio 2017\Projects\WebApplication1\src\WebApplication1\bin\Debug\netcoreapp1.0\NetCoreAPI.dll
+c:\users\mhear22\documents\visual studio 2017\Projects\WebApplication1\src\WebApplication1\bin\Debug\netcoreapp1.0\NetCoreAPI.pdb
+c:\users\mhear22\documents\visual studio 2017\Projects\WebApplication1\src\WebApplication1\obj\Debug\netcoreapp1.0\NetCoreAPI.dll
+c:\users\mhear22\documents\visual studio 2017\Projects\WebApplication1\src\WebApplication1\obj\Debug\netcoreapp1.0\NetCoreAPI.pdb
+c:\users\mhear22\documents\visual studio 2017\Projects\WebApplication1\src\WebApplication1\bin\Debug\netcoreapp1.0\NetCoreAPI.xml
