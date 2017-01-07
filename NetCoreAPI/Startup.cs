@@ -17,7 +17,7 @@ using dotapi.Actions.User;
 using dotapi.Actions.Session;
 using dotapi.Models.Repositories;
 
-namespace WebApplication1
+namespace dotapi
 {
 	public class TestStartup : Startup
 	{

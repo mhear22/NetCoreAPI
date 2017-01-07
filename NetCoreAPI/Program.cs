@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 
-namespace WebApplication1
+namespace dotapi
 {
     public class Program
     {
@@ -14,9 +14,9 @@ namespace WebApplication1
             var host = new WebHostBuilder()
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
-				//.UseUrls(new string[]{
-				//	"http://::5000"
-				//})
+				.UseUrls(new string[]{
+					"http://::5000"
+				})
 				.UseIISIntegration()
                 .UseStartup<Startup>()
                 .Build();

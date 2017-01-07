@@ -4,6 +4,7 @@
 
 bin/
 obj/
-/bin
-/obj
+[Dd]ebug/
+[Rr]elease/
 project.lock.json
+.vs/
