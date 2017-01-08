@@ -24,5 +24,8 @@ namespace dotapi.Repositories
 		public DbSet<UserDto> users { get; set; }
 		public DbSet<PasswordDto> passwords { get; set; }
 		public DbSet<SessionDto> sessions { get; set; }
+		public DbSet<FileDto> files { get; set; }
+		public DbSet<FilePiecesDto> filePieces { get; set; }
+		public DbSet<FilePieceDto> piece { get; set; }
 	}
 }
