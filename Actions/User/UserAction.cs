@@ -2,7 +2,6 @@ using System.Linq;
 using dotapi.Models.Authentication;
 using dotapi.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Primitives;
 
 namespace dotapi.Actions.User
 {

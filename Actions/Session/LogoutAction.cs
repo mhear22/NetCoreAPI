@@ -1,6 +1,4 @@
-using dotapi.Models.Authentication;
 using dotapi.Services;
-using Microsoft.AspNetCore.Mvc;
 
 namespace dotapi.Actions.Session
 {

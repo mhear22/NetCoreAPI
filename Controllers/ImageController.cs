@@ -1,11 +1,7 @@
-using dotapi.Actions.User;
-using dotapi.Actions.Session;
-using dotapi.Models.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using dotapi.Repositories;
 using dotapi.Services;
 using Microsoft.AspNetCore.Http;
-using System.Collections.Generic;
 
 namespace dotapi.Controllers
 {

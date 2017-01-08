@@ -1,10 +1,8 @@
 using System;
 using dotapi.Controllers;
 using dotapi.Repositories;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Http;
 
 namespace dotapi.Tests.Controllers
 {

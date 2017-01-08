@@ -1,4 +1,3 @@
-using System;
 using dotapi.Models.Authentication;
 using dotapi.Repositories;
 

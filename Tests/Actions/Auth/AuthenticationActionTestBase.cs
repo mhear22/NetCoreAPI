@@ -1,6 +1,5 @@
 using dotapi.Models.Authentication;
 using dotapi.Tests.Fixtures;
-using Xunit;
 
 namespace dotapi.Tests.Actions
 {

@@ -1,10 +1,5 @@
-using dotapi.Actions.Session;
-using dotapi.Actions.User;
 using dotapi.Controllers;
 using dotapi.Models.Authentication;
-using dotapi.Models.Repositories;
-using dotapi.Repositories;
-using dotapi.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Xunit;

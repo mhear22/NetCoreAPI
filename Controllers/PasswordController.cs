@@ -1,5 +1,4 @@
 using dotapi.Actions.User;
-using dotapi.Actions.Session;
 using dotapi.Models.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using dotapi.Repositories;
