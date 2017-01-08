@@ -19,9 +19,7 @@ namespace dotapi.Tests.Controllers
 			Initialise();
 			
 			
-			var controller = provider.GetService<T>();
-			controller.ControllerContext = new ControllerContext();
-			Controller = controller;
+			Controller = provider.GetService<T>();
 		}
 		
 		private void Initialise()

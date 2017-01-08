@@ -7,8 +7,7 @@ namespace dotapi.Services.Storage.SQLStore
 {
 	public class SQLStorageService : ServiceBase, IStorageService
 	{
-		public SQLStorageService(IContext context) : base(context)
-		{ }
+		public SQLStorageService(IContext context) : base(context) { }
 
 		public StorageModel Create(StorageModel model)
 		{

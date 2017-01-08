@@ -11,7 +11,6 @@ namespace dotapi.Tests.Controllers
 {
 	public class ImageControllerTests : BaseControllerMock<ImageController>
 	{
-		
 		[Fact]
 		public void ImageController_WithFile_CreatesImage()
 		{
