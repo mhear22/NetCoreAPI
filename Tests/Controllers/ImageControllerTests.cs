@@ -11,11 +11,6 @@ namespace dotapi.Tests.Controllers
 {
 	public class ImageControllerTests : BaseControllerMock<ImageController>
 	{
-		public ImageControllerTests()
-			: base((Context) => 
-				new ImageController(Context, new ImageService(Context,new SQLStorageService(Context)))
-			)
-		{ }
 		
 		[Fact]
 		public void ImageController_WithFile_CreatesImage()

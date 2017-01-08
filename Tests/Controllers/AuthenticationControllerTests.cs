@@ -13,23 +13,23 @@ namespace dotapi.Tests.Controllers
 {
 	public class AuthenticationControllerTests : BaseControllerMock<AuthenticationController>
 	{
-		public AuthenticationControllerTests()
-			: base((Context) =>  
-			{
-				var Token = new TokenService(Context, new Repository<SessionDto>(Context));
-				var pass = new PasswordService(Context, new Repository<PasswordDto>(Context));
-				var Auth = new AuthenticationService(Context, pass, Token, new Repository<UserDto>(Context));
-				var usr = new UserService(Context, Token, pass, Auth);
-				
-				var getAction = new GetUserAction(Auth);
-				var log = new LogoutAction(Auth);
-				
-				//Mock this
-				var curr = new CurrentUserService(Context, Token, usr);
-				
-				return new AuthenticationController(Context, new UserAction(usr,Auth, curr),getAction, log);
-			})
-		{ }
+		//public AuthenticationControllerTests()
+		//	: base((Context) =>  
+		//	{
+		//		var Token = new TokenService(Context, new Repository<SessionDto>(Context));
+		//		var pass = new PasswordService(Context, new Repository<PasswordDto>(Context));
+		//		var Auth = new AuthenticationService(Context, pass, Token, new Repository<UserDto>(Context));
+		//		var usr = new UserService(Context, Token, pass, Auth);
+		//		
+		//		var getAction = new GetUserAction(Auth);
+		//		var log = new LogoutAction(Auth);
+		//		
+		//		//Mock this
+		//		var curr = new CurrentUserService(Context, Token, usr);
+		//		
+		//		return new AuthenticationController(Context, new UserAction(usr,Auth, curr),getAction, log);
+		//	})
+		//{ }
 		
 		[Fact]
 		public void AuthenticationController_WithModel_CreatingUser()

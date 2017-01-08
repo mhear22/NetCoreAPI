@@ -3,7 +3,7 @@ using dotapi.Models.Generic;
 using dotapi.Models.Storage;
 using dotapi.Repositories;
 
-namespace dotapi.Services.Storage
+namespace dotapi.Services.Storage.SQLStore
 {
 	public class SQLStorageService : ServiceBase, IStorageService
 	{

@@ -13,29 +13,27 @@ namespace dotapi.Tests.Controllers
 		protected T Controller;
 		protected IContext Context;
 		
-		public BaseControllerMock(Func<IContext, T> Method)
+		protected IServiceProvider provider;
+		public BaseControllerMock()
 		{
 			Initialise();
-			var controller = Method(Context);
+			
+			
+			var controller = provider.GetService<T>();
 			controller.ControllerContext = new ControllerContext();
 			Controller = controller;
 		}
 		
 		private void Initialise()
 		{
-			var ServiceProvider = new ServiceCollection()
+			provider = new ServiceCollection()
 				.AddEntityFrameworkInMemoryDatabase()
 				.BuildServiceProvider();
 			var builder = new DbContextOptionsBuilder<DatabaseContext>();
 			builder
 				.UseInMemoryDatabase()
-				.UseInternalServiceProvider(ServiceProvider);
+				.UseInternalServiceProvider(provider);
 			Context = new DatabaseContext(builder.Options);
 		}
-	}
-	
-	public static class BaseControllerExtentions
-	{
-		
 	}
 }

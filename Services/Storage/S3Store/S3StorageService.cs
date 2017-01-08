@@ -3,7 +3,7 @@ using Amazon.S3;
 using dotapi.Models.Generic;
 using dotapi.Models.Storage;
 
-namespace dotapi.Services.Storage
+namespace dotapi.Services.Storage.S3Store
 {
     public class S3StorageService : IStorageService
     {

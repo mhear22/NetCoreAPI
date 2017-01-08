@@ -12,6 +12,7 @@ using System.IO;
 using Microsoft.Extensions.PlatformAbstractions;
 using Swashbuckle.Swagger.Model;
 using Newtonsoft.Json.Serialization;
+using dotapi.Services.Storage.SQLStore;
 using dotapi.Services.Storage;
 using dotapi.Actions.User;
 using dotapi.Actions.Session;
