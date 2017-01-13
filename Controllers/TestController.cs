@@ -10,5 +10,5 @@ namespace dotapi.Controllers
 		{
 			return Ok("Server Up");
 		}
-	} 
+	}
 }
