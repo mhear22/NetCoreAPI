@@ -79,6 +79,9 @@ namespace dotapi
 			services.AddScoped<IRepository<SessionDto>, Repository<SessionDto>>();
 			services.AddScoped<IRepository<PasswordDto>, Repository<PasswordDto>>();
 			services.AddScoped<IRepository<UserDto>, Repository<UserDto>>();
+			services.AddScoped<IRepository<FileDto>, Repository<FileDto>>();
+			services.AddScoped<IRepository<FilePiecesDto>, Repository<FilePiecesDto>>();
+			services.AddScoped<IRepository<FilePieceDto>, Repository<FilePieceDto>>();
 			services.AddSwaggerGen();
 			services.ConfigureSwaggerGen(x =>
 			{

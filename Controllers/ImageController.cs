@@ -32,7 +32,6 @@ namespace dotapi.Controllers
 		[HttpPost]
 		public IActionResult UploadImage(IFormFile file)
 		{
-			
 			return Created("","");
 		}
 		

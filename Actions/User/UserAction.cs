@@ -15,9 +15,9 @@ namespace dotapi.Actions.User
 	}
 	public class UserAction : ActionBase, IUserAction
 	{
-		private IAuthenticationService authService;
-		private ICurrentUserService CurrentUserService;
-		private IUserService userService;
+		protected IAuthenticationService authService;
+		protected ICurrentUserService CurrentUserService;
+		protected IUserService userService;
 		public UserAction(IUserService userService, IAuthenticationService auth, ICurrentUserService current)
 		{
 			this.userService = userService;

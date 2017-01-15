@@ -9,6 +9,9 @@ namespace dotapi.Repositories
 		DbSet<UserDto> users { get; set; }
 		DbSet<PasswordDto> passwords { get; set; }
 		DbSet<SessionDto> sessions { get; set; }
+		DbSet<FileDto> files { get; set; }
+		DbSet<FilePiecesDto> filePieces { get; set; }
+		DbSet<FilePieceDto> piece { get; set; }
 		DbSet<TEntity> Set<TEntity>() where TEntity : class;
 		int SaveChanges();
 		EntityEntry Update(object entity);
