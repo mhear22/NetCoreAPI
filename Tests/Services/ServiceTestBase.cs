@@ -9,6 +9,7 @@ namespace dotapi.Tests.Services
 	public class ServiceTestBase
 	{
 		private DbContextOptions<DatabaseContext> options;
+		protected IServiceProvider provider;
 		protected DatabaseContext Context
 		{
 			get 
@@ -18,12 +19,12 @@ namespace dotapi.Tests.Services
 		}
 		public ServiceTestBase()
 		{
-			var ServiceProvider = new ServiceCollection()
+			provider = new ServiceCollection()
 				.AddEntityFrameworkInMemoryDatabase()
 				.BuildServiceProvider();
 			var builder = new DbContextOptionsBuilder<DatabaseContext>();
 			builder.UseInMemoryDatabase()
-				.UseInternalServiceProvider(ServiceProvider);
+				.UseInternalServiceProvider(provider);
 			options = builder.Options;
 		}
 	}

@@ -34,12 +34,13 @@ namespace dotapi.Services.Storage.SQLStore
 			});
 			
 			
-			var data = model.data;
+			var data = model.data.ToList();
 			List<byte[]> items = new List<byte[]>();
 			var chunkSize = 10^6;
 			while(data.Any())
 			{
 				items.Add(data.Take(chunkSize).ToArray());
+				data = data.Skip(chunkSize).ToList();
 			}
 			
 			var dataPieces = items.Select(x=>{
@@ -78,6 +79,15 @@ namespace dotapi.Services.Storage.SQLStore
 
 		public StorageModel Get(string Id)
 		{
+			var dto = fileRepo.Get(Id);
+			
+			if(dto == null)
+				throw new KeyNotFoundException($"Could not find {Id}");
+			
+			var filePieces = pieces.Where(x=>x.FileId == dto.Id).ToList().OrderBy(x=>x.PieceNumber).Select(x=>x.FilePieceId);
+			
+			//var dataPieces = piece.Where(x=>)
+			
 			throw new NotImplementedException();
 		}
 
