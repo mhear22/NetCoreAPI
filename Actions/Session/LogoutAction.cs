@@ -16,10 +16,14 @@ namespace dotapi.Actions.Session
 		}
 		public LogoutAction Logout(string Id)
 		{
-			AddAction(() => {
-				var token = authService.Logout(Id);
-				return Ok();
-			});
+			if(!string.IsNullOrWhiteSpace(Id))
+				AddAction(() => { 
+					var token = authService.Logout(Id);
+					return Ok();
+				});
+			else
+				AddAction(() => { return Ok(); });
+			
 			return this;
 		}
 	}
