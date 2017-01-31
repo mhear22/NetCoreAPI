@@ -18,6 +18,10 @@ namespace dotapi.Actions.User
 		protected IAuthenticationService authService;
 		protected ICurrentUserService CurrentUserService;
 		protected IUserService userService;
+		
+		protected UserModel User;
+		protected UserModel CurrentUser;
+		
 		public UserAction(IUserService userService, IAuthenticationService auth, ICurrentUserService current)
 		{
 			this.userService = userService;
@@ -26,8 +30,41 @@ namespace dotapi.Actions.User
 			AddAction(() => CurrentUserBySession());
 		}
 		
-		protected UserModel User;
-		protected UserModel CurrentUser;
+		public UserAction ChangePassword(string UserIdOrName, ChangePasswordModel model)
+		{
+			AddAction(() => UserByNameOrId(UserIdOrName));
+			AddAction(() => ValidateModel(model));
+			AddAction(() => { userService.SetPassword(User.Id, model.NewPassword); return Ok(); });
+			return this;
+		}
+		
+		public UserAction LoginAction(LoginModel model)
+		{
+			AddAction(() => UserByNameOrId(model.Username));
+			AddAction(() => Login(model));
+			return this;
+		}
+		public UserAction UpdateUserAction(string UserIdOrName, UserModel model)
+		{
+			AddAction(() => UserByNameOrId(UserIdOrName));
+			AddAction(() => ValidateModel(model));
+			AddAction(() => { return Ok(authService.UpdateUser(User.Id, model)); });
+			return this;
+		}
+		
+		public UserAction CreateUserAction(CreateUserModel model)
+		{
+			AddAction(() => ValidateModel(model));
+			AddAction(() => { return Created(authService.CreateUser(model)); });
+			return this;
+		}
+		
+		public UserAction GetCurrentUserAction()
+		{
+			AddAction(() => { return Ok(CurrentUser); });
+			return this;
+		}
+		
 		private IActionResult CurrentUserBySession()
 		{
 			CurrentUser = CurrentUserService.GetCurrentUser(Request);
@@ -43,37 +80,13 @@ namespace dotapi.Actions.User
 			return null;
 		}
 		
-		public UserAction ChangePassword(string UserIdOrName, ChangePasswordModel model)
-		{
-			AddAction(() => UserByNameOrId(UserIdOrName));
-			AddAction(() => ValidateModel(model));
-			AddAction(() => ChangePassword(model));
-			return this;
-		}
-		
 		public IActionResult ValidateModel(ChangePasswordModel model)
 		{
-			//Probably do a role check here instead eventually
 			if(User.Id != CurrentUser.Id)
 				return Unauthorized("Cant change someone elses password");
-				
 			if(!userService.CheckPassword(User.Id,model.OldPassword))
 				return BadRequest("Old Password is incorrect");
-			//Check password Rules here
 			return null;
-		}
-		
-		public IActionResult ChangePassword(ChangePasswordModel model)
-		{
-			userService.SetPassword(User.Id, model.NewPassword);
-			return Ok();
-		}
-		
-		public UserAction LoginAction(LoginModel model)
-		{
-			AddAction(() => UserByNameOrId(model.Username));
-			AddAction(() => Login(model));
-			return this;
 		}
 		
 		public IActionResult Login(LoginModel model)
@@ -82,14 +95,6 @@ namespace dotapi.Actions.User
 			if(token == null)
 				return BadRequest();
 			return Ok(token);
-		}
-		
-		public UserAction UpdateUserAction(string UserIdOrName, UserModel model)
-		{
-			AddAction(() => UserByNameOrId(UserIdOrName));
-			AddAction(() => ValidateModel(model));
-			AddAction(() => UpdateUser(User.Id,model));
-			return this;
 		}
 		
 		public IActionResult ValidateModel(UserModel model)
@@ -102,18 +107,6 @@ namespace dotapi.Actions.User
 			if(duplicates.Count != 0)
 				return BadRequest("Username already taken");
 			return null;
-		}
-		
-		public IActionResult UpdateUser(string Id, UserModel model)
-		{
-			return Ok(authService.UpdateUser(Id, model));
-		}
-		
-		public UserAction CreateUserAction(CreateUserModel model)
-		{
-			AddAction(() => ValidateModel(model));
-			AddAction(() => CreateUser(model));
-			return this;
 		}
 		
 		public IActionResult ValidateModel(CreateUserModel model)
@@ -130,22 +123,6 @@ namespace dotapi.Actions.User
 			if(duplicate != null)
 				return BadRequest("Username already taken");
 			return null;
-		}
-		
-		public IActionResult CreateUser(CreateUserModel model)
-		{
-			return Created(authService.CreateUser(model));
-		}
-		
-		public UserAction GetCurrentUserAction()
-		{
-			AddAction(() => GetCurrentUser());
-			return this;
-		}
-		
-		protected IActionResult GetCurrentUser()
-		{
-			return Ok(CurrentUser);
 		}
 	}
 }
