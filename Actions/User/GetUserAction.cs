@@ -18,16 +18,13 @@ namespace dotapi.Actions.User
 		
 		public GetUserAction GetUser(string userIdOrName)
 		{
-			AddAction(() => Get(userIdOrName));
+			AddAction(() => {
+				var user = authService.Get(userIdOrName);
+				if(user == null)
+					return NotFound();
+				return Ok(user);
+			});
 			return this;
 		}
-		public IActionResult Get(string userIdOrName)
-		{
-			var user = authService.Get(userIdOrName);
-			if(user == null)
-				return NotFound();
-			return Ok(user);
-		}
 	}
-	
 }

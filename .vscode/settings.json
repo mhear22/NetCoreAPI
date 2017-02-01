@@ -9,5 +9,6 @@
 		"obj/**/*":true,
 		"Properties/**/*":true
 	},
-	"telemetry.enableTelemetry": false
+	"telemetry.enableTelemetry": false,
+	"editor.codeLens": false
 }
