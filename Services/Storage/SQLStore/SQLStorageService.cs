@@ -33,7 +33,6 @@ namespace dotapi.Services.Storage.SQLStore
 				Filename = model.Filename
 			});
 			
-			
 			var data = model.data.ToList();
 			List<byte[]> items = new List<byte[]>();
 			var chunkSize = 10^6;
@@ -67,7 +66,6 @@ namespace dotapi.Services.Storage.SQLStore
 				return pieces.Create(connect);
 			});
 			
-			
 			model.Id = result.Id;
 			return model;
 		}
@@ -80,15 +78,16 @@ namespace dotapi.Services.Storage.SQLStore
 		public StorageModel Get(string Id)
 		{
 			var dto = fileRepo.Get(Id);
-			
 			if(dto == null)
 				throw new KeyNotFoundException($"Could not find {Id}");
-			
+			var model = new StorageModel();
 			var filePieces = pieces.Where(x=>x.FileId == dto.Id).ToList().OrderBy(x=>x.PieceNumber).Select(x=>x.FilePieceId);
-			
-			//var dataPieces = piece.Where(x=>)
-			
-			throw new NotImplementedException();
+			var dataItems = piece.Where(x=>filePieces.Contains(x.Id)).ToList();
+			var file = filePieces.Select(x=> dataItems.FirstOrDefault(z=>z.Id == x)).SelectMany(x=>x.Bytes).ToArray();
+			model.data = file;
+			model.Filename = dto.Filename;
+			model.Id = dto.Id;
+			return model;
 		}
 
 		public Page<StorageItem> Search(StorageQuery query)
