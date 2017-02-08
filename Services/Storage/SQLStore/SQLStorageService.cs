@@ -35,7 +35,7 @@ namespace dotapi.Services.Storage.SQLStore
 			
 			var data = model.data.ToList();
 			List<byte[]> items = new List<byte[]>();
-			var chunkSize = 10^6;
+			var chunkSize = 1000000;
 			while(data.Any())
 			{
 				items.Add(data.Take(chunkSize).ToArray());
@@ -49,11 +49,16 @@ namespace dotapi.Services.Storage.SQLStore
 				
 				return new FilePieceDto(){
 					Id = Guid.NewGuid().ToString(),
-					Length = x.Length,
+					Length = x.Length + 1,
 					Hash = hashString,
 					Bytes = x
 				};
-			}).Select(x=> piece.Create(x)).ToList();
+			})
+			.ToList()
+			.Select(x=> {
+				return piece.Create(x);
+			})
+			.ToList();
 			
 			int index = 0;
 			dataPieces.Select(x=> {

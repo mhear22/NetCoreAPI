@@ -19,7 +19,7 @@ namespace dotapi.Controllers
 		[HttpGet]
 		public IActionResult GetImage(string ImageId)
 		{
-			return Ok();
+			return imageAction.GetFile(ImageId).WithRequest(Request);
 		}
 		
 		[Route("i/{ImageId}/detail")]
@@ -33,7 +33,6 @@ namespace dotapi.Controllers
 		[HttpPost]
 		public IActionResult UploadImage(IFormFile file)
 		{
-			
 			return imageAction.UploadFile(file).WithRequest(Request);
 		}
 		
