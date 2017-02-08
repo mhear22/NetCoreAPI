@@ -2,16 +2,17 @@ using Microsoft.AspNetCore.Mvc;
 using dotapi.Repositories;
 using dotapi.Services;
 using Microsoft.AspNetCore.Http;
+using dotapi.Actions;
 
 namespace dotapi.Controllers
 {
 	public class ImageController : ApiController
 	{
-		private IImageService imageService;
-		public ImageController(IContext context, IImageService image) 
+		private IImageAction imageAction;
+		public ImageController(IContext context, IImageAction image) 
 			: base(context)
 		{
-			this.imageService = image;
+			this.imageAction = image;
 		}
 		
 		[Route("i/{ImageId}")]
@@ -32,7 +33,8 @@ namespace dotapi.Controllers
 		[HttpPost]
 		public IActionResult UploadImage(IFormFile file)
 		{
-			return Created("","");
+			
+			return imageAction.UploadFile(file).WithRequest(Request);
 		}
 		
 		[Route("i/{ImageId}")]
