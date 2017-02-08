@@ -36,6 +36,7 @@ namespace dotapi.Services.Storage.SQLStore
 			var data = model.data.ToList();
 			List<byte[]> items = new List<byte[]>();
 			var chunkSize = 1000000;
+			//var chunkSize = 254;
 			while(data.Any())
 			{
 				items.Add(data.Take(chunkSize).ToArray());
@@ -49,7 +50,7 @@ namespace dotapi.Services.Storage.SQLStore
 				
 				return new FilePieceDto(){
 					Id = Guid.NewGuid().ToString(),
-					Length = x.Length + 1,
+					Length = x.Length,
 					Hash = hashString,
 					Bytes = x
 				};
@@ -69,8 +70,8 @@ namespace dotapi.Services.Storage.SQLStore
 					PieceNumber = index++ 
 				};
 				return pieces.Create(connect);
-			});
-			
+			}).ToList();
+			model.data = null;
 			model.Id = result.Id;
 			return model;
 		}
@@ -88,7 +89,8 @@ namespace dotapi.Services.Storage.SQLStore
 			var model = new StorageModel();
 			var filePieces = pieces.Where(x=>x.FileId == dto.Id).ToList().OrderBy(x=>x.PieceNumber).Select(x=>x.FilePieceId);
 			var dataItems = piece.Where(x=>filePieces.Contains(x.Id)).ToList();
-			var file = filePieces.Select(x=> dataItems.FirstOrDefault(z=>z.Id == x)).SelectMany(x=>x.Bytes).ToArray();
+			var fileData = filePieces.Select(x=> dataItems.FirstOrDefault(z=>z.Id == x)).Select(x=>x.Bytes).ToList();
+			var file = fileData.SelectMany(x=>x).ToArray();
 			model.data = file;
 			model.Filename = dto.Filename;
 			model.Id = dto.Id;
