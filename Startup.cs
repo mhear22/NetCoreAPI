@@ -16,6 +16,7 @@ using dotapi.Services.Storage.SQLStore;
 using dotapi.Services.Storage;
 using dotapi.Actions.User;
 using dotapi.Actions.Session;
+using dotapi.Actions;
 
 namespace dotapi
 {
@@ -83,6 +84,7 @@ namespace dotapi
 			services.AddScoped<IRepository<FileDto>, Repository<FileDto>>();
 			services.AddScoped<IRepository<FilePiecesDto>, Repository<FilePiecesDto>>();
 			services.AddScoped<IRepository<FilePieceDto>, Repository<FilePieceDto>>();
+			services.AddScoped<IImageAction, ImageAction>();
 			services.AddSwaggerGen();
 			services.ConfigureSwaggerGen(x =>
 			{
