@@ -17,6 +17,9 @@ using dotapi.Services.Storage;
 using dotapi.Actions.User;
 using dotapi.Actions.Session;
 using dotapi.Actions;
+using Amazon.S3;
+using Amazon.Runtime;
+using Amazon;
 
 namespace dotapi
 {
@@ -66,6 +69,12 @@ namespace dotapi
 					options.UseMySQL(connectionString);
 				});
 			}
+			
+			
+			var opt = Configuration.GetAWSOptions();
+			opt.Region = RegionEndpoint.APSoutheast2;
+			services.AddDefaultAWSOptions(opt);
+			services.AddAWSService<IAmazonS3>();
 			services.AddScoped<IContext, DatabaseContext>();
 			services.AddScoped<IUserAction, UserAction>();
 			services.AddScoped<IGetUserAction, GetUserAction>();

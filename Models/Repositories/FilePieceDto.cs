@@ -8,7 +8,5 @@ namespace dotapi.Models.Repositories
 		public string Id { get; set; }
 		public int Length { get; set; }
 		public string Hash { get; set; }
-		[Column(TypeName= "varbinary(max)")]
-		public byte[] Bytes { get; set; }
 	}
 }

@@ -15,7 +15,8 @@ namespace dotapi.Tests.Services
 					context, 
 					new Repository<FileDto>(context),
 					new Repository<FilePieceDto>(context),
-					new Repository<FilePiecesDto>(context)
+					new Repository<FilePiecesDto>(context),
+					null
 				)
 			)
 		{ }

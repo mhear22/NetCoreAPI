@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using Amazon.S3;
+using Amazon.S3.Model;
 using dotapi.Models.Generic;
 using dotapi.Models.Repositories;
 using dotapi.Models.Storage;
@@ -13,18 +16,20 @@ namespace dotapi.Services.Storage.SQLStore
 		private IRepository<FileDto> fileRepo;
 		private IRepository<FilePieceDto> piece;
 		private IRepository<FilePiecesDto> pieces;
-		 
-		public SQLStorageService(IContext context, 
+		private IAmazonS3 s3Client;
+		public SQLStorageService(IContext context,
 			IRepository<FileDto> fileRepo, 
 			IRepository<FilePieceDto> piece, 
-			IRepository<FilePiecesDto> pieces) 
+			IRepository<FilePiecesDto> pieces,
+			IAmazonS3 s3Client) 
 			: base(context)
 		{
+			this.s3Client = s3Client;
 			this.fileRepo = fileRepo;
 			this.piece = piece;
 			this.pieces = pieces;
 		}
-
+		private string DefaultBucket = "storage-sydney-a";
 		public StorageModel Create(StorageModel model)
 		{
 			var result = fileRepo.Create(new FileDto(){
@@ -48,7 +53,7 @@ namespace dotapi.Services.Storage.SQLStore
 				var hashString = "";
 				var hash = hashbytes.Select(z=> hashString += String.Format("{0:x2}", z)).ToArray();
 				
-				return new FilePieceDto(){
+				return new FilePieceModel(){
 					Id = Guid.NewGuid().ToString(),
 					Length = x.Length,
 					Hash = hashString,
@@ -57,10 +62,28 @@ namespace dotapi.Services.Storage.SQLStore
 			})
 			.ToList()
 			.Select(x=> {
-				return piece.Create(x);
+				var initResult = s3Client.InitiateMultipartUploadAsync(DefaultBucket, x.Hash).Result;
+				var requ = new UploadPartRequest(){
+					InputStream = new MemoryStream(x.Bytes),
+					BucketName = DefaultBucket,
+					Key = x.Hash
+				};
+				try{
+					var response = s3Client.UploadPartAsync(requ).Result;
+					if(true) { }
+				}
+				catch{}
+				s3Client.CompleteMultipartUploadAsync(new CompleteMultipartUploadRequest(){
+					Key = x.Hash,
+					BucketName = DefaultBucket
+				});
+				return piece.Create(new FilePieceDto(){
+					Id = x.Id,
+					Length = x.Length,
+					Hash = x.Hash
+				});
 			})
 			.ToList();
-			
 			int index = 0;
 			dataPieces.Select(x=> {
 				var connect = new FilePiecesDto() {
@@ -89,9 +112,18 @@ namespace dotapi.Services.Storage.SQLStore
 			var model = new StorageModel();
 			var filePieces = pieces.Where(x=>x.FileId == dto.Id).ToList().OrderBy(x=>x.PieceNumber).Select(x=>x.FilePieceId);
 			var dataItems = piece.Where(x=>filePieces.Contains(x.Id)).ToList();
-			var fileData = filePieces.Select(x=> dataItems.FirstOrDefault(z=>z.Id == x)).Select(x=>x.Bytes).ToList();
-			var file = fileData.SelectMany(x=>x).ToArray();
-			model.data = file;
+			var fileData = filePieces
+				.Select(x=> dataItems.FirstOrDefault(z=>z.Id == x))
+				.Select(x=>x.Hash)
+				.ToList()
+				.Select(x=>{
+					var result = s3Client.GetObjectAsync(DefaultBucket, x).Result;
+					byte[] part;
+					using(BinaryReader br = new BinaryReader(result.ResponseStream))
+						part = br.ReadBytes(Convert.ToInt32(result.ResponseStream.Length));
+					return part;
+				}).ToList();
+			model.data = fileData.SelectMany(x=>x).ToArray();
 			model.Filename = dto.Filename;
 			model.Id = dto.Id;
 			return model;
