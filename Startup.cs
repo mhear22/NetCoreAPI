@@ -70,9 +70,11 @@ namespace dotapi
 				});
 			}
 			
-			
+			var key = Configuration.GetSection("AWSKey").Value;
+			var secret = Configuration.GetSection("AWSSecret").Value;
 			var opt = Configuration.GetAWSOptions();
 			opt.Region = RegionEndpoint.APSoutheast2;
+			opt.Credentials =  new BasicAWSCredentials(key,secret);
 			services.AddDefaultAWSOptions(opt);
 			services.AddAWSService<IAmazonS3>();
 			services.AddScoped<IContext, DatabaseContext>();
