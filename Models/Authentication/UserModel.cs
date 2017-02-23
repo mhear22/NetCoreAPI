@@ -7,6 +7,7 @@ namespace dotapi.Models.Authentication
 		public string Id;
 		public string Username;
 		public string EmailAddress;
+		public string ImageId { get; set; }
 	}
 	
 	public static class UserModelExtentions
@@ -18,7 +19,8 @@ namespace dotapi.Models.Authentication
 			{
 				Id = dto.Id,
 				Username = dto.Username,
-				EmailAddress = dto.EmailAddress
+				EmailAddress = dto.EmailAddress,
+				ImageId = dto.ImageId
 			};
 		}
 		
@@ -29,7 +31,8 @@ namespace dotapi.Models.Authentication
 			{
 				Id = model.Id,
 				Username = model.Username,
-				EmailAddress = model.EmailAddress
+				EmailAddress = model.EmailAddress,
+				ImageId = model.ImageId
 			};
 		}
 	}
