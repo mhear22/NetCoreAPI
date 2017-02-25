@@ -1,23 +1,31 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using Amazon.S3;
-using Amazon.S3.Model;
 using dotapi.Models.Generic;
 using dotapi.Models.Repositories;
 using dotapi.Models.Storage;
 using dotapi.Repositories;
+using Amazon.S3;
+using System.Collections.Generic;
+using System.Linq;
+using System.IO;
+using System;
+using Amazon.S3.Model;
 
-namespace dotapi.Services.Storage.SQLStore
+namespace dotapi.Services
 {
-	public class SQLStorageService : ServiceBase, IStorageService
+	public interface IStorageService
+	{
+		StorageModel Get(string Id);
+		Page<StorageItem> Search(StorageQuery query);
+		void Delete(string Id);
+		StorageModel Create(StorageModel model);
+	}
+	
+	public class StorageService : ServiceBase, IStorageService
 	{
 		private IRepository<FileDto> fileRepo;
 		private IRepository<FilePieceDto> piece;
 		private IRepository<FilePiecesDto> pieces;
 		private IAmazonS3 s3Client;
-		public SQLStorageService(IContext context,
+		public StorageService(IContext context,
 			IRepository<FileDto> fileRepo, 
 			IRepository<FilePieceDto> piece, 
 			IRepository<FilePiecesDto> pieces,
