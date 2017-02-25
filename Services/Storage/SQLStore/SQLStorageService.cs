@@ -41,7 +41,6 @@ namespace dotapi.Services.Storage.SQLStore
 			var data = model.data.ToList();
 			List<byte[]> items = new List<byte[]>();
 			var chunkSize = 1000000;
-			//var chunkSize = 254;
 			while(data.Any())
 			{
 				items.Add(data.Take(chunkSize).ToArray());
@@ -62,26 +61,34 @@ namespace dotapi.Services.Storage.SQLStore
 			})
 			.ToList()
 			.Select(x=> {
-				var initResult = s3Client.InitiateMultipartUploadAsync(DefaultBucket, x.Hash).Result;
-				var requ = new UploadPartRequest(){
-					InputStream = new MemoryStream(x.Bytes),
-					BucketName = DefaultBucket,
-					Key = x.Hash
-				};
-				try{
-					var response = s3Client.UploadPartAsync(requ).Result;
-					if(true) { }
+				try
+				{
+					var DoesExist = s3Client.GetObjectAsync(DefaultBucket, x.Hash).Result;
+					return piece.Where(z=>z.Hash == x.Hash).FirstOrDefault();
 				}
-				catch{}
-				s3Client.CompleteMultipartUploadAsync(new CompleteMultipartUploadRequest(){
-					Key = x.Hash,
-					BucketName = DefaultBucket
-				});
-				return piece.Create(new FilePieceDto(){
-					Id = x.Id,
-					Length = x.Length,
-					Hash = x.Hash
-				});
+				catch
+				{
+					var initResult = s3Client.InitiateMultipartUploadAsync(DefaultBucket, x.Hash).Result;
+					var requ = new UploadPartRequest(){
+						InputStream = new MemoryStream(x.Bytes),
+						BucketName = DefaultBucket,
+						Key = x.Hash
+					};
+					try{
+						var response = s3Client.UploadPartAsync(requ).Result;
+						if(true) { }
+					}
+					catch{}
+					s3Client.CompleteMultipartUploadAsync(new CompleteMultipartUploadRequest(){
+						Key = x.Hash,
+						BucketName = DefaultBucket
+					});
+					return piece.Create(new FilePieceDto(){
+						Id = x.Id,
+						Length = x.Length,
+						Hash = x.Hash
+					});
+				}
 			})
 			.ToList();
 			int index = 0;
