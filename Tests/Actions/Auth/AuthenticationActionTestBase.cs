@@ -3,7 +3,7 @@ using dotapi.Tests.Fixtures;
 
 namespace dotapi.Tests.Actions
 {
-	public abstract class AuthenticationActionTestBase : ActionTestBase
+	public abstract class AuthenticationActionTestBase : TestBase
 	{
 		internal UserFixture _users;
 		public AuthenticationActionTestBase() 

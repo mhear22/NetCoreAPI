@@ -50,26 +50,12 @@ namespace dotapi
 			var connectionString = Configuration.GetConnectionString("DefaultConnection");
 			var basePath = PlatformServices.Default.Application.ApplicationBasePath;
 			var xmlPath = Path.Combine(basePath, "NetCoreAPI.xml");
-			
-			services.AddMvc()
-				.AddJsonOptions(x=>x.SerializerSettings.ContractResolver = new DefaultContractResolver());
-			
-			services.AddCors(x=>{
-				x.AddPolicy("cors", z=> z.AllowAnyOrigin()
-					.AllowAnyMethod()
-					.AllowAnyHeader()
-					.AllowCredentials()
-				);
-			});
-			if(IsTesting) {
+			services.AddMvc().AddJsonOptions(x=>x.SerializerSettings.ContractResolver = new DefaultContractResolver());
+			services.AddCors(x=> x.AddPolicy("cors", z=> z.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials()));
+			if(IsTesting)
 				services.AddDbContext<DatabaseContext>(options => options.UseInMemoryDatabase(),ServiceLifetime.Transient);
-			}
-			else {
-				services.AddDbContext<DatabaseContext>(options => { 
-					options.UseMySQL(connectionString);
-				});
-			}
-			
+			else
+				services.AddDbContext<DatabaseContext>(options => options.UseMySQL(connectionString));
 			var key = Configuration.GetSection("AWSKey").Value;
 			var secret = Configuration.GetSection("AWSSecret").Value;
 			var opt = Configuration.GetAWSOptions();

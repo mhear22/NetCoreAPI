@@ -4,14 +4,14 @@ using Microsoft.AspNetCore.TestHost;
 
 namespace dotapi.Tests.Actions
 {
-	public class ActionTestBase
+	public class TestBase
 	{
 		private TestServer _server;
 		public HttpClient _client;
-		public ActionTestBase()
+		public TestBase()
 		{
-			_server = new TestServer(new WebHostBuilder()
-				.UseStartup<TestStartup>());
+			var webhost = new WebHostBuilder().UseStartup<TestStartup>();
+			_server = new TestServer(webhost);
 			_client = _server.CreateClient();
 		}
 	}

@@ -6,17 +6,15 @@ using dotapi.Repositories;
 
 namespace dotapi.Controllers
 {
-	public class AuthenticationController : ApiController
+	public class UsersController : ApiController
 	{
 		private IUserAction userAction;
 		private IGetUserAction getAction;
-		private ILogoutAction logout;
-		public AuthenticationController(IContext context, IUserAction userAction, IGetUserAction getAction, ILogoutAction logout) 
+		public UsersController(IContext context, IUserAction userAction, IGetUserAction getAction) 
 			: base(context)
 		{
 			this.userAction = userAction;
 			this.getAction = getAction;
-			this.logout = logout;
 		}
 
 		[Route("users")]
@@ -26,20 +24,6 @@ namespace dotapi.Controllers
 			return userAction.CreateUserAction(model).WithRequest(Request);
 		}
 		
-		[Route("sessions")]
-		[HttpPost]
-		public IActionResult Login([FromBody]LoginModel model)
-		{
-			return this.userAction.LoginAction(model).WithRequest(Request);
-		}
-		
-		[Route("sessions")]
-		[HttpDelete]
-		public IActionResult Logout(string Token)
-		{
-			return logout.Logout(Token).WithRequest(Request);
-		}
-		
 		[Route("users/{userIdOrName}")]
 		[HttpGet]
 		public IActionResult GetUser(string userIdOrName)
@@ -47,18 +31,18 @@ namespace dotapi.Controllers
 			return getAction.GetUser(userIdOrName).WithRequest(Request);
 		}
 		
-		[Route("currentuser")]
-		[HttpGet]
-		public IActionResult GetCurrentUser()
-		{
-			return userAction.GetCurrentUserAction().WithRequest(Request);
-		}
-		
 		[Route("users/{userIdOrName}")]
 		[HttpPut]
 		public IActionResult UpdateUser(string userIdOrName, [FromBody] UserModel model)
 		{
 			return userAction.UpdateUserAction(userIdOrName, model).WithRequest(Request);
+		}
+		
+		[Route("user/{userIdOrName}/password")]
+		[HttpPost]
+		public IActionResult ChangePassword(string userIdOrName,[FromBody]ChangePasswordModel model)
+		{
+			return userAction.ChangePassword(userIdOrName, model).WithRequest(Request);
 		}
 	}
 }
