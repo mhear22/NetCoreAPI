@@ -1,3 +1,6 @@
+CoreApp/bin/
+CoreApp/obj/
 bin/
 obj/
+Debug/
 project.lock.json
