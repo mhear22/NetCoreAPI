@@ -6,7 +6,8 @@ Debug\
 CoreApp.dll
 CoreApp.pdb
 project.lock.json
-
+project.assets.json
+*.props
 
 # Created by https://www.gitignore.io/api/visualstudiocode,visualstudio,macos
 
