@@ -1,4 +1,4 @@
-using dotapi.Repositories;
+﻿using dotapi.Repositories;
 using dotapi.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -23,8 +23,8 @@ namespace dotapi
 {
 	public class TestStartup : Startup
 	{
-		public TestStartup(IHostingEnvironment env) 
-			: base(env, true) 
+		public TestStartup(IHostingEnvironment env)
+			: base(env, true)
 		{ }
 	}
 	public class Startup
@@ -47,18 +47,19 @@ namespace dotapi
 		{
 			var connectionString = Configuration.GetConnectionString("DefaultConnection");
 			var basePath = PlatformServices.Default.Application.ApplicationBasePath;
-			var xmlPath = Path.Combine(basePath, "NetCoreAPI.xml");
-			services.AddMvc().AddJsonOptions(x=>x.SerializerSettings.ContractResolver = new DefaultContractResolver());
-			services.AddCors(x=> x.AddPolicy("cors", z=> z.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials()));
-			if(IsTesting)
-				services.AddDbContext<DatabaseContext>(options => options.UseInMemoryDatabase(),ServiceLifetime.Transient);
+			var xmlPath = Path.Combine(basePath, "CoreApp.xml");
+			services.AddMvc().AddJsonOptions(x => x.SerializerSettings.ContractResolver = new DefaultContractResolver());
+			services.AddCors(x => x.AddPolicy("cors", z => z.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials()));
+			if (IsTesting)
+				services.AddDbContext<DatabaseContext>(options => options.UseInMemoryDatabase(), ServiceLifetime.Transient);
 			else
 				services.AddDbContext<DatabaseContext>(options => options.UseMySQL(connectionString));
 			var key = Configuration.GetSection("AWSKey").Value;
 			var secret = Configuration.GetSection("AWSSecret").Value;
 			var opt = Configuration.GetAWSOptions();
 			opt.Region = RegionEndpoint.APSoutheast2;
-			opt.Credentials =  new BasicAWSCredentials(key,secret);
+			opt.Credentials = new BasicAWSCredentials(key, secret);
+			
 			services.AddDefaultAWSOptions(opt);
 			services.AddAWSService<IAmazonS3>();
 			services.AddScoped<IContext, DatabaseContext>();
@@ -97,7 +98,6 @@ namespace dotapi
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
 		{
 			app.UseSwagger();
-			app.UseSwaggerUi();
 			app.UseCors("cors");
 			app.UseMvcWithDefaultRoute();
 		}

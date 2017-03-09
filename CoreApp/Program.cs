@@ -1,7 +1,10 @@
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
-using Microsoft.AspNetCore.Hosting;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Hosting;
 
 namespace dotapi
 {
@@ -9,22 +12,16 @@ namespace dotapi
 	{
 		public static void Main(string[] args)
 		{
-			var config = new ConfigurationBuilder()
-				.AddCommandLine(args)
-				.Build();
-			
 			var host = new WebHostBuilder()
-				.UseConfiguration(config)
 				.UseKestrel()
 				.UseContentRoot(Directory.GetCurrentDirectory())
 				.UseUrls(new string[]{
-					//"http://::5000",
 					"http://0.0.0.0:5000"
 				})
 				.UseIISIntegration()
 				.UseStartup<Startup>()
+				.UseApplicationInsights()
 				.Build();
-
 			host.Run();
 		}
 	}
