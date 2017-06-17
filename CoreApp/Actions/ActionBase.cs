@@ -22,10 +22,15 @@ namespace dotapi.Actions
 			
 			foreach(var action in _actions)
 			{
-				var response = action();
-				if(response != null)
-				{
-					return response;
+				try{
+					var response = action();
+					if(response != null)
+					{
+						return response;
+					}
+				}
+				catch (Exception ex){
+					return Respond(ex.Message);
 				}
 			}
 			return Respond("No Action returned a response");
