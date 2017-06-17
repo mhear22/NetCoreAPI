@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using MySQL.Data.EntityFrameworkCore.Extensions;
 using Microsoft.EntityFrameworkCore;
 using dotapi.Models.Repositories;
 using System.IO;
@@ -53,7 +52,7 @@ namespace dotapi
 			if (IsTesting)
 				services.AddDbContext<DatabaseContext>(options => options.UseInMemoryDatabase(), ServiceLifetime.Transient);
 			else
-				services.AddDbContext<DatabaseContext>(options => options.UseMySQL(connectionString));
+				services.AddDbContext<DatabaseContext>(options => options.UseMySql(connectionString));
 			var key = Configuration.GetSection("AWSKey").Value;
 			var secret = Configuration.GetSection("AWSSecret").Value;
 			var opt = Configuration.GetAWSOptions();
