@@ -329,3 +329,4 @@ __pycache__/
 # !tools/packages.config
 
 # End of https://www.gitignore.io/api/visualstudiocode,visualstudio,macos
+CoreApp/appsettings.json
