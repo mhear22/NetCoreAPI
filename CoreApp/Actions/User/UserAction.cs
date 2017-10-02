@@ -8,7 +8,6 @@ namespace dotapi.Actions.User
 	public interface IUserAction
 	{
 		UserAction ChangePassword(string UserIdOrName, ChangePasswordModel model);
-		UserAction GetCurrentUserAction();
 		UserAction CreateUserAction(CreateUserModel model);
 		UserAction UpdateUserAction(string UserIdOrName, UserModel model);
 		UserAction LoginAction(LoginModel model);
@@ -56,12 +55,6 @@ namespace dotapi.Actions.User
 		{
 			AddAction(() => ValidateModel(model));
 			AddAction(() => { return Created(authService.CreateUser(model)); });
-			return this;
-		}
-		
-		public UserAction GetCurrentUserAction()
-		{
-			AddAction(() => { return Ok(CurrentUser); });
 			return this;
 		}
 		

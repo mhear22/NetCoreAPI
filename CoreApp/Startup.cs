@@ -17,6 +17,7 @@ using dotapi.Actions;
 using Amazon.S3;
 using Amazon.Runtime;
 using Amazon;
+using CoreApp.Actions.User;
 
 namespace dotapi
 {
@@ -78,6 +79,7 @@ namespace dotapi
 			services.AddScoped<IRepository<FilePiecesDto>, Repository<FilePiecesDto>>();
 			services.AddScoped<IRepository<FilePieceDto>, Repository<FilePieceDto>>();
 			services.AddScoped<IImageAction, ImageAction>();
+			services.AddScoped<GetCurrentUserAction, GetCurrentUserAction>();
 			services.AddSwaggerGen();
 			services.ConfigureSwaggerGen(x =>
 			{
