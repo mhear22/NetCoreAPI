@@ -36,6 +36,12 @@ namespace dotapi.Actions.User
 			AddAction(() => { userService.SetPassword(User.Id, model.NewPassword); return Ok(); });
 			return this;
 		}
+
+		public UserAction GetCurrentUser()
+		{
+			AddAction(() => { return Ok(CurrentUser); });
+			return this;
+		}
 		
 		public UserAction LoginAction(LoginModel model)
 		{

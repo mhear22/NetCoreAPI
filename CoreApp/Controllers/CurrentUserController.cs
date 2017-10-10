@@ -1,4 +1,3 @@
-using CoreApp.Actions.User;
 using dotapi.Actions.User;
 using dotapi.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -7,9 +6,9 @@ namespace dotapi.Controllers
 {
 	public class CurrentUserController: ApiController
 	{
-		public GetCurrentUserAction userAction;
+		public UserAction userAction;
 
-		public CurrentUserController(IContext context, GetCurrentUserAction userAction)
+		public CurrentUserController(IContext context, UserAction userAction)
 			: base(context)
 		{
 			this.userAction = userAction;
@@ -19,7 +18,7 @@ namespace dotapi.Controllers
 		[HttpGet]
 		public IActionResult GetCurrentUser()
 		{
-			return userAction.WithRequest(Request);
+			return userAction.GetCurrentUser().WithRequest(Request);
 		}
 	}
 }
