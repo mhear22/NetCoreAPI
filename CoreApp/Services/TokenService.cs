@@ -1,9 +1,9 @@
 using System;
-using dotapi.Models.Authentication;
-using dotapi.Models.Repositories;
-using dotapi.Repositories;
+using CoreApp.Models.Authentication;
+using CoreApp.Models.Repositories;
+using CoreApp.Repositories;
 
-namespace dotapi.Services
+namespace CoreApp.Services
 {
 	public interface ITokenService
 	{

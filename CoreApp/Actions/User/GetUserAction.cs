@@ -1,7 +1,7 @@
-using dotapi.Services;
+using CoreApp.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace dotapi.Actions.User
+namespace CoreApp.Actions.User
 {
 	public interface IGetUserAction
 	{

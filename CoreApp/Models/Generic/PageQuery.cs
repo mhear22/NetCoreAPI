@@ -1,4 +1,4 @@
-namespace dotapi.Models.Generic
+namespace CoreApp.Models.Generic
 {
 	public interface IPageQuery
 	{

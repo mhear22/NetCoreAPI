@@ -1,6 +1,6 @@
-using dotapi.Models.Generic;
+using CoreApp.Models.Generic;
 
-namespace dotapi.Models.Storage
+namespace CoreApp.Models.Storage
 {
 	public class StorageQuery: PageQuery
 	{

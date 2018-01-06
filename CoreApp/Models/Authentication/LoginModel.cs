@@ -1,4 +1,4 @@
-namespace dotapi.Models.Authentication
+namespace CoreApp.Models.Authentication
 {
 	public class LoginModel
 	{

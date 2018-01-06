@@ -1,7 +1,7 @@
-using dotapi.Models.Generic;
-using dotapi.Models.Repositories;
-using dotapi.Models.Storage;
-using dotapi.Repositories;
+using CoreApp.Models.Generic;
+using CoreApp.Models.Repositories;
+using CoreApp.Models.Storage;
+using CoreApp.Repositories;
 using Amazon.S3;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.IO;
 using System;
 using Amazon.S3.Model;
 
-namespace dotapi.Services
+namespace CoreApp.Services
 {
 	public interface IStorageService
 	{

@@ -1,10 +1,10 @@
 using System.Net;
 using System.Net.Http;
-using dotapi.Models.Authentication;
+using CoreApp.Models.Authentication;
 using Newtonsoft.Json;
 using Xunit;
 
-namespace dotapi.Tests.Fixtures
+namespace CoreApp.Tests.Fixtures
 {
 	public class UserFixture : BaseFixture
 	{

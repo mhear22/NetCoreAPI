@@ -1,8 +1,8 @@
-using dotapi.Models.Repositories;
+using CoreApp.Models.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace dotapi.Repositories
+namespace CoreApp.Repositories
 {
 	public interface IContext 
 	{
@@ -12,6 +12,10 @@ namespace dotapi.Repositories
 		DbSet<FileDto> files { get; set; }
 		DbSet<FilePiecesDto> filePieces { get; set; }
 		DbSet<FilePieceDto> piece { get; set; }
+		DbSet<PostDto> posts { get; set; }
+		DbSet<PostTypeDto> postTypes { get; set; }
+
+
 		DbSet<TEntity> Set<TEntity>() where TEntity : class;
 		int SaveChanges();
 		EntityEntry Update(object entity);
@@ -30,5 +34,7 @@ namespace dotapi.Repositories
 		public DbSet<FileDto> files { get; set; }
 		public DbSet<FilePiecesDto> filePieces { get; set; }
 		public DbSet<FilePieceDto> piece { get; set; }
+		public DbSet<PostDto> posts { get; set; }
+		public DbSet<PostTypeDto> postTypes { get; set; }
 	}
 }

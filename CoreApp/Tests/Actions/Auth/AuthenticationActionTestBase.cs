@@ -1,7 +1,7 @@
-using dotapi.Models.Authentication;
-using dotapi.Tests.Fixtures;
+using CoreApp.Models.Authentication;
+using CoreApp.Tests.Fixtures;
 
-namespace dotapi.Tests.Actions
+namespace CoreApp.Tests.Actions
 {
 	public abstract class AuthenticationActionTestBase : TestBase
 	{

@@ -2,7 +2,7 @@ using System.Net.Http;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 
-namespace dotapi.Tests.Actions
+namespace CoreApp.Tests.Actions
 {
 	public class TestBase
 	{

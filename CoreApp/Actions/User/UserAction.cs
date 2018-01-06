@@ -1,9 +1,9 @@
 using System.Linq;
-using dotapi.Models.Authentication;
-using dotapi.Services;
+using CoreApp.Models.Authentication;
+using CoreApp.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace dotapi.Actions.User
+namespace CoreApp.Actions.User
 {
 	public interface IUserAction
 	{

@@ -1,7 +1,7 @@
 using System.Linq;
-using dotapi.Models.Generic;
+using CoreApp.Models.Generic;
 
-namespace dotapi.Repositories
+namespace CoreApp.Repositories
 {
 	public static class RepositoryExtentions
 	{

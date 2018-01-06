@@ -1,10 +1,10 @@
 using System;
-using dotapi.Repositories;
-using dotapi.Services;
+using CoreApp.Repositories;
+using CoreApp.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace dotapi.Tests.Services
+namespace CoreApp.Tests.Services
 {
 	public class ServiceTestBase
 	{

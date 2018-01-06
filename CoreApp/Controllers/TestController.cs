@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace dotapi.Controllers
+namespace CoreApp.Controllers
 {
 	public class TestController : Controller
 	{

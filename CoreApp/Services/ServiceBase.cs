@@ -1,6 +1,6 @@
-using dotapi.Repositories;
+using CoreApp.Repositories;
 
-namespace dotapi.Services
+namespace CoreApp.Services
 {
 	public class ServiceBase
 	{

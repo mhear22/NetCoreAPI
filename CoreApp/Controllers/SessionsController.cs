@@ -1,10 +1,10 @@
-using dotapi.Actions.Session;
-using dotapi.Actions.User;
-using dotapi.Models.Authentication;
-using dotapi.Repositories;
+using CoreApp.Actions.Session;
+using CoreApp.Actions.User;
+using CoreApp.Models.Authentication;
+using CoreApp.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
-namespace dotapi.Controllers
+namespace CoreApp.Controllers
 {
 	public class SessionsController: ApiController
 	{

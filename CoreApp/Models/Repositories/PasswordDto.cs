@@ -1,6 +1,6 @@
 using System;
 
-namespace dotapi.Models.Repositories
+namespace CoreApp.Models.Repositories
 {
 	public class PasswordDto : IRow
 	{

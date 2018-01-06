@@ -1,9 +1,9 @@
-using dotapi.Models.Authentication;
-using dotapi.Repositories;
+using CoreApp.Models.Authentication;
+using CoreApp.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Primitives;
 
-namespace dotapi.Services
+namespace CoreApp.Services
 {
 	public interface ICurrentUserService
 	{

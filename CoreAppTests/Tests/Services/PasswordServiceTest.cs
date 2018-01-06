@@ -1,10 +1,10 @@
 using System.Linq;
-using dotapi.Models.Repositories;
-using dotapi.Repositories;
-using dotapi.Services;
+using CoreApp.Models.Repositories;
+using CoreApp.Repositories;
+using CoreApp.Services;
 using Xunit;
 
-namespace dotapi.Tests.Services
+namespace CoreApp.Tests.Services
 {
 	public class PasswordServiceTest : ServiceTestBase
 	{

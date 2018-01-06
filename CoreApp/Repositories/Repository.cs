@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using dotapi.Models.Repositories;
+using CoreApp.Models.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace dotapi.Repositories
+namespace CoreApp.Repositories
 {
 	public interface IRepository<T>
 		where T : class, IRow

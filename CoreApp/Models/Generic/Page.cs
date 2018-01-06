@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace dotapi.Models.Generic
+namespace CoreApp.Models.Generic
 {
 	public class Page<T>
 	{

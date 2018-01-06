@@ -1,24 +1,24 @@
-﻿using dotapi.Repositories;
-using dotapi.Services;
+﻿using CoreApp.Repositories;
+using CoreApp.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
-using dotapi.Models.Repositories;
+using CoreApp.Models.Repositories;
 using System.IO;
 using Microsoft.Extensions.PlatformAbstractions;
 using Swashbuckle.Swagger.Model;
 using Newtonsoft.Json.Serialization;
-using dotapi.Actions.User;
-using dotapi.Actions.Session;
-using dotapi.Actions;
+using CoreApp.Actions.User;
+using CoreApp.Actions.Session;
+using CoreApp.Actions;
 using Amazon.S3;
 using Amazon.Runtime;
 using Amazon;
 
-namespace dotapi
+namespace CoreApp
 {
 	public class TestStartup : Startup
 	{

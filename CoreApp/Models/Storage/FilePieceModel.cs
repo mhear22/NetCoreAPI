@@ -1,4 +1,4 @@
-namespace dotapi.Models.Storage
+namespace CoreApp.Models.Storage
 {
 	public class FilePieceModel
 	{

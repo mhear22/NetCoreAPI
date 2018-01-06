@@ -4,7 +4,7 @@ using System.Net;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace dotapi.Actions
+namespace CoreApp.Actions
 {
 	public class ActionBase
 	{

@@ -1,6 +1,6 @@
-using dotapi.Services;
+using CoreApp.Services;
 
-namespace dotapi.Actions.Session
+namespace CoreApp.Actions.Session
 {
 	public interface ILogoutAction
 	{

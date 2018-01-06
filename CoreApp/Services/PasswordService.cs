@@ -1,11 +1,11 @@
 using System;
-using dotapi.Models.Repositories;
-using dotapi.Repositories;
+using CoreApp.Models.Repositories;
+using CoreApp.Repositories;
 using System.Security.Cryptography;
 using System.Text;
 using System.Linq;
 
-namespace dotapi.Services
+namespace CoreApp.Services
 {
 	public interface IPasswordService
 	{

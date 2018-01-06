@@ -1,4 +1,4 @@
-namespace dotapi.Models.Repositories
+namespace CoreApp.Models.Repositories
 {
 	public interface IRow
 	{

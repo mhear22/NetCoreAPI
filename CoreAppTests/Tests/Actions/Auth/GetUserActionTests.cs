@@ -2,7 +2,7 @@ using System;
 using System.Net;
 using Xunit;
 
-namespace dotapi.Tests.Actions.Auth
+namespace CoreApp.Tests.Actions.Auth
 {
 	public class GetUserActionTests : AuthenticationActionTestBase
 	{

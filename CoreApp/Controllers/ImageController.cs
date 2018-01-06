@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
-using dotapi.Repositories;
-using dotapi.Services;
+using CoreApp.Repositories;
+using CoreApp.Services;
 using Microsoft.AspNetCore.Http;
-using dotapi.Actions;
+using CoreApp.Actions;
 
-namespace dotapi.Controllers
+namespace CoreApp.Controllers
 {
 	public class ImageController : ApiController
 	{

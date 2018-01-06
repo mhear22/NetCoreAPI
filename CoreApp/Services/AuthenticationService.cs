@@ -1,11 +1,11 @@
-using dotapi.Repositories;
-using dotapi.Models.Authentication;
+using CoreApp.Repositories;
+using CoreApp.Models.Authentication;
 using System;
-using dotapi.Models.Repositories;
+using CoreApp.Models.Repositories;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace dotapi.Services
+namespace CoreApp.Services
 {
 	public interface IAuthenticationService
 	{

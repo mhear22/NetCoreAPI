@@ -1,6 +1,6 @@
-using dotapi.Models.Repositories;
+using CoreApp.Models.Repositories;
 
-namespace dotapi.Models.Authentication
+namespace CoreApp.Models.Authentication
 {
 	public class UserModel
 	{

@@ -1,7 +1,7 @@
-using dotapi.Models.Authentication;
+using CoreApp.Models.Authentication;
 using Xunit;
 
-namespace dotapi.Tests.Actions.Auth
+namespace CoreApp.Tests.Actions.Auth
 {
 	public class CreateUserActionTest : AuthenticationActionTestBase
 	{

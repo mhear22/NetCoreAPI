@@ -1,8 +1,8 @@
-using dotapi.Actions.User;
-using dotapi.Repositories;
+using CoreApp.Actions.User;
+using CoreApp.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
-namespace dotapi.Controllers
+namespace CoreApp.Controllers
 {
 	public class CurrentUserController: ApiController
 	{

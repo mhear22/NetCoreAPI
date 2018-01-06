@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using Newtonsoft.Json;
 
-namespace dotapi.Tests.Fixtures
+namespace CoreApp.Tests.Fixtures
 {
 	public class BaseFixture
 	{

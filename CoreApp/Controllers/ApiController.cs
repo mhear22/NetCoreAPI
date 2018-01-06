@@ -1,7 +1,7 @@
-using dotapi.Repositories;
+using CoreApp.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
-namespace dotapi.Controllers
+namespace CoreApp.Controllers
 {
 	public class ApiController : Controller
 	{

@@ -1,12 +1,12 @@
 using System;
 using System.IO;
-using dotapi.Actions.User;
-using dotapi.Models.Storage;
-using dotapi.Services;
+using CoreApp.Actions.User;
+using CoreApp.Models.Storage;
+using CoreApp.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace dotapi.Actions
+namespace CoreApp.Actions
 {
 	public interface IImageAction
 	{

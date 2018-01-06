@@ -1,7 +1,7 @@
-using dotapi.Models.Authentication;
-using dotapi.Repositories;
+using CoreApp.Models.Authentication;
+using CoreApp.Repositories;
 
-namespace dotapi.Services
+namespace CoreApp.Services
 {
 	public interface IUserService
 	{
