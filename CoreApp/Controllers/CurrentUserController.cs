@@ -6,9 +6,9 @@ namespace dotapi.Controllers
 {
 	public class CurrentUserController: ApiController
 	{
-		public UserAction userAction;
+		public IUserAction userAction;
 
-		public CurrentUserController(IContext context, UserAction userAction)
+		public CurrentUserController(IContext context, IUserAction userAction)
 			: base(context)
 		{
 			this.userAction = userAction;

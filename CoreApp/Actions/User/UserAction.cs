@@ -11,6 +11,7 @@ namespace dotapi.Actions.User
 		UserAction CreateUserAction(CreateUserModel model);
 		UserAction UpdateUserAction(string UserIdOrName, UserModel model);
 		UserAction LoginAction(LoginModel model);
+		UserAction GetCurrentUser();
 	}
 	public class UserAction : ActionBase, IUserAction
 	{
