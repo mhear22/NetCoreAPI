@@ -75,7 +75,7 @@ namespace CoreApp
 			services.AddScoped<IRepository<FileDto>, Repository<FileDto>>();
 			services.AddScoped<IRepository<FilePiecesDto>, Repository<FilePiecesDto>>();
 			services.AddScoped<IRepository<FilePieceDto>, Repository<FilePieceDto>>();
-			services.AddScoped<IImageAction, ImageAction>();
+			services.AddScoped<IImageService, ImageService>();
 			services.AddSwaggerGen();
 			services.ConfigureSwaggerGen(x =>
 			{

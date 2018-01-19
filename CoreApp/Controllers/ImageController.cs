@@ -8,18 +8,18 @@ namespace CoreApp.Controllers
 {
 	public class ImageController : ApiController
 	{
-		private IImageAction imageAction;
-		public ImageController(IContext context, IImageAction image) 
+		private IImageService imageService;
+		public ImageController(IContext context, IImageService imageService)
 			: base(context)
 		{
-			this.imageAction = image;
+			this.imageService = imageService;
 		}
 		
 		[Route("i/{ImageId}")]
 		[HttpGet]
 		public IActionResult GetImage(string ImageId)
 		{
-			return imageAction.GetFile(ImageId).WithRequest(Request);
+			return imageService.GetFile(ImageId);
 		}
 		
 		[Route("i/{ImageId}/detail")]
@@ -33,7 +33,8 @@ namespace CoreApp.Controllers
 		[HttpPost]
 		public IActionResult UploadImage(IFormFile file)
 		{
-			return imageAction.UploadFile(file).WithRequest(Request);
+			imageService.UploadFile(file);
+			return Ok();
 		}
 		
 		[Route("i/{ImageId}")]
