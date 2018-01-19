@@ -1,5 +1,4 @@
 using CoreApp.Actions.User;
-using CoreApp.Actions.Session;
 using CoreApp.Models.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using CoreApp.Repositories;

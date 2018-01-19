@@ -1,7 +1,7 @@
-using CoreApp.Actions.Session;
 using CoreApp.Actions.User;
 using CoreApp.Models.Authentication;
 using CoreApp.Repositories;
+using CoreApp.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoreApp.Controllers
@@ -9,12 +9,17 @@ namespace CoreApp.Controllers
 	public class SessionsController: ApiController
 	{
 		private IUserAction userAction;
-		private ILogoutAction logout;
-		public SessionsController(IContext context, IUserAction userAction, ILogoutAction logout)
+		private IAuthenticationService authenticationService;
+
+		public SessionsController(
+			IContext context,
+			IUserAction userAction,
+			IAuthenticationService authenticationService
+		)
 			: base(context) 
 		{
+			this.authenticationService = authenticationService;
 			this.userAction = userAction;
-			this.logout = logout;
 		}
 		
 		[Route("sessions")]
@@ -26,9 +31,11 @@ namespace CoreApp.Controllers
 		
 		[Route("sessions")]
 		[HttpDelete]
-		public IActionResult Logout(string Token)
+		public IActionResult Logout(string Id)
 		{
-			return logout.Logout(Token).WithRequest(Request);
+			if (!string.IsNullOrWhiteSpace(Id))
+				authenticationService.Logout(Id);
+			return Ok();
 		}
 	}
 }

@@ -12,7 +12,6 @@ using Microsoft.Extensions.PlatformAbstractions;
 using Swashbuckle.Swagger.Model;
 using Newtonsoft.Json.Serialization;
 using CoreApp.Actions.User;
-using CoreApp.Actions.Session;
 using CoreApp.Actions;
 using Amazon.S3;
 using Amazon.Runtime;
@@ -66,7 +65,6 @@ namespace CoreApp
 			services.AddScoped<IGetUserAction, GetUserAction>();
 			services.AddScoped<IUserService, UserService>();
 			services.AddScoped<ICurrentUserService, CurrentUserService>();
-			services.AddScoped<ILogoutAction, LogoutAction>();
 			services.AddScoped<IStorageService, StorageService>();
 			services.AddScoped<IAuthenticationService, AuthenticationService>();
 			services.AddScoped<IPasswordService, PasswordService>();
