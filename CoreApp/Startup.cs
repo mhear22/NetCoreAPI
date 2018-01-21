@@ -1,21 +1,19 @@
-﻿using CoreApp.Repositories;
+﻿using Amazon;
+using Amazon.Runtime;
+using Amazon.S3;
+using CoreApp.Models.Repositories;
+using CoreApp.Repositories;
 using CoreApp.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.EntityFrameworkCore;
-using CoreApp.Models.Repositories;
-using System.IO;
 using Microsoft.Extensions.PlatformAbstractions;
-using Swashbuckle.Swagger.Model;
 using Newtonsoft.Json.Serialization;
-using CoreApp.Actions.User;
-using CoreApp.Actions;
-using Amazon.S3;
-using Amazon.Runtime;
-using Amazon;
+using Swashbuckle.Swagger.Model;
+using System.IO;
 
 namespace CoreApp
 {
@@ -61,10 +59,7 @@ namespace CoreApp
 			services.AddDefaultAWSOptions(opt);
 			services.AddAWSService<IAmazonS3>();
 			services.AddScoped<IContext, DatabaseContext>();
-			services.AddScoped<IUserAction, UserAction>();
-			services.AddScoped<IGetUserAction, GetUserAction>();
 			services.AddScoped<IUserService, UserService>();
-			services.AddScoped<ICurrentUserService, CurrentUserService>();
 			services.AddScoped<IStorageService, StorageService>();
 			services.AddScoped<IAuthenticationService, AuthenticationService>();
 			services.AddScoped<IPasswordService, PasswordService>();

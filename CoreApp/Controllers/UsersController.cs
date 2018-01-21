@@ -1,47 +1,52 @@
-using CoreApp.Actions.User;
 using CoreApp.Models.Authentication;
-using Microsoft.AspNetCore.Mvc;
 using CoreApp.Repositories;
+using CoreApp.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CoreApp.Controllers
 {
 	public class UsersController : ApiController
 	{
-		private IUserAction userAction;
-		private IGetUserAction getAction;
-		public UsersController(IContext context, IUserAction userAction, IGetUserAction getAction) 
+		private IUserService userService;
+		public UsersController(IContext context,IUserService userService) 
 			: base(context)
 		{
-			this.userAction = userAction;
-			this.getAction = getAction;
+			this.userService = userService;
 		}
 
 		[Route("users")]
 		[HttpPost]
 		public IActionResult CreateUser([FromBody]CreateUserModel model)
 		{
-			return userAction.CreateUserAction(model).WithRequest(Request);
+			userService.CreateUser(model);
+			return Ok();
 		}
 		
 		[Route("users/{userIdOrName}")]
 		[HttpGet]
 		public IActionResult GetUser(string userIdOrName)
 		{
-			return getAction.GetUser(userIdOrName).WithRequest(Request);
+			return Ok(userService.GetUser(userIdOrName));
 		}
 		
 		[Route("users/{userIdOrName}")]
 		[HttpPut]
 		public IActionResult UpdateUser(string userIdOrName, [FromBody] UserModel model)
 		{
-			return userAction.UpdateUserAction(userIdOrName, model).WithRequest(Request);
+			var user = userService.GetUser(userIdOrName);
+			userService.UpdateUser(user.Id, model);
+			return Ok();
 		}
 		
 		[Route("user/{userIdOrName}/password")]
 		[HttpPost]
 		public IActionResult ChangePassword(string userIdOrName,[FromBody]ChangePasswordModel model)
 		{
-			return userAction.ChangePassword(userIdOrName, model).WithRequest(Request);
+			var currentUser = userService.GetFromSession(GetAPIKey());
+			if (!userService.CheckPassword(currentUser.Id, model.OldPassword))
+				return BadRequest("Old Password is incorrect");
+			userService.SetPassword(currentUser.Id, model.NewPassword);
+			return Ok();
 		}
 	}
 }
