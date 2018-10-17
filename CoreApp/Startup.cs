@@ -12,7 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
 using Newtonsoft.Json.Serialization;
-using Swashbuckle.Swagger.Model;
+using Swashbuckle.AspNetCore.Swagger;
 using System.IO;
 
 namespace CoreApp
@@ -71,15 +71,14 @@ namespace CoreApp
 			services.AddScoped<IRepository<FilePiecesDto>, Repository<FilePiecesDto>>();
 			services.AddScoped<IRepository<FilePieceDto>, Repository<FilePieceDto>>();
 			services.AddScoped<IImageService, ImageService>();
-			services.AddSwaggerGen();
-			services.ConfigureSwaggerGen(x =>
+			services.AddSwaggerGen(x=>
 			{
-				x.SingleApiVersion(new Info
+				x.SwaggerDoc("v1", new Info
 				{
 					Version = "v1",
 					Title = "App",
 					Description = "Api",
-					TermsOfService = "None",
+					TermsOfService = "None"
 				});
 				x.IncludeXmlComments(xmlPath);
 				x.DescribeAllEnumsAsStrings();
@@ -90,8 +89,13 @@ namespace CoreApp
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
 		{
 			app.UseSwagger();
+			app.UseSwaggerUI(x=>
+			{
+				x.RoutePrefix = "";
+				x.SwaggerEndpoint("/swagger/v1/swagger.json", "Api");
+			});
 			app.UseCors("cors");
-			app.UseMvcWithDefaultRoute();
+			app.UseMvc();
 		}
 	}
 }

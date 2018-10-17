@@ -10,5 +10,12 @@ namespace CoreApp.Controllers
 		{
 			return Ok("Server Up");
 		}
+
+		[HttpGet]
+		[Route("")]
+		public IActionResult RedirectToSwagger()
+		{
+			return Redirect("/swagger/index.html");
+		}
 	}
 }
