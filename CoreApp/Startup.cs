@@ -91,7 +91,7 @@ namespace CoreApp
 			app.UseSwagger();
 			app.UseSwaggerUI(x=>
 			{
-				x.RoutePrefix = "";
+				x.RoutePrefix = "swagger";
 				x.SwaggerEndpoint("/swagger/v1/swagger.json", "Api");
 			});
 			app.UseCors("cors");
