@@ -6,7 +6,7 @@ namespace CoreApp.Controllers
 {
 	public class ApiController : Controller
 	{
-		protected IContext Context { get; private set;}
+		protected IContext Context { get; private set; }
 		public ApiController(IContext context)
 		{
 			this.Context = context;
@@ -17,9 +17,19 @@ namespace CoreApp.Controllers
 			StringValues prim = "";
 			try
 			{
-				Request.Query.TryGetValue("api_key", out prim);
+				Request.Query.TryGetValue("apikey", out prim);
 			}
 			catch { }
+			if(string.IsNullOrWhiteSpace(prim))
+			{
+				try
+				{
+					Request.Headers.TryGetValue("apikey", out prim);
+				}
+				catch { }
+			}
+
+
 			var apikey = prim.ToString();
 			return apikey;
 		}

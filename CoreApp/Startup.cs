@@ -79,10 +79,15 @@ namespace CoreApp
 					Version = "v1",
 					Title = "App",
 					Description = "Api",
-					TermsOfService = "None"
+					TermsOfService = "None",
 				});
 				x.IncludeXmlComments(xmlPath);
 				x.DescribeAllEnumsAsStrings();
+				x.AddSecurityDefinition("apikey", new ApiKeyScheme(){
+					Description = "ApiKey",
+					In = "header",
+					Name = "Authorization",
+				});
 			});
 		}
 
