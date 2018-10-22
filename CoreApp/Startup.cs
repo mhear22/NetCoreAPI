@@ -33,6 +33,7 @@ namespace CoreApp
 				.SetBasePath(env.ContentRootPath)
 				.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
 				.AddEnvironmentVariables();
+            
 			Configuration = builder.Build();
 		}
 
