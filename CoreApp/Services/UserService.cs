@@ -2,6 +2,7 @@ using CoreApp.Models.Authentication;
 using CoreApp.Models.Repositories;
 using CoreApp.Repositories;
 using System;
+using System.Linq;
 
 namespace CoreApp.Services
 {
@@ -60,7 +61,7 @@ namespace CoreApp.Services
 		{
 			return userRepository.Update(Id, model.ToDTO()).ToModel();
 		}
-
+        
 		public UserModel CreateUser(CreateUserModel model)
 		{
 			var userDto = new UserDto()
@@ -69,7 +70,7 @@ namespace CoreApp.Services
 				EmailAddress = model.EmailAddress,
 				Id = Guid.NewGuid().ToString()
 			};
-
+            
 			userRepository.Create(userDto);
 			passwordService.SetPassword(userDto.Id, model.Password);
 			return GetUser(userDto.Id);

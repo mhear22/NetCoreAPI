@@ -44,7 +44,7 @@ namespace CoreApp.Tests.Fixtures
 		{
 			var request = CreateUserRequest(model);
 			
-			if(request.StatusCode != HttpStatusCode.Created)
+			if(request.StatusCode != HttpStatusCode.OK)
 				return null;
 			
 			var responseModel = JsonConvert.DeserializeObject<UserModel>(
@@ -85,10 +85,9 @@ namespace CoreApp.Tests.Fixtures
 			
 			if(request.StatusCode != HttpStatusCode.OK)
 				return null;
-			return JsonConvert.DeserializeObject<string>(
-				request.Content.ReadAsStringAsync().Result
-			);
-			
+
+            var data = request.Content.ReadAsStringAsync().Result;
+            return data;
 		}
 	}
 }

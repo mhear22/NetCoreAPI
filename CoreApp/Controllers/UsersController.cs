@@ -2,6 +2,7 @@ using CoreApp.Models.Authentication;
 using CoreApp.Repositories;
 using CoreApp.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace CoreApp.Controllers
 {
@@ -18,15 +19,19 @@ namespace CoreApp.Controllers
 		[HttpPost]
 		public IActionResult CreateUser([FromBody]CreateUserModel model)
 		{
-			userService.CreateUser(model);
-			return Ok();
+            if(Context.users.Any(x => x.Username == model.Username))
+                return BadRequest("Duplicate Username");
+			return Ok(userService.CreateUser(model));
 		}
 		
 		[Route("users/{userIdOrName}")]
 		[HttpGet]
 		public IActionResult GetUser(string userIdOrName)
 		{
-			return Ok(userService.GetUser(userIdOrName));
+            var result = userService.GetUser(userIdOrName);
+            if (result == null)
+                return NotFound();
+            return Ok(result);
 		}
 		
 		[Route("users/{userIdOrName}")]
@@ -34,8 +39,7 @@ namespace CoreApp.Controllers
 		public IActionResult UpdateUser(string userIdOrName, [FromBody] UserModel model)
 		{
 			var user = userService.GetUser(userIdOrName);
-			userService.UpdateUser(user.Id, model);
-			return Ok();
+			return Ok(userService.UpdateUser(user.Id, model));
 		}
 		
 		[Route("user/{userIdOrName}/password")]

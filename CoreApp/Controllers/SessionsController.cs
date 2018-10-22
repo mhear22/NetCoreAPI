@@ -23,6 +23,8 @@ namespace CoreApp.Controllers
 		public IActionResult Login([FromBody]LoginModel model)
 		{
 			var key = authenticationService.Login(model);
+            if (string.IsNullOrWhiteSpace(key))
+                return BadRequest("Login Failed");
 			return Ok(key);
 		}
 		
