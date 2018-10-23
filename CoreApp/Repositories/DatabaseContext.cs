@@ -21,6 +21,9 @@ namespace CoreApp.Repositories
 		DbSet<CarDto> Cars { get; set; }
 		DbSet<OwnedCarDto> OwnedCars { get; set; }
 		DbSet<ManufacturerDto> Manufacturers { get; set; }
+		DbSet<VinWMI> VinWMIs { get; set; }
+		DbSet<VinVDS> VinVDSs { get; set; }
+		DbSet<VinVIS> VinVISs { get; set; }
 
 		DbSet<TEntity> Set<TEntity>() where TEntity : class;
 		int SaveChanges();
@@ -45,6 +48,9 @@ namespace CoreApp.Repositories
 		public DbSet<CarDto> Cars { get; set; }
 		public DbSet<OwnedCarDto> OwnedCars { get; set; }
 		public DbSet<ManufacturerDto> Manufacturers { get; set; }
+		public DbSet<VinWMI> VinWMIs { get; set; }
+		public DbSet<VinVDS> VinVDSs { get; set; }
+		public DbSet<VinVIS> VinVISs { get; set; }
 	}
 
 	public class DatabaseBuilder : IDesignTimeDbContextFactory<DatabaseContext>

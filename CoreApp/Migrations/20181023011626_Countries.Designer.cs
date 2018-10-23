@@ -3,14 +3,16 @@ using System;
 using CoreApp.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CoreApp.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20181023011626_Countries")]
+    partial class Countries
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -175,42 +177,6 @@ namespace CoreApp.Migrations
                     b.HasIndex("CarId");
 
                     b.ToTable("OwnedCars");
-                });
-
-            modelBuilder.Entity("CoreApp.Models.Repositories.Vehicle.VinVDS", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Matcher");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("VinVDSs");
-                });
-
-            modelBuilder.Entity("CoreApp.Models.Repositories.Vehicle.VinVIS", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Matcher");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("VinVISs");
-                });
-
-            modelBuilder.Entity("CoreApp.Models.Repositories.Vehicle.VinWMI", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Matcher");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("VinWMIs");
                 });
 
             modelBuilder.Entity("CoreApp.Models.Repositories.Vehicle.CarDto", b =>

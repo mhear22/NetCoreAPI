@@ -11,7 +11,7 @@ namespace CoreApp.Services
 	public interface IManufacturerService
 	{
 		ManufacturerModel GetForId(string ManufacturerId);
-		ManufacturerModel GetForVinPrefix(string VinPrefix);
+		ManufacturerModel GetForVinPrefix(string Vin);
 	}
 
 	public class ManufacturerService : ServiceBase, IManufacturerService

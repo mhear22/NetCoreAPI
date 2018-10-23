@@ -75,6 +75,7 @@ namespace CoreApp
 			services.AddRepo<ManufacturerDto>();
 			services.AddRepo<OwnedCarDto>();
 			services.AddRepo<CarDto>();
+			services.AddRepo<CountryDto>();
 
 			services.AddScoped<IImageService, ImageService>();
 			services.AddScoped<IManufacturerService, ManufacturerService>();
