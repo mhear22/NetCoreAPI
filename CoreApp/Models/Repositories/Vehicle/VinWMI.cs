@@ -13,7 +13,7 @@ namespace CoreApp.Models.Repositories.Vehicle
 	{
 		public string Id { get; set; }
 		public string Matcher { get; set; }
-
+		
 		public string CountryId { get; set; }
 		public string ManufacturerId { get; set; }
 

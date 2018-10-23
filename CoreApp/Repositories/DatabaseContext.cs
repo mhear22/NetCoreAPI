@@ -24,6 +24,7 @@ namespace CoreApp.Repositories
 		DbSet<VinWMI> VinWMIs { get; set; }
 		DbSet<VinVDS> VinVDSs { get; set; }
 		DbSet<VinVIS> VinVISs { get; set; }
+		DbSet<CountryDto> Countries { get; set; }
 
 		DbSet<TEntity> Set<TEntity>() where TEntity : class;
 		int SaveChanges();
@@ -41,16 +42,9 @@ namespace CoreApp.Repositories
 		{
 			base.OnModelCreating(modelBuilder);
 
-			modelBuilder.Entity<CountryDto>().HasData(
-				new { Id = "8b6e9487-db5b-4985-9852-ecca594d0024", Name = "Australia", VinPrefix = "6" }
-			);
-			modelBuilder.Entity<ManufacturerDto>().HasData(
-				new { Id = "8b6e9487-db5b-4985-9852-ecca594d0024", Name = "Toyota", VinPrefix = "" }
-			);
-
-			modelBuilder.Entity<VinWMI>().HasData(
-				new { Id= "8b6e9487-db5b-4985-9852-ecca594d0024", Matcher = "6T1", CountryId = "8b6e9487-db5b-4985-9852-ecca594d0024", ManufacturerId = "8b6e9487-db5b-4985-9852-ecca594d0024" }
-			);
+			StaticData.Countries.ForEach(x => modelBuilder.Entity<CountryDto>().HasData(x));
+			StaticData.Manufacturers.ForEach(x => modelBuilder.Entity<ManufacturerDto>().HasData(x));
+			StaticData.WorldManufactuerIdenifier.ForEach(x => modelBuilder.Entity<VinWMI>().HasData(x));
 		}
 
 		public DbSet<UserDto> Users { get; set; }
@@ -67,6 +61,7 @@ namespace CoreApp.Repositories
 		public DbSet<VinWMI> VinWMIs { get; set; }
 		public DbSet<VinVDS> VinVDSs { get; set; }
 		public DbSet<VinVIS> VinVISs { get; set; }
+		public DbSet<CountryDto> Countries { get; set; }
 	}
 
 	public class DatabaseBuilder : IDesignTimeDbContextFactory<DatabaseContext>

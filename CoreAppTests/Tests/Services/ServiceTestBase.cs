@@ -32,9 +32,14 @@ namespace CoreAppTests.Tests.Services
 				.BuildServiceProvider();
 			
 			var builder = new DbContextOptionsBuilder<DatabaseContext>();
-			builder.UseInMemoryDatabase()
+			builder.UseInMemoryDatabase("Test")
 				.UseInternalServiceProvider(provider);
 			options = builder.Options;
+
+			Context.Countries.AddRange(StaticData.Countries);
+			Context.VinWMIs.AddRange(StaticData.WorldManufactuerIdenifier);
+			Context.Manufacturers.AddRange(StaticData.Manufacturers);
+			Context.SaveChanges();
 		}
 	}
 	

@@ -44,7 +44,7 @@ namespace CoreApp.Services
 			var WMI = Vin.Substring(0, 3);
 			var VDS = Vin.Substring(3, 6);
 			var VIS = Vin.Substring(9, 8);
-
+			
 			var WMIData = VinWMI.Where(x => x.Matcher == WMI)
 				.Include(x=>x.Manufacturer)
 				.Include(x=>x.Country)
@@ -52,8 +52,8 @@ namespace CoreApp.Services
 
 			return new CarModel()
 			{
-				Manufacturer = WMIData.Manufacturer.ToModel(),
-				ManufacturerId = WMIData.ManufacturerId,
+				Manufacturer = WMIData?.Manufacturer?.ToModel(),
+				ManufacturerId = WMIData?.ManufacturerId,
 				Vin = Vin
 			};
 		}

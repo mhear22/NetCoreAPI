@@ -49,7 +49,7 @@ namespace CoreApp
 			services.AddMvc().AddJsonOptions(x => x.SerializerSettings.ContractResolver = new DefaultContractResolver());
 			services.AddCors(x => x.AddPolicy("cors", z => z.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials()));
 			if (IsTesting)
-				services.AddDbContext<DatabaseContext>(options => options.UseInMemoryDatabase(), ServiceLifetime.Transient);
+				services.AddDbContext<DatabaseContext>(options => options.UseInMemoryDatabase("Test"), ServiceLifetime.Transient);
 			else
 				services.AddDbContext<DatabaseContext>(options => options.UseMySql(connectionString));
 			var key = Configuration.GetSection("AWSKey").Value;
