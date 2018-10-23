@@ -2,6 +2,7 @@
 using Amazon.Runtime;
 using Amazon.S3;
 using CoreApp.Models.Repositories;
+using CoreApp.Models.Repositories.Vehicle;
 using CoreApp.Repositories;
 using CoreApp.Services;
 using Microsoft.AspNetCore.Builder;
@@ -33,7 +34,7 @@ namespace CoreApp
 				.SetBasePath(env.ContentRootPath)
 				.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
 				.AddEnvironmentVariables();
-            
+			
 			Configuration = builder.Build();
 		}
 
@@ -65,13 +66,19 @@ namespace CoreApp
 			services.AddScoped<IAuthenticationService, AuthenticationService>();
 			services.AddScoped<IPasswordService, PasswordService>();
 			services.AddScoped<ITokenService, TokenService>();
-			services.AddScoped<IRepository<SessionDto>, Repository<SessionDto>>();
-			services.AddScoped<IRepository<PasswordDto>, Repository<PasswordDto>>();
-			services.AddScoped<IRepository<UserDto>, Repository<UserDto>>();
-			services.AddScoped<IRepository<FileDto>, Repository<FileDto>>();
-			services.AddScoped<IRepository<FilePiecesDto>, Repository<FilePiecesDto>>();
-			services.AddScoped<IRepository<FilePieceDto>, Repository<FilePieceDto>>();
+
+			services.AddRepo<SessionDto>();
+			services.AddRepo<UserDto>();
+			services.AddRepo<FileDto>();
+			services.AddRepo<FilePiecesDto>();
+			services.AddRepo<FilePieceDto>();
+			services.AddRepo<ManufacturerDto>();
+			services.AddRepo<OwnedCarDto>();
+			services.AddRepo<CarDto>();
+
 			services.AddScoped<IImageService, ImageService>();
+			services.AddScoped<IManufacturerService, ManufacturerService>();
+			services.AddScoped<IVinService, VinService>();
 			services.AddSwaggerGen(x=>
 			{
 				x.SwaggerDoc("v1", new Info
@@ -102,6 +109,15 @@ namespace CoreApp
 			});
 			app.UseCors("cors");
 			app.UseMvc();
+		}
+	}
+
+	public static class StartupHelpers
+	{
+		public static void AddRepo<T>(this IServiceCollection services)
+			where T : class, IRow
+		{
+			services.AddScoped<IRepository<T>, Repository<T>>();
 		}
 	}
 }

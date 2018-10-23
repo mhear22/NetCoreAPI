@@ -19,7 +19,7 @@ namespace CoreApp.Controllers
 		[HttpPost]
 		public IActionResult CreateUser([FromBody]CreateUserModel model)
 		{
-            if(Context.users.Any(x => x.Username == model.Username))
+            if(Context.Users.Any(x => x.Username == model.Username))
                 return BadRequest("Duplicate Username");
 			return Ok(userService.CreateUser(model));
 		}

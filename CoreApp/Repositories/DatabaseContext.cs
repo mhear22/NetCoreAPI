@@ -1,4 +1,5 @@
 using CoreApp.Models.Repositories;
+using CoreApp.Models.Repositories.Vehicle;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Design;
@@ -9,15 +10,17 @@ namespace CoreApp.Repositories
 {
 	public interface IContext
 	{
-		DbSet<UserDto> users { get; set; }
-		DbSet<PasswordDto> passwords { get; set; }
-		DbSet<SessionDto> sessions { get; set; }
-		DbSet<FileDto> files { get; set; }
-		DbSet<FilePiecesDto> filePieces { get; set; }
-		DbSet<FilePieceDto> piece { get; set; }
-		DbSet<PostDto> posts { get; set; }
-		DbSet<PostTypeDto> postTypes { get; set; }
-
+		DbSet<UserDto> Users { get; set; }
+		DbSet<PasswordDto> Passwords { get; set; }
+		DbSet<SessionDto> Sessions { get; set; }
+		DbSet<FileDto> Files { get; set; }
+		DbSet<FilePiecesDto> FilePieces { get; set; }
+		DbSet<FilePieceDto> Piece { get; set; }
+		DbSet<PostDto> Posts { get; set; }
+		DbSet<PostTypeDto> PostTypes { get; set; }
+		DbSet<CarDto> Cars { get; set; }
+		DbSet<OwnedCarDto> OwnedCars { get; set; }
+		DbSet<ManufacturerDto> Manufacturers { get; set; }
 
 		DbSet<TEntity> Set<TEntity>() where TEntity : class;
 		int SaveChanges();
@@ -31,16 +34,17 @@ namespace CoreApp.Repositories
 			: base(options)
 		{ }
 
-		public DbSet<UserDto> users { get; set; }
-		public DbSet<PasswordDto> passwords { get; set; }
-		public DbSet<SessionDto> sessions { get; set; }
-		public DbSet<FileDto> files { get; set; }
-		public DbSet<FilePiecesDto> filePieces { get; set; }
-		public DbSet<FilePieceDto> piece { get; set; }
-		public DbSet<PostDto> posts { get; set; }
-		public DbSet<PostTypeDto> postTypes { get; set; }
-
-
+		public DbSet<UserDto> Users { get; set; }
+		public DbSet<PasswordDto> Passwords { get; set; }
+		public DbSet<SessionDto> Sessions { get; set; }
+		public DbSet<FileDto> Files { get; set; }
+		public DbSet<FilePiecesDto> FilePieces { get; set; }
+		public DbSet<FilePieceDto> Piece { get; set; }
+		public DbSet<PostDto> Posts { get; set; }
+		public DbSet<PostTypeDto> PostTypes { get; set; }
+		public DbSet<CarDto> Cars { get; set; }
+		public DbSet<OwnedCarDto> OwnedCars { get; set; }
+		public DbSet<ManufacturerDto> Manufacturers { get; set; }
 	}
 
 	public class DatabaseBuilder : IDesignTimeDbContextFactory<DatabaseContext>
