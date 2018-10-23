@@ -19,8 +19,8 @@ namespace CoreApp.Controllers
 		[HttpPost]
 		public IActionResult CreateUser([FromBody]CreateUserModel model)
 		{
-            if(Context.Users.Any(x => x.Username == model.Username))
-                return BadRequest("Duplicate Username");
+			if(Context.Users.Any(x => x.Username == model.Username))
+				return BadRequest("Duplicate Username");
 			return Ok(userService.CreateUser(model));
 		}
 		
@@ -28,10 +28,10 @@ namespace CoreApp.Controllers
 		[HttpGet]
 		public IActionResult GetUser(string userIdOrName)
 		{
-            var result = userService.GetUser(userIdOrName);
-            if (result == null)
-                return NotFound();
-            return Ok(result);
+			var result = userService.GetUser(userIdOrName);
+			if (result == null)
+				return NotFound();
+			return Ok(result);
 		}
 		
 		[Route("users/{userIdOrName}")]

@@ -1,7 +1,7 @@
 using CoreApp.Models.Authentication;
-using CoreApp.Tests.Fixtures;
+using CoreAppTests.Tests.Fixtures;
 
-namespace CoreApp.Tests.Actions
+namespace CoreAppTests.Tests.Actions
 {
 	public abstract class AuthenticationActionTestBase : TestBase
 	{

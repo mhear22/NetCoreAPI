@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,6 +14,14 @@ namespace CoreApp.Models.Repositories.Vehicle
 		public string Id { get; set; }
 		public string Matcher { get; set; }
 
+		public string CountryId { get; set; }
+		public string ManufacturerId { get; set; }
+
+		[ForeignKey("ManufacturerId")]
+		public ManufacturerDto Manufacturer { get; set; }
+
+		[ForeignKey("CountryId")]
+		public CountryDto Country { get; set; }
 	}
 
 	/// <summary>

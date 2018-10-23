@@ -16,6 +16,8 @@ namespace CoreApp.Models.Vehicle
 	{
 		public static ManufacturerModel ToModel(this ManufacturerDto dto)
 		{
+			if (dto == null)
+				return null;
 			return new ManufacturerModel()
 			{
 				Name = dto.Name,

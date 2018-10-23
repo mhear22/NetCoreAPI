@@ -1,27 +1,36 @@
 using System;
+using System.Linq;
 using CoreApp.Repositories;
+using CoreApp;
 using CoreApp.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CoreApp.Tests.Services
+namespace CoreAppTests.Tests.Services
 {
 	public class ServiceTestBase
 	{
 		private DbContextOptions<DatabaseContext> options;
 		protected IServiceProvider provider;
+		private DatabaseContext privateContext;
 		protected DatabaseContext Context
 		{
 			get 
 			{
-				return new DatabaseContext(options);
+				if(privateContext == null)
+					privateContext = new DatabaseContext(options);
+				return privateContext;
 			}
 		}
+
 		public ServiceTestBase()
 		{
 			provider = new ServiceCollection()
 				.AddEntityFrameworkInMemoryDatabase()
+				.RegisterService()
+				.AddScoped<IContext>(x=> { return Context; })
 				.BuildServiceProvider();
+			
 			var builder = new DbContextOptionsBuilder<DatabaseContext>();
 			builder.UseInMemoryDatabase()
 				.UseInternalServiceProvider(provider);
@@ -30,7 +39,6 @@ namespace CoreApp.Tests.Services
 	}
 	
 	public class ServiceTestBase<T> : ServiceTestBase
-		where T: ServiceBase
 	{
 		protected T Service;
 		
@@ -38,6 +46,13 @@ namespace CoreApp.Tests.Services
 			: base()
 		{
 			Service = ServiceConstuctor(Context);
+		}
+
+		public ServiceTestBase()
+			:base()
+		{
+
+			Service = (T)provider.GetService<T>();
 		}
 	}
 }

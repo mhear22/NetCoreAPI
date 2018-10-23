@@ -37,6 +37,22 @@ namespace CoreApp.Repositories
 			: base(options)
 		{ }
 
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			base.OnModelCreating(modelBuilder);
+
+			modelBuilder.Entity<CountryDto>().HasData(
+				new { Id = "8b6e9487-db5b-4985-9852-ecca594d0024", Name = "Australia", VinPrefix = "6" }
+			);
+			modelBuilder.Entity<ManufacturerDto>().HasData(
+				new { Id = "8b6e9487-db5b-4985-9852-ecca594d0024", Name = "Toyota", VinPrefix = "" }
+			);
+
+			modelBuilder.Entity<VinWMI>().HasData(
+				new { Id= "8b6e9487-db5b-4985-9852-ecca594d0024", Matcher = "6T1", CountryId = "8b6e9487-db5b-4985-9852-ecca594d0024", ManufacturerId = "8b6e9487-db5b-4985-9852-ecca594d0024" }
+			);
+		}
+
 		public DbSet<UserDto> Users { get; set; }
 		public DbSet<PasswordDto> Passwords { get; set; }
 		public DbSet<SessionDto> Sessions { get; set; }

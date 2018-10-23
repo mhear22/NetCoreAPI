@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using CoreApp.Models.Repositories.Vehicle;
 using CoreApp.Models.Vehicle;
 using CoreApp.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace CoreApp.Services
 {
@@ -41,12 +42,20 @@ namespace CoreApp.Services
 		{
 			var result = new CarModel();
 			var WMI = Vin.Substring(0, 3);
-			var VDS = Vin.Substring(4, 6);
-			var VIS = Vin.Substring(10, 8);
+			var VDS = Vin.Substring(3, 6);
+			var VIS = Vin.Substring(9, 8);
 
+			var WMIData = VinWMI.Where(x => x.Matcher == WMI)
+				.Include(x=>x.Manufacturer)
+				.Include(x=>x.Country)
+				.FirstOrDefault();
 
-
-			return null;
+			return new CarModel()
+			{
+				Manufacturer = WMIData.Manufacturer.ToModel(),
+				ManufacturerId = WMIData.ManufacturerId,
+				Vin = Vin
+			};
 		}
 	}
 }

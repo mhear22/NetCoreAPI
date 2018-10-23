@@ -1,8 +1,8 @@
-using System.Net;
 using CoreApp.Models.Authentication;
+using System.Net;
 using Xunit;
 
-namespace CoreApp.Tests.Actions.Auth
+namespace CoreAppTests.Tests.Actions.Auth
 {
 	public class LoginActionTests : AuthenticationActionTestBase
 	{

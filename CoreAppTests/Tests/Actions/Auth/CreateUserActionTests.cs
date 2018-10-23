@@ -1,7 +1,7 @@
 using CoreApp.Models.Authentication;
 using Xunit;
 
-namespace CoreApp.Tests.Actions.Auth
+namespace CoreAppTests.Tests.Actions.Auth
 {
 	public class CreateUserActionTest : AuthenticationActionTestBase
 	{

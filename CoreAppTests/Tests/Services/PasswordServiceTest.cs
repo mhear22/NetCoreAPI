@@ -1,10 +1,10 @@
-using System.Linq;
 using CoreApp.Models.Repositories;
 using CoreApp.Repositories;
 using CoreApp.Services;
+using System.Linq;
 using Xunit;
 
-namespace CoreApp.Tests.Services
+namespace CoreAppTests.Tests.Services
 {
 	public class PasswordServiceTest : ServiceTestBase
 	{
@@ -20,7 +20,7 @@ namespace CoreApp.Tests.Services
 		public void TestHashRespondsCorrectly()
 		{
 			_service.SetPassword("abc", "testPassword");
-			var row = Context.passwords.FirstOrDefault(x=>x.UserId == "abc");
+			var row = Context.Passwords.FirstOrDefault(x=>x.UserId == "abc");
 		
 			Assert.True(row != null, "row is null");
 			Assert.True(row.Hash != null, "Hash is null");
@@ -34,8 +34,8 @@ namespace CoreApp.Tests.Services
 			_service.SetPassword("a", "password1");
 			_service.SetPassword("b", "password2");
 			
-			var row1 = Context.passwords.FirstOrDefault(x=>x.UserId == "a");
-			var row2 = Context.passwords.FirstOrDefault(x=>x.UserId == "b");
+			var row1 = Context.Passwords.FirstOrDefault(x=>x.UserId == "a");
+			var row2 = Context.Passwords.FirstOrDefault(x=>x.UserId == "b");
 			
 			Assert.True(row1 != null);
 			Assert.True(row2 != null);
@@ -46,7 +46,7 @@ namespace CoreApp.Tests.Services
 		public void TestHashesAreTheSameWithTheSameSalt()
 		{
 			_service.SetPassword("a", "test");
-			var row = Context.passwords.FirstOrDefault(x=>x.UserId == "a");
+			var row = Context.Passwords.FirstOrDefault(x=>x.UserId == "a");
 			
 			Assert.True(_service.CheckPassword("a", "test"),"Passwords are not checked correctly");
 		}

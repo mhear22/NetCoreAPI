@@ -4,7 +4,7 @@ using CoreApp.Models.Authentication;
 using Newtonsoft.Json;
 using Xunit;
 
-namespace CoreApp.Tests.Fixtures
+namespace CoreAppTests.Tests.Fixtures
 {
 	public class UserFixture : BaseFixture
 	{
@@ -86,8 +86,8 @@ namespace CoreApp.Tests.Fixtures
 			if(request.StatusCode != HttpStatusCode.OK)
 				return null;
 
-            var data = request.Content.ReadAsStringAsync().Result;
-            return data;
+			var data = request.Content.ReadAsStringAsync().Result;
+			return data;
 		}
 	}
 }

@@ -1,8 +1,9 @@
 using System.Net.Http;
+using CoreApp;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 
-namespace CoreApp.Tests.Actions
+namespace CoreAppTests.Tests.Actions
 {
 	public class TestBase
 	{

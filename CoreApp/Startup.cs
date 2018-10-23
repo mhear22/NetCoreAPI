@@ -68,6 +68,7 @@ namespace CoreApp
 			services.AddScoped<ITokenService, TokenService>();
 
 			services.AddRepo<SessionDto>();
+			services.AddRepo<PasswordDto>();
 			services.AddRepo<UserDto>();
 			services.AddRepo<FileDto>();
 			services.AddRepo<FilePiecesDto>();
@@ -76,10 +77,14 @@ namespace CoreApp
 			services.AddRepo<OwnedCarDto>();
 			services.AddRepo<CarDto>();
 			services.AddRepo<CountryDto>();
+			services.AddRepo<VinVDS>();
+			services.AddRepo<VinWMI>();
+			services.AddRepo<VinVIS>();
 
 			services.AddScoped<IImageService, ImageService>();
 			services.AddScoped<IManufacturerService, ManufacturerService>();
 			services.AddScoped<IVinService, VinService>();
+			services.AddScoped<ICountryService, CountryService>();
 			services.AddSwaggerGen(x=>
 			{
 				x.SwaggerDoc("v1", new Info
@@ -119,6 +124,35 @@ namespace CoreApp
 			where T : class, IRow
 		{
 			services.AddScoped<IRepository<T>, Repository<T>>();
+		}
+
+		public static IServiceCollection RegisterService(this IServiceCollection services)
+		{
+			services.AddScoped<IUserService, UserService>();
+			services.AddScoped<IStorageService, StorageService>();
+			services.AddScoped<IAuthenticationService, AuthenticationService>();
+			services.AddScoped<IPasswordService, PasswordService>();
+			services.AddScoped<ITokenService, TokenService>();
+
+			services.AddRepo<SessionDto>();
+			services.AddRepo<PasswordDto>();
+			services.AddRepo<UserDto>();
+			services.AddRepo<FileDto>();
+			services.AddRepo<FilePiecesDto>();
+			services.AddRepo<FilePieceDto>();
+			services.AddRepo<ManufacturerDto>();
+			services.AddRepo<OwnedCarDto>();
+			services.AddRepo<CarDto>();
+			services.AddRepo<CountryDto>();
+			services.AddRepo<VinVDS>();
+			services.AddRepo<VinWMI>();
+			services.AddRepo<VinVIS>();
+
+			services.AddScoped<IImageService, ImageService>();
+			services.AddScoped<IManufacturerService, ManufacturerService>();
+			services.AddScoped<IVinService, VinService>();
+			services.AddScoped<ICountryService, CountryService>();
+			return services;
 		}
 	}
 }

@@ -1,11 +1,11 @@
-using System.Linq;
 using CoreApp.Models.Authentication;
 using CoreApp.Models.Repositories;
 using CoreApp.Repositories;
 using CoreApp.Services;
+using System.Linq;
 using Xunit;
 
-namespace CoreApp.Tests.Services
+namespace CoreAppTests.Tests.Services
 {
 	public class AuthenticationServiceTest : ServiceTestBase
 	{
@@ -34,7 +34,7 @@ namespace CoreApp.Tests.Services
 		{
 			_service.CreateUser(TestModel);
 			
-			var row = Context.users.Where(x=>x.EmailAddress == TestModel.EmailAddress);
+			var row = Context.Users.Where(x=>x.EmailAddress == TestModel.EmailAddress);
 			
 			Assert.True(row != null,"Row not created");
 		}
