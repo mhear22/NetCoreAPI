@@ -6,6 +6,7 @@ using CoreApp.Models.Repositories.Vehicle;
 using CoreApp.Models.Vehicle;
 using CoreApp.Repositories;
 using Microsoft.EntityFrameworkCore;
+using CoreApp.Models.Generic;
 
 namespace CoreApp.Services
 {
@@ -40,22 +41,33 @@ namespace CoreApp.Services
 
 		public CarModel GetCar(string Vin)
 		{
-			var result = new CarModel();
-			var WMI = Vin.Substring(0, 3);
-			var VDS = Vin.Substring(3, 6);
-			var VIS = Vin.Substring(9, 8);
-			
-			var WMIData = VinWMI.Where(x => x.Matcher == WMI)
-				.Include(x=>x.Manufacturer)
-				.Include(x=>x.Country)
-				.FirstOrDefault();
-
-			return new CarModel()
+			if(Vin.Length == 17)
 			{
-				Manufacturer = WMIData?.Manufacturer?.ToModel(),
-				ManufacturerId = WMIData?.ManufacturerId,
-				Vin = Vin
-			};
+				var result = new CarModel();
+				var WMI = Vin.Substring(0, 3);
+				var VDS = Vin.Substring(3, 6);
+				var VIS = Vin.Substring(9, 8);
+
+				var Vins = this.VinWMI.Where(x => Vin.StartsWith(x.Matcher));
+			
+				var WMIData = Vins
+					.Include(x=>x.Manufacturer)
+					.Include(x=>x.Country)
+					.FirstOrDefault();
+
+				return new CarModel()
+				{
+					Manufacturer = WMIData?.Manufacturer?.ToModel(),
+					ManufacturerId = WMIData?.ManufacturerId,
+					CountryOfOrigin = WMIData?.Country?.ToModel(),
+					CountryId = WMIData?.CountryId,
+					Vin = Vin
+				};
+			} 
+			else
+			{
+				return null;
+			}
 		}
 	}
 }

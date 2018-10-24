@@ -17,6 +17,7 @@ namespace CoreAppTests.Tests.Services
 			Assert.NotNull(result);
 			Assert.NotNull(result.ManufacturerId);
 			Assert.Equal("Toyota",result.Manufacturer.Name);
+			Assert.Equal("Australia", result.CountryOfOrigin.Name);
 		}
 
 		[Fact]
@@ -27,6 +28,7 @@ namespace CoreAppTests.Tests.Services
 			Assert.NotNull(result);
 			Assert.NotNull(result.ManufacturerId);
 			Assert.Equal("Nissan", result.Manufacturer.Name);
+			Assert.Equal("Japan", result.CountryOfOrigin.Name);
 		}
 	}
 }

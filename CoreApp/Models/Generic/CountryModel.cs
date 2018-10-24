@@ -14,7 +14,7 @@ namespace CoreApp.Models.Generic
 
 	public static class CountryExtentions
 	{
-		public static CountryModel ToModel(CountryDto dto)
+		public static CountryModel ToModel(this CountryDto dto)
 		{
 			return new CountryModel()
 			{
