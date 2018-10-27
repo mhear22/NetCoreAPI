@@ -20,11 +20,12 @@ namespace CoreApp.Controllers
 		
 		[Route("sessions")]
 		[HttpPost]
+		[ProducesResponseType(200, Type = typeof(string))]
 		public IActionResult Login([FromBody]LoginModel model)
 		{
 			var key = authenticationService.Login(model);
-            if (string.IsNullOrWhiteSpace(key))
-                return BadRequest("Login Failed");
+			if (string.IsNullOrWhiteSpace(key))
+				return BadRequest("Login Failed");
 			return Ok(key);
 		}
 		

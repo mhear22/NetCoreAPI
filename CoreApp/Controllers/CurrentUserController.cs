@@ -1,3 +1,4 @@
+using CoreApp.Models.Authentication;
 using CoreApp.Repositories;
 using CoreApp.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,7 @@ namespace CoreApp.Controllers
 		
 		[Route("currentuser")]
 		[HttpGet]
+		[ProducesResponseType(200, Type = typeof(UserModel))]
 		public IActionResult GetCurrentUser()
 		{
 			return Ok(userService.GetFromSession(GetAPIKey()));

@@ -17,6 +17,7 @@ namespace CoreApp.Controllers
 
 		[Route("users")]
 		[HttpPost]
+		[ProducesResponseType(200, Type = typeof(UserModel))]
 		public IActionResult CreateUser([FromBody]CreateUserModel model)
 		{
 			if(Context.Users.Any(x => x.Username == model.Username))
@@ -26,6 +27,7 @@ namespace CoreApp.Controllers
 		
 		[Route("users/{userIdOrName}")]
 		[HttpGet]
+		[ProducesResponseType(200, Type = typeof(UserModel))]
 		public IActionResult GetUser(string userIdOrName)
 		{
 			var result = userService.GetUser(userIdOrName);
@@ -36,6 +38,7 @@ namespace CoreApp.Controllers
 		
 		[Route("users/{userIdOrName}")]
 		[HttpPut]
+		[ProducesResponseType(200, Type = typeof(UserModel))]
 		public IActionResult UpdateUser(string userIdOrName, [FromBody] UserModel model)
 		{
 			var user = userService.GetUser(userIdOrName);
