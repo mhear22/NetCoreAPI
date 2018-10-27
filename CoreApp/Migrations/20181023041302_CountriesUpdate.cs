@@ -6,7 +6,11 @@ namespace CoreApp.Migrations
 	{
 		protected override void Up(MigrationBuilder migrationBuilder)
 		{
-			
+			migrationBuilder.DeleteData(
+				table: "vinwmis",
+				keyColumn:"Id",
+				keyValue: "8b6e9487-db5b-4985-9852-ecca594d0024");
+
 			migrationBuilder.DeleteData(
 				table: "Countries",
 				keyColumn: "Id",

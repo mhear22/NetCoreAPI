@@ -26,7 +26,7 @@ namespace CoreApp.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CountryDto", x => x.Id);
+                    table.PrimaryKey("PK_Countries", x => x.Id);
                 });
 
             migrationBuilder.InsertData(
