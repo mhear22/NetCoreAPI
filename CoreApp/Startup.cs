@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
 using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Swagger;
+using System.Collections.Generic;
 using System.IO;
 
 namespace CoreApp
@@ -100,6 +101,10 @@ namespace CoreApp
 					Description = "ApiKey",
 					In = "header",
 					Name = "Authorization",
+					Type = "apiKey"
+				});
+				x.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>() {
+					{ "apikey", new List<string>() }
 				});
 			});
 		}
