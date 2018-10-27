@@ -17,10 +17,10 @@ namespace CoreApp.Migrations
                 nullable: true);
 
             migrationBuilder.CreateTable(
-                name: "CountryDto",
+                name: "Countries",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
+                    Id = table.Column<string>(nullable: false, maxLength:255),
                     Name = table.Column<string>(nullable: true),
                     VinPrefix = table.Column<string>(nullable: true)
                 },
@@ -30,7 +30,7 @@ namespace CoreApp.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "CountryDto",
+                table: "Countries",
                 columns: new[] { "Id", "Name", "VinPrefix" },
                 values: new object[] { "8b6e9487-db5b-4985-9852-ecca594d0024", "Australia", "6" });
 
@@ -58,7 +58,7 @@ namespace CoreApp.Migrations
                 name: "FK_VinWMIs_CountryDto_CountryId",
                 table: "VinWMIs",
                 column: "CountryId",
-                principalTable: "CountryDto",
+                principalTable: "Countries",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
 
@@ -82,7 +82,7 @@ namespace CoreApp.Migrations
                 table: "VinWMIs");
 
             migrationBuilder.DropTable(
-                name: "CountryDto");
+                name: "Countries");
 
             migrationBuilder.DropIndex(
                 name: "IX_VinWMIs_CountryId",
