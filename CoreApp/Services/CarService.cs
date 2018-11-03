@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CoreApp.Models.Generic;
 using CoreApp.Models.Repositories.Vehicle;
 using CoreApp.Models.Vehicle;
 using CoreApp.Repositories;
@@ -13,6 +14,7 @@ namespace CoreApp.Services
 		string AddCar(CarCreateModel model);
 		OwnedCarModel Get(string Id);
 		void Delete(string Id);
+		Page<OwnedCarModel> GetForUser(string UserId);
 	}
 
 	public class CarService : ServiceBase, ICarService
@@ -61,6 +63,29 @@ namespace CoreApp.Services
 			{
 				Base = carModel,
 				Vin = ownedCar.Vin
+			};
+		}
+
+		public Page<OwnedCarModel> GetForUser(string UserId)
+		{
+			var results = Context.OwnedCars
+				.Where(x => x.UserId == UserId)
+				.Select(x => x.Vin)
+				.ToList()
+				.Select(x =>
+				{
+					return new OwnedCarModel()
+					{
+						Base = this.vinService.GetCar(x),
+						Vin = x
+					};
+				})
+				.ToList();
+
+			return new Page<OwnedCarModel>()
+			{
+				Count = results.Count(),
+				Items = results
 			};
 		}
 	}

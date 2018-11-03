@@ -1,4 +1,5 @@
-﻿using CoreApp.Models.Vehicle;
+﻿using CoreApp.Models.Generic;
+using CoreApp.Models.Vehicle;
 using CoreApp.Repositories;
 using CoreApp.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -44,6 +45,14 @@ namespace CoreApp.Controllers
 		{
 			this.carService.Delete(Id);
 			return NoContent();
+		}
+
+		[Route("car/user/{Id}")]
+		[HttpGet]
+		[ProducesResponseType(200, Type = typeof(Page<OwnedCarModel>))]
+		public IActionResult GetForUser(string UserId)
+		{
+			return Ok(this.carService.GetForUser(UserId));
 		}
 	}
 }
