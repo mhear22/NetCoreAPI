@@ -31,10 +31,10 @@ namespace CoreApp.Controllers
 		
 		[Route("sessions")]
 		[HttpDelete]
-		public IActionResult Logout(string Id)
+		public IActionResult Logout(string Token)
 		{
-			if (!string.IsNullOrWhiteSpace(Id))
-				authenticationService.Logout(Id);
+			if (!string.IsNullOrWhiteSpace(Token))
+				authenticationService.Logout(Token);
 			return Ok();
 		}
 	}

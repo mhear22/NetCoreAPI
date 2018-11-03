@@ -71,7 +71,7 @@ namespace CoreApp.Services
 		public string Login(LoginModel model)
 		{
 			var user = GetDto(model.Username);
-            if(user == null) { return null; }
+			if(user == null) { return null; }
 			if(_passwordService.CheckPassword(user.Id, model.Password))
 				return _tokenService.Create(user.Id);
 			return null;

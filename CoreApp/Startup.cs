@@ -61,6 +61,8 @@ namespace CoreApp
 			
 			services.AddDefaultAWSOptions(opt);
 			services.AddAWSService<IAmazonS3>();
+			services.AddScoped<ICarService, CarService>();
+			services.AddScoped<ICurrentUserService, CurrentUserService>();
 			services.AddScoped<IContext, DatabaseContext>();
 			services.AddScoped<IUserService, UserService>();
 			services.AddScoped<IStorageService, StorageService>();
@@ -106,6 +108,7 @@ namespace CoreApp
 				x.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>() {
 					{ "apikey", new List<string>() }
 				});
+				x.OperationFilter<SwaggerOperationFilter>();
 			});
 		}
 

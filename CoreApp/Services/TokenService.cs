@@ -11,8 +11,8 @@ namespace CoreApp.Services
 		string Create(string UserId);
 		string Delete(string Token);
 	}
-    public class TokenService : ServiceBase, ITokenService
-    {
+	public class TokenService : ServiceBase, ITokenService
+	{
 		private IRepository<SessionDto> sessionRepo; 
 		public TokenService(IContext context, IRepository<SessionDto> sessionRepo) 
 			: base(context)
@@ -20,8 +20,8 @@ namespace CoreApp.Services
 			this.sessionRepo = sessionRepo;
 		}
 		
-        public string Create(string UserId)
-        {
+		public string Create(string UserId)
+		{
 			var token = Guid.NewGuid().ToString();
 			sessionRepo.Create(new SessionDto(){
 				Id = token,
@@ -29,17 +29,17 @@ namespace CoreApp.Services
 				SetTime = DateTime.Now.ToUniversalTime()
 			});
 			return token;
-        }
+		}
 
-        public string Delete(string Token)
-        {
+		public string Delete(string Token)
+		{
 			sessionRepo.Delete(Token);
 			return Token;
-        }
+		}
 
-        public TokenModel Get(string Token)
-        {
+		public TokenModel Get(string Token)
+		{
 			return sessionRepo.Get(Token).ToModel();
-        }
-    }
+		}
+	}
 }

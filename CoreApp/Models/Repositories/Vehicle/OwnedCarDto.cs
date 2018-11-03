@@ -11,9 +11,13 @@ namespace CoreApp.Models.Repositories.Vehicle
 		public string Id { get; set; }
 		public string CarId { get; set; }
 		public string Vin { get; set; }
+		public string UserId { get; set; }
 		public DateTime ManufacturedDate { get; set; }
 
 		[ForeignKey("CarId")]
 		public CarDto BaseModel { get; set; }
+
+		[ForeignKey("UserId")]
+		public UserDto Owner { get; set; }
 	}
 }
