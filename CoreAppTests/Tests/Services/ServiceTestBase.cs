@@ -5,6 +5,8 @@ using CoreApp;
 using CoreApp.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Http;
+using CoreAppTests.Tests.Fixtures;
 
 namespace CoreAppTests.Tests.Services
 {
@@ -25,12 +27,15 @@ namespace CoreAppTests.Tests.Services
 
 		public ServiceTestBase()
 		{
+			var cus = new TestCurrentUserService();
+
 			provider = new ServiceCollection()
 				.AddEntityFrameworkInMemoryDatabase()
 				.RegisterService()
 				.AddScoped<IContext>(x=> { return Context; })
+				.AddScoped<ICurrentUserService>(x=> { return cus; })
 				.BuildServiceProvider();
-			
+
 			var builder = new DbContextOptionsBuilder<DatabaseContext>();
 			builder.UseInMemoryDatabase("Test")
 				.UseInternalServiceProvider(provider);
@@ -56,7 +61,7 @@ namespace CoreAppTests.Tests.Services
 		public ServiceTestBase()
 			:base()
 		{
-
+			 
 			Service = (T)provider.GetService<T>();
 		}
 	}

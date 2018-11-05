@@ -61,33 +61,10 @@ namespace CoreApp
 			
 			services.AddDefaultAWSOptions(opt);
 			services.AddAWSService<IAmazonS3>();
-			services.AddScoped<ICarService, CarService>();
-			services.AddScoped<ICurrentUserService, CurrentUserService>();
 			services.AddScoped<IContext, DatabaseContext>();
-			services.AddScoped<IUserService, UserService>();
-			services.AddScoped<IStorageService, StorageService>();
-			services.AddScoped<IAuthenticationService, AuthenticationService>();
-			services.AddScoped<IPasswordService, PasswordService>();
-			services.AddScoped<ITokenService, TokenService>();
 
-			services.AddRepo<SessionDto>();
-			services.AddRepo<PasswordDto>();
-			services.AddRepo<UserDto>();
-			services.AddRepo<FileDto>();
-			services.AddRepo<FilePiecesDto>();
-			services.AddRepo<FilePieceDto>();
-			services.AddRepo<ManufacturerDto>();
-			services.AddRepo<OwnedCarDto>();
-			services.AddRepo<CarDto>();
-			services.AddRepo<CountryDto>();
-			services.AddRepo<VinVDS>();
-			services.AddRepo<VinWMI>();
-			services.AddRepo<VinVIS>();
+			services = StartupHelpers.RegisterService(services);
 
-			services.AddScoped<IImageService, ImageService>();
-			services.AddScoped<IManufacturerService, ManufacturerService>();
-			services.AddScoped<IVinService, VinService>();
-			services.AddScoped<ICountryService, CountryService>();
 			services.AddSwaggerGen(x=>
 			{
 				x.SwaggerDoc("v1", new Info
@@ -136,6 +113,8 @@ namespace CoreApp
 
 		public static IServiceCollection RegisterService(this IServiceCollection services)
 		{
+			services.AddScoped<ICarService, CarService>();
+			services.AddScoped<ICurrentUserService, CurrentUserService>();
 			services.AddScoped<IUserService, UserService>();
 			services.AddScoped<IStorageService, StorageService>();
 			services.AddScoped<IAuthenticationService, AuthenticationService>();
