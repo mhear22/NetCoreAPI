@@ -114,31 +114,35 @@ namespace CoreApp
 		public static IServiceCollection RegisterService(this IServiceCollection services)
 		{
 			services.AddScoped<ICarService, CarService>();
-			services.AddScoped<ICurrentUserService, CurrentUserService>();
+			services.AddScoped<IVinService, VinService>();
+			services.AddScoped<IPdfService, PdfService>();
+			services.AddScoped<IHtmlService, HtmlService>();
 			services.AddScoped<IUserService, UserService>();
-			services.AddScoped<IStorageService, StorageService>();
-			services.AddScoped<IAuthenticationService, AuthenticationService>();
-			services.AddScoped<IPasswordService, PasswordService>();
+			services.AddScoped<IFormService, FormService>();
 			services.AddScoped<ITokenService, TokenService>();
-
-			services.AddRepo<SessionDto>();
-			services.AddRepo<PasswordDto>();
-			services.AddRepo<UserDto>();
-			services.AddRepo<FileDto>();
+			services.AddScoped<IImageService, ImageService>();
+			services.AddScoped<ICountryService, CountryService>();
+			services.AddScoped<IStorageService, StorageService>();
+			services.AddScoped<IPasswordService, PasswordService>();
+			services.AddScoped<ICurrentUserService, CurrentUserService>();
+			services.AddScoped<IManufacturerService, ManufacturerService>();
+			services.AddScoped<IEmailTemplateService, EmailTemplateService>();
+			services.AddScoped<IAuthenticationService, AuthenticationService>();
+			
+			services.AddRepo<ManufacturerDto>();
 			services.AddRepo<FilePiecesDto>();
 			services.AddRepo<FilePieceDto>();
-			services.AddRepo<ManufacturerDto>();
 			services.AddRepo<OwnedCarDto>();
-			services.AddRepo<CarDto>();
+			services.AddRepo<PasswordDto>();
+			services.AddRepo<SessionDto>();
 			services.AddRepo<CountryDto>();
+			services.AddRepo<UserDto>();
+			services.AddRepo<FileDto>();
+			services.AddRepo<CarDto>();
 			services.AddRepo<VinVDS>();
 			services.AddRepo<VinWMI>();
 			services.AddRepo<VinVIS>();
 
-			services.AddScoped<IImageService, ImageService>();
-			services.AddScoped<IManufacturerService, ManufacturerService>();
-			services.AddScoped<IVinService, VinService>();
-			services.AddScoped<ICountryService, CountryService>();
 			return services;
 		}
 	}
