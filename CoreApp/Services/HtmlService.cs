@@ -13,13 +13,19 @@ namespace CoreApp.Services
 
 	public class HtmlService : ServiceBase, IHtmlService
 	{
-		public HtmlService(IContext context) : base(context)
-		{
-		}
+		private IHtmlDocumentService htmlDocumentService;
 
+		public HtmlService(
+			IContext context,
+			IHtmlDocumentService htmlDocumentService
+		) : base(context)
+		{
+			this.htmlDocumentService = htmlDocumentService;
+		}
+		
 		public string GenerateHtml(string ReportType, object Data = null)
 		{
-			if(ReportType.ToLower() == "test")
+			if (ReportType.ToLower() == "test")
 			{
 				return @"
 <html>
@@ -29,6 +35,8 @@ namespace CoreApp.Services
 </html>
 ";
 			}
+			else
+				return this.htmlDocumentService.GetDocument(ReportType);
 
 			throw new ArgumentException($"Could not find a report called {ReportType}");
 		}

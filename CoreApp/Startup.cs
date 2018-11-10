@@ -127,11 +127,11 @@ namespace CoreApp
 			services.AddScoped<IStorageService, StorageService>();
 			services.AddScoped<IPasswordService, PasswordService>();
 			services.AddScoped<ICurrentUserService, CurrentUserService>();
+			services.AddScoped<IHtmlDocumentService, HtmlDocumentService>();
 			services.AddScoped<IManufacturerService, ManufacturerService>();
 			services.AddScoped<IEmailTemplateService, EmailTemplateService>();
 			services.AddScoped<IAuthenticationService, AuthenticationService>();
-			var Sync = new SynchronizedConverter(new PdfTools());
-			services.AddSingleton<IConverter>(Sync);
+			services.AddSingleton<IConverter>(new SynchronizedConverter(new PdfTools()));
 			
 			services.AddRepo<ManufacturerDto>();
 			services.AddRepo<FilePiecesDto>();
