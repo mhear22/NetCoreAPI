@@ -5,6 +5,8 @@ using CoreApp.Models.Repositories;
 using CoreApp.Models.Repositories.Vehicle;
 using CoreApp.Repositories;
 using CoreApp.Services;
+using DinkToPdf;
+using DinkToPdf.Contracts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -128,6 +130,8 @@ namespace CoreApp
 			services.AddScoped<IManufacturerService, ManufacturerService>();
 			services.AddScoped<IEmailTemplateService, EmailTemplateService>();
 			services.AddScoped<IAuthenticationService, AuthenticationService>();
+			var Sync = new SynchronizedConverter(new PdfTools());
+			services.AddSingleton<IConverter>(Sync);
 			
 			services.AddRepo<ManufacturerDto>();
 			services.AddRepo<FilePiecesDto>();

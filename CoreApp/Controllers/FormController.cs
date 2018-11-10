@@ -21,7 +21,7 @@ namespace CoreApp.Controllers
 
 		[Route("gen/{Type}/{Format}/")]
 		[HttpGet]
-		public IActionResult GetForm([FromBody]object Data, string Type, string Format)
+		public IActionResult GetForm([FromQuery]object Data, string Type, string Format)
 		{
 			return this.formService.GenerateForm(Type, Format, Data);
 		}
