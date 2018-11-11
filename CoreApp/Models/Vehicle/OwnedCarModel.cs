@@ -10,5 +10,7 @@ namespace CoreApp.Models.Vehicle
 	{
 		public CarModel Base;
 		public string Vin;
+		public string Mileage;
+		public string Nickname;
 	}
 }

@@ -25,6 +25,7 @@ namespace CoreApp.Repositories
 		DbSet<VinVDS> VinVDSs { get; set; }
 		DbSet<VinVIS> VinVISs { get; set; }
 		DbSet<CountryDto> Countries { get; set; }
+		DbSet<MileageRecordingDto> MileageRecordings { get; set; }
 
 		DbSet<TEntity> Set<TEntity>() where TEntity : class;
 		int SaveChanges();
@@ -62,6 +63,7 @@ namespace CoreApp.Repositories
 		public DbSet<VinVDS> VinVDSs { get; set; }
 		public DbSet<VinVIS> VinVISs { get; set; }
 		public DbSet<CountryDto> Countries { get; set; }
+		public DbSet<MileageRecordingDto> MileageRecordings { get; set; }
 	}
 
 	public class DatabaseBuilder : IDesignTimeDbContextFactory<DatabaseContext>

@@ -56,13 +56,15 @@ namespace CoreApp.Services
 
 		public OwnedCarModel Get(string Id)
 		{
-			var ownedCar = Context.OwnedCars.FirstOrDefault(x => x.Id == Id);
+			var ownedCar = Context.OwnedCars.FirstOrDefault(x => x.Vin == Id);
 			var carModel = this.vinService.GetCar(ownedCar.Vin);
 
 			return new OwnedCarModel()
 			{
 				Base = carModel,
-				Vin = ownedCar.Vin
+				Vin = ownedCar.Vin,
+				Mileage = ownedCar.MileageRecordings?.OrderByDescending(x => x.RecordingDate).FirstOrDefault()?.Mileage ?? "0",
+				Nickname = ownedCar.Nickname??""
 			};
 		}
 
@@ -70,14 +72,16 @@ namespace CoreApp.Services
 		{
 			var results = Context.OwnedCars
 				.Where(x => x.UserId == UserId)
-				.Select(x => x.Vin)
 				.ToList()
 				.Select(x =>
 				{
+
 					return new OwnedCarModel()
 					{
-						Base = this.vinService.GetCar(x),
-						Vin = x
+						Base = this.vinService.GetCar(x.Vin),
+						Vin = x.Vin,
+						Mileage = x.MileageRecordings?.OrderByDescending(z => z.RecordingDate).FirstOrDefault()?.Mileage ?? "0",
+						Nickname = x.Nickname??""
 					};
 				})
 				.ToList();

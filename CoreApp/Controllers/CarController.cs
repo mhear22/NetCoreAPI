@@ -32,7 +32,7 @@ namespace CoreApp.Controllers
 
 		[Route("car/{Id}")]
 		[HttpGet]
-		[ProducesResponseType(200, Type=typeof(string))]
+		[ProducesResponseType(200, Type=typeof(OwnedCarModel))]
 		public IActionResult GetCar(string Id)
 		{
 			return Ok(this.carService.Get(Id));
@@ -47,7 +47,7 @@ namespace CoreApp.Controllers
 			return NoContent();
 		}
 
-		[Route("car/user/{Id}")]
+		[Route("car/user/{UserId}")]
 		[HttpGet]
 		[ProducesResponseType(200, Type = typeof(Page<OwnedCarModel>))]
 		public IActionResult GetForUser(string UserId)
