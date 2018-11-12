@@ -14,11 +14,11 @@ namespace CoreApp.Migrations
 
 			
 			migrationBuilder.CreateTable(
-				name: "MileageRecordingDto",
+				name: "mileagerecordings",
 				columns: table => new
 				{
-					Id = table.Column<string>(nullable: false),
-					OwnedCarId = table.Column<string>(nullable: true),
+					Id = table.Column<string>(nullable: false, maxLength:255),
+					OwnedCarId = table.Column<string>(nullable: true, maxLength:255),
 					RecordingDate = table.Column<DateTime>(nullable: false),
 					Mileage = table.Column<string>(nullable: true)
 				},
@@ -35,14 +35,14 @@ namespace CoreApp.Migrations
 
 			migrationBuilder.CreateIndex(
 				name: "IX_MileageRecordingDto_OwnedCarId",
-				table: "MileageRecordingDto",
+				table: "mileagerecordings",
 				column: "OwnedCarId");
 		}
 
 		protected override void Down(MigrationBuilder migrationBuilder)
 		{
 			migrationBuilder.DropTable(
-				name: "MileageRecordingDto");
+				name: "mileagerecordings");
 
 			migrationBuilder.DropColumn(
 				name: "Nickname",

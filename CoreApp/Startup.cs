@@ -123,6 +123,7 @@ namespace CoreApp
 			services.AddScoped<IFormService, FormService>();
 			services.AddScoped<ITokenService, TokenService>();
 			services.AddScoped<IImageService, ImageService>();
+			services.AddScoped<IMileageService, MileageService>();
 			services.AddScoped<ICountryService, CountryService>();
 			services.AddScoped<IStorageService, StorageService>();
 			services.AddScoped<IPasswordService, PasswordService>();

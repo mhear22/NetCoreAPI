@@ -66,8 +66,12 @@ namespace CoreApp.Repositories
 		{
 			var table = Context.Set<T>();
 			var item = table.FirstOrDefault(x=>x.Id == Id);
-			table.Remove(item);
-			Context.SaveChanges();
+			try
+			{
+				table.Remove(item);
+				Context.SaveChanges();
+			}
+			catch { }
 		}
 	}
 }

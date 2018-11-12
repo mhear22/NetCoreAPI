@@ -36,17 +36,19 @@ namespace CoreApp.Services
 				throw new ArgumentException("This Vin has not been added");
 
 			var Mileage = float.Parse(model.Mileage);
-			var LastMileage = OwnedCar.MileageRecordings.OrderByDescending(x => x.RecordingDate).FirstOrDefault();
+			var LastMileage = OwnedCar.MileageRecordings?.OrderByDescending(x => x.RecordingDate)?.FirstOrDefault()?.Mileage??"0";
 
-			if (float.Parse(LastMileage.Mileage) > Mileage)
+			if (float.Parse(LastMileage) > Mileage)
 				throw new ArgumentException("Mileage is too low");
 
-			OwnedCar.MileageRecordings.Add(new MileageRecordingDto()
+			var dto = new MileageRecordingDto()
 			{
 				Mileage = model.Mileage,
 				OwnedCarId = OwnedCar.Id,
 				RecordingDate = DateTime.UtcNow,
-			});
+			};
+
+			Context.MileageRecordings.Add(dto);
 			Context.SaveChanges();
 		}
 	}
