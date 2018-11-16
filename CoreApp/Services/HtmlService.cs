@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CoreApp.Repositories;
+using HandlebarsDotNet;
 
 namespace CoreApp.Services
 {
@@ -23,22 +24,19 @@ namespace CoreApp.Services
 			this.htmlDocumentService = htmlDocumentService;
 		}
 		
+		private object BuildReportData(string ReportType, object Data = null)
+		{
+			return new { };
+		}
+
 		public string GenerateHtml(string ReportType, object Data = null)
 		{
-			if (ReportType.ToLower() == "test")
-			{
-				return @"
-<html>
-<body>
-<h1>Hello World</h1>
-</body>
-</html>
-";
-			}
-			else
-				return this.htmlDocumentService.GetDocument(ReportType);
-
-			throw new ArgumentException($"Could not find a report called {ReportType}");
+			var html = this.htmlDocumentService.GetDocument(ReportType);
+			if(html == null)
+				throw new ArgumentException($"Could not find a report called {ReportType}");
+			var template = Handlebars.Compile(html);
+			var data = BuildReportData(ReportType, Data);
+			return template(data);
 		}
 	}
 }
