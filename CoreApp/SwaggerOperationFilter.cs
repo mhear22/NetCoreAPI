@@ -9,8 +9,6 @@ namespace CoreApp
 {
 	public class SwaggerOperationFilter : IOperationFilter
 	{
-		private static int Id = 0;
-
 		public void Apply(Operation operation, OperationFilterContext context)
 		{
 			var className = context.MethodInfo.DeclaringType.Name;
