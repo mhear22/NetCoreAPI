@@ -36,7 +36,10 @@ namespace CoreApp.Services
 				throw new ArgumentException("This Vin has not been added");
 
 			var Mileage = float.Parse(model.Mileage);
-			var LastMileage = OwnedCar.MileageRecordings?.OrderByDescending(x => x.RecordingDate)?.FirstOrDefault()?.Mileage??"0";
+			var LastMileage = Context.MileageRecordings
+				.Where(x=>x.OwnedCarId == OwnedCar.Id)
+				.OrderByDescending(x => x.RecordingDate)?
+					.FirstOrDefault()?.Mileage??"0";
 
 			if (float.Parse(LastMileage) > Mileage)
 				throw new ArgumentException("Mileage is too low");

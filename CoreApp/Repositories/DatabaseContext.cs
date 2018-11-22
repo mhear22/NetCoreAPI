@@ -46,6 +46,12 @@ namespace CoreApp.Repositories
 			StaticData.Countries.ForEach(x => modelBuilder.Entity<CountryDto>().HasData(x));
 			StaticData.Manufacturers.ForEach(x => modelBuilder.Entity<ManufacturerDto>().HasData(x));
 			StaticData.WorldManufactuerIdenifier.ForEach(x => modelBuilder.Entity<VinWMI>().HasData(x));
+			
+			modelBuilder.Entity<OwnedCarDto>(x=> {
+				x.HasMany(z=>z.MileageRecordings)
+					.WithOne(z=>z.OwnedCar)
+					.HasForeignKey(z=>z.OwnedCarId);
+			});
 		}
 
 		public DbSet<UserDto> Users { get; set; }
