@@ -9,5 +9,7 @@ namespace CoreApp.Models.Vehicle
 	{
 		public string Vin;
 		public string Nickname;
+		public DateTime ManufacturedDate;
+		public float? CurrentMileage;
 	}
 }

@@ -39,11 +39,28 @@ namespace CoreApp.Services
 			var car = new OwnedCarDto()
 			{
 				Vin = model.Vin,
-				UserId = currentUserService.UserId()
+				UserId = currentUserService.UserId(),
+				ManufacturedDate = model.ManufacturedDate
 			};
 
 			Context.OwnedCars.Add(car);
 			Context.SaveChanges();
+			
+			Context.MileageRecordings.Add(new MileageRecordingDto() {
+				Mileage = "0",
+				RecordingDate = model.ManufacturedDate,
+				OwnedCarId = car.Id
+			});
+			if(model.CurrentMileage.HasValue) {
+				Context.MileageRecordings.Add(new MileageRecordingDto() {
+					Mileage = model.CurrentMileage.Value.ToString(),
+					RecordingDate = DateTime.UtcNow,
+					OwnedCarId = car.Id
+				});
+			}
+			
+			Context.SaveChanges();
+			
 			return car.Id;
 		}
 
@@ -69,10 +86,6 @@ namespace CoreApp.Services
 				Mileage = ownedCar.MileageRecordings?.OrderByDescending(x => x.RecordingDate).FirstOrDefault()?.Mileage ?? "0",
 				Nickname = ownedCar.Nickname??""
 			};
-			
-			if(result.Mileage == "0") {
-				throw new ArgumentException();
-			}
 			
 			return result;
 		}
