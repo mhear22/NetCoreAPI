@@ -15,6 +15,8 @@ namespace CoreApp.Services
 		OwnedCarModel Get(string Id);
 		void Delete(string Id);
 		Page<OwnedCarModel> GetForUser(string UserId);
+		
+		void Update(string Id, OwnedCarModel updatedModel);
 	}
 
 	public class CarService : ServiceBase, ICarService
@@ -98,6 +100,13 @@ namespace CoreApp.Services
 				Count = results.Count(),
 				Items = results
 			};
+		}
+
+		public void Update(string Id, OwnedCarModel updatedModel)
+		{
+			var car = Context.OwnedCars.FirstOrDefault(x=>x.Vin == Id);
+			car.Nickname = updatedModel.Nickname;
+			Context.SaveChanges();
 		}
 	}
 }

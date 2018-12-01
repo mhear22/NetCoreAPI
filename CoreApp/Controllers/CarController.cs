@@ -37,6 +37,15 @@ namespace CoreApp.Controllers
 		{
 			return Ok(this.carService.Get(Id));
 		}
+		
+		[Route("car/{Id}")]
+		[HttpPut]
+		[ProducesResponseType(200, Type=typeof(void))]
+		public IActionResult UpdateCar(string Id, [FromBody]OwnedCarModel model)
+		{
+			this.carService.Update(Id, model);
+			return Ok();
+		}
 
 		[Route("car/{Id}")]
 		[HttpDelete]
