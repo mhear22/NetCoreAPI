@@ -1,3 +1,4 @@
+using System;
 using CoreApp.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
@@ -10,6 +11,23 @@ namespace CoreApp.Controllers
 		public ApiController(IContext context)
 		{
 			this.Context = context;
+		}
+		
+		protected IActionResult ReturnResult(Func<object> function) {
+			try {
+				var data = function();
+				return Ok(data);
+			}
+			catch(ArgumentException ex) {
+				return BadRequest(ex.Message);
+			}
+			catch(UnauthorizedAccessException ex) {
+				var resp = StatusCode(401,ex.Message);
+				return resp;
+			}
+			catch(Exception ex) {
+				return StatusCode(500, ex.Message);
+			}
 		}
 
 		protected string GetAPIKey()
