@@ -11,6 +11,7 @@ namespace CoreApp.Services
 	public interface IMileageService
 	{
 		void UpdateMileage(MileageModel model);
+		List<MileageRecordingModel> GetMileage(string Vin);
 	}
 
 	public class MileageService : ServiceBase, IMileageService
@@ -54,5 +55,26 @@ namespace CoreApp.Services
 			Context.MileageRecordings.Add(dto);
 			Context.SaveChanges();
 		}
+	
+		public List<MileageRecordingModel> GetMileage(string Vin) {
+			var carIds = Context.OwnedCars
+				.Where(x=>x.Vin == Vin)
+				.Select(x=>x.Id)
+				.ToList();
+			var mileage = Context.MileageRecordings
+				.Where(x=>carIds.Contains(x.OwnedCarId))
+				.GroupBy(x=>x.RecordingDate.Year)
+				.Select(x=>x.OrderByDescending(z=>z.Mileage).FirstOrDefault())
+				.Select(x=>new MileageRecordingModel(){
+					Recording = x.Mileage,
+					Year = x.RecordingDate.Year
+				}).ToList();
+			return mileage;
+		}
+	}
+	
+	public class MileageRecordingModel {
+		public int Year;
+		public string Recording;
 	}
 }

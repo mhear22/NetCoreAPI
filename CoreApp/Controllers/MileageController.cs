@@ -29,5 +29,14 @@ namespace CoreApp.Controllers
 			this.mileageService.UpdateMileage(model);
 			return Ok();
 		}
+		
+		[HttpGet]
+		[Route("car/mileage/{vin}")]
+		[ProducesResponseType(200, Type=typeof(List<MileageRecordingModel>))]
+		public IActionResult GetMileage(string vin)
+		{
+			var data = this.mileageService.GetMileage(vin);
+			return Ok(data);
+		}
 	}
 }
