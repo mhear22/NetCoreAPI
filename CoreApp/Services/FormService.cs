@@ -10,6 +10,9 @@ namespace CoreApp.Services
 	public interface IFormService
 	{
 		IActionResult GenerateForm(string Type, string Format, object Data = null);
+		IActionResult FormTypes();
+		IActionResult FormFormats();
+		
 	}
 
 	public class FormService : ServiceBase, IFormService
@@ -17,17 +20,20 @@ namespace CoreApp.Services
 		private IEmailTemplateService emailTemplateService;
 		private IPdfService pdfService;
 		private IHtmlService htmlService;
+		private IHtmlDocumentService htmlDocumentService; 
 
 		public FormService(
 			IContext context,
 			IEmailTemplateService emailTemplateService,
 			IPdfService pdfService,
-			IHtmlService htmlService
+			IHtmlService htmlService,
+			IHtmlDocumentService htmlDocumentService 
 		) : base(context)
 		{
 			this.emailTemplateService = emailTemplateService;
 			this.pdfService = pdfService;
 			this.htmlService = htmlService;
+			this.htmlDocumentService = htmlDocumentService;
 		}
 
 		public IActionResult GenerateForm(string Type, string Format, object Data = null)
@@ -52,6 +58,18 @@ namespace CoreApp.Services
 						ContentType = "text/html"
 					};
 			}
+		}
+		
+		public IActionResult FormFormats()
+		{
+			var formTypes = new List<string>(){"html","pdf","email"};
+			return new OkObjectResult(formTypes);	
+		}
+		
+		public IActionResult FormTypes()
+		{
+			var names = this.htmlDocumentService.GetDocumentNames();
+			return new OkObjectResult(names);
 		}
 	}
 }

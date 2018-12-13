@@ -11,6 +11,7 @@ namespace CoreApp.Services
 	public interface IHtmlDocumentService
 	{
 		string GetDocument(string Type);
+		List<string> GetDocumentNames();
 	}
 
 	public class HtmlDocumentService : ServiceBase, IHtmlDocumentService
@@ -45,6 +46,13 @@ namespace CoreApp.Services
 
 
 			return Regex.Replace(html, "<head>", $"<head><style>{css}</style>");
+		}
+		
+		public List<string> GetDocumentNames()
+		{
+			var dir = Root + $"/Forms/";
+			var Folders = Directory.GetDirectories(dir);
+			return Folders.ToList();
 		}
 	}
 }

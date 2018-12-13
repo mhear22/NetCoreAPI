@@ -25,5 +25,16 @@ namespace CoreApp.Controllers
 		{
 			return this.formService.GenerateForm(Type, Format, Data);
 		}
+		
+		[Route("generator/types")]
+		[HttpGet]
+		public IActionResult GetTypes() => this.formService.FormFormats();
+		
+		
+		[Route("generator/forms")]
+		[HttpGet]
+		public IActionResult GetForms() => this.formService.FormTypes();
+		
+		
 	}
 }
