@@ -1,4 +1,5 @@
 ﻿using CoreApp.Repositories;
+using CoreApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,15 +9,22 @@ namespace CoreApp.Forms.CarService
 {
 	public class CarReport: ReportBase
 	{
-		public CarReport(IContext Context)
-			:base(Context)
+		private ICarService carService;
+		public CarReport(
+			IContext Context,
+			ICarService carService
+		) :base(Context)
 		{
-
+			this.carService = carService;
 		}
 
-		public override object Build(string Id, object Data = null)
+		protected override object Execute() 
 		{
-			throw new NotImplementedException();
+			var vin = this.Get<string>("vin");
+			
+			return new {
+				Vin = this.carService.Get(vin)
+			};
 		}
 	}
 }

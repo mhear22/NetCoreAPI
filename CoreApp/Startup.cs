@@ -1,6 +1,7 @@
 ﻿using Amazon;
 using Amazon.Runtime;
 using Amazon.S3;
+using CoreApp.Forms.CarService;
 using CoreApp.Models.Repositories;
 using CoreApp.Models.Repositories.Vehicle;
 using CoreApp.Repositories;
@@ -117,6 +118,8 @@ namespace CoreApp
 
 		public static IServiceCollection RegisterService(this IServiceCollection services)
 		{
+			services.AddSingleton<CarReport>();
+			
 			services.AddScoped<ICarService, CarService>();
 			services.AddScoped<IVinService, VinService>();
 			services.AddScoped<IPdfService, PdfService>();
