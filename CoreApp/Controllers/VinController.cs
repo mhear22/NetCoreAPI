@@ -24,12 +24,12 @@ namespace CoreApp.Controllers
 		[Route("vin/{Vin}")]
 		[HttpGet]
 		[ProducesResponseType(200, Type = typeof(CarModel))]
-		public IActionResult GetVin(string Vin)
+		public IActionResult GetVin(string Vin) => ReturnResult(() =>
 		{
 			var model = this.vinService.GetCar(Vin);
 			if(model == null)
 				return NotFound();
 			return Ok(model);
-		}
+		});
 	}
 }

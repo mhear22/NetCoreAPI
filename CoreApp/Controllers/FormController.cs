@@ -21,20 +21,16 @@ namespace CoreApp.Controllers
 
 		[Route("gen/{Type}/{Format}/")]
 		[HttpGet]
-		public IActionResult GetForm([FromQuery]object Data, string Type, string Format)
-		{
-			return this.formService.GenerateForm(Type, Format, Data);
-		}
+		public IActionResult GetForm([FromQuery]object Data, string Type, string Format) => 
+			ReturnResult(() => this.formService.GenerateForm(Type, Format, Data));
 		
 		[Route("generator/types")]
 		[HttpGet]
-		public IActionResult GetTypes() => this.formService.FormFormats();
+		public IActionResult GetTypes() => ReturnResult(() => this.formService.FormFormats());
 		
 		
 		[Route("generator/forms")]
 		[HttpGet]
-		public IActionResult GetForms() => this.formService.FormTypes();
-		
-		
+		public IActionResult GetForms() => ReturnResult(()=> this.formService.FormTypes());
 	}
 }

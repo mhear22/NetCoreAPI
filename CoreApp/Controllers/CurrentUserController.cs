@@ -17,9 +17,6 @@ namespace CoreApp.Controllers
 		[Route("currentuser")]
 		[HttpGet]
 		[ProducesResponseType(200, Type = typeof(UserModel))]
-		public IActionResult GetCurrentUser()
-		{
-			return Ok(userService.GetFromSession(GetAPIKey()));
-		}
+		public IActionResult GetCurrentUser() => ReturnResult(() => this.userService.GetFromSession(GetAPIKey()));
 	}
 }

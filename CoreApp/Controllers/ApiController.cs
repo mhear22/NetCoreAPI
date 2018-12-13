@@ -13,10 +13,30 @@ namespace CoreApp.Controllers
 			this.Context = context;
 		}
 		
-		protected IActionResult ReturnResult(Func<object> function) {
+		protected IActionResult ReturnResult(Action function, int responseCode = 200)
+		{
+			try {
+				function();
+				return new StatusCodeResult(statusCode:responseCode);
+			}
+			catch(ArgumentException ex) {
+				return BadRequest(ex.Message);
+			}
+			catch(UnauthorizedAccessException ex) {
+				var resp = StatusCode(401,ex.Message);
+				return resp;
+			}
+			catch(Exception ex) {
+				return StatusCode(500, ex.Message);
+			}
+		}
+		
+		protected IActionResult ReturnResult(Func<object> function, int statusCode = 200) {
 			try {
 				var data = function();
-				return Ok(data);
+				if(data is IActionResult)
+					return (IActionResult)data;
+				return StatusCode(statusCode, data);
 			}
 			catch(ArgumentException ex) {
 				return BadRequest(ex.Message);

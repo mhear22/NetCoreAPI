@@ -18,23 +18,23 @@ namespace CoreApp.Controllers
 		[Route("users")]
 		[HttpPost]
 		[ProducesResponseType(200, Type = typeof(UserModel))]
-		public IActionResult CreateUser([FromBody]CreateUserModel model)
+		public IActionResult CreateUser([FromBody]CreateUserModel model) => ReturnResult(() => 
 		{
 			if(Context.Users.Any(x => x.Username == model.Username))
 				return BadRequest("Duplicate Username");
 			return Ok(userService.CreateUser(model));
-		}
+		});
 		
 		[Route("users/{userIdOrName}")]
 		[HttpGet]
 		[ProducesResponseType(200, Type = typeof(UserModel))]
-		public IActionResult GetUser(string userIdOrName)
+		public IActionResult GetUser(string userIdOrName) => ReturnResult(() => 
 		{
 			var result = userService.GetUser(userIdOrName);
 			if (result == null)
 				return NotFound();
 			return Ok(result);
-		}
+		});
 		
 		[Route("users/{userIdOrName}")]
 		[HttpPut]
@@ -47,13 +47,13 @@ namespace CoreApp.Controllers
 		
 		[Route("user/{userIdOrName}/password")]
 		[HttpPost]
-		public IActionResult ChangePassword(string userIdOrName,[FromBody]ChangePasswordModel model)
+		public IActionResult ChangePassword(string userIdOrName,[FromBody]ChangePasswordModel model) => ReturnResult(() =>
 		{
 			var currentUser = userService.GetFromSession(GetAPIKey());
 			if (!userService.CheckPassword(currentUser.Id, model.OldPassword))
 				return BadRequest("Old Password is incorrect");
 			userService.SetPassword(currentUser.Id, model.NewPassword);
 			return Ok();
-		}
+		});
 	}
 }

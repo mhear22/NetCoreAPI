@@ -17,31 +17,21 @@ namespace CoreApp.Controllers
 		
 		[Route("i/{ImageId}")]
 		[HttpGet]
-		public IActionResult GetImage(string ImageId)
-		{
-			return imageService.GetFile(ImageId);
-		}
+		public IActionResult GetImage(string ImageId) =>
+			ReturnResult(() => this.imageService.GetFile(ImageId));
 		
 		[Route("i/{ImageId}/detail")]
 		[HttpGet]
-		public IActionResult GetImageDetails(string ImageId)
-		{
-			return Ok();
-		}
+		public IActionResult GetImageDetails(string ImageId) =>
+			ReturnResult(() => {});
 		
 		[Route("i")]
 		[HttpPost]
-		public IActionResult UploadImage(IFormFile file)
-		{
-			imageService.UploadFile(file);
-			return Ok();
-		}
+		public IActionResult UploadImage(IFormFile file) =>
+			ReturnResult(() => imageService.UploadFile(file));
 		
 		[Route("i/{ImageId}")]
 		[HttpDelete]
-		public IActionResult DeleteImage()
-		{
-			return Ok();
-		}
+		public IActionResult DeleteImage() => ReturnResult(() => {}, 500);
 	}
 }

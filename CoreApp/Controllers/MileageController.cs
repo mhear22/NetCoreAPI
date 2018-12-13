@@ -24,19 +24,11 @@ namespace CoreApp.Controllers
 		[HttpPost]
 		[Route("car/mileage/")]
 		[ProducesResponseType(200, Type=typeof(void))]
-		public IActionResult UpdateMileage([FromBody]MileageModel model)
-		{
-			this.mileageService.UpdateMileage(model);
-			return Ok();
-		}
+		public IActionResult UpdateMileage([FromBody]MileageModel model) => ReturnResult(() => this.mileageService.UpdateMileage(model));
 		
 		[HttpGet]
 		[Route("car/mileage/{vin}")]
 		[ProducesResponseType(200, Type=typeof(List<MileageRecordingModel>))]
-		public IActionResult GetMileage(string vin)
-		{
-			var data = this.mileageService.GetMileage(vin);
-			return Ok(data);
-		}
+		public IActionResult GetMileage(string vin) => ReturnResult(() => this.mileageService.GetMileage(vin));
 	}
 }
