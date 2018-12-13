@@ -75,6 +75,7 @@ namespace CoreApp
 					Title = "App",
 					Description = "Api",
 					TermsOfService = "None",
+					
 				});
 				x.IncludeXmlComments(xmlPath);
 				x.DescribeAllEnumsAsStrings();
@@ -99,6 +100,7 @@ namespace CoreApp
 			{
 				x.RoutePrefix = "swagger";
 				x.SwaggerEndpoint("/swagger/v1/swagger.json", "Api");
+				x.InjectStylesheet("/style.css");
 			});
 			app.UseCors("cors");
 			app.UseMvc();

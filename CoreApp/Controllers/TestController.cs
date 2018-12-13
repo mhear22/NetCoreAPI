@@ -17,5 +17,22 @@ namespace CoreApp.Controllers
 		{
 			return Redirect("/swagger/index.html");
 		}
+		
+		[HttpGet]
+		[Route("style.css")]
+		public IActionResult Styles()
+		{
+			return new ContentResult()
+			{
+				Content = @"
+				* { 
+					background-color:black !important;
+					color:white !important;
+				}
+				",
+				StatusCode = 200,
+				ContentType = "text/css"
+			};
+		}
 	}
 }
