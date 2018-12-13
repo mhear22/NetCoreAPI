@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using CoreApp.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
@@ -22,6 +23,9 @@ namespace CoreApp.Controllers
 			catch(ArgumentException ex) {
 				return BadRequest(ex.Message);
 			}
+			catch(KeyNotFoundException ex) {
+				return StatusCode(404, ex.Message);
+			}
 			catch(UnauthorizedAccessException ex) {
 				var resp = StatusCode(401,ex.Message);
 				return resp;
@@ -40,6 +44,9 @@ namespace CoreApp.Controllers
 			}
 			catch(ArgumentException ex) {
 				return BadRequest(ex.Message);
+			}
+			catch(KeyNotFoundException ex) {
+				return StatusCode(404, ex.Message);
 			}
 			catch(UnauthorizedAccessException ex) {
 				var resp = StatusCode(401,ex.Message);

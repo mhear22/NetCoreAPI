@@ -40,7 +40,8 @@ namespace CoreApp.Services
 			{
 				Vin = model.Vin,
 				UserId = currentUserService.UserId(),
-				ManufacturedDate = model.ManufacturedDate
+				ManufacturedDate = model.ManufacturedDate,
+				Nickname = model.Nickname
 			};
 
 			Context.OwnedCars.Add(car);
@@ -67,8 +68,11 @@ namespace CoreApp.Services
 		public void Delete(string Id)
 		{
 			var userId = this.currentUserService.UserId();
-			var ownedCar = this.Context.OwnedCars
-				.FirstOrDefault(x => x.Id == Id && x.UserId == userId );
+			var cars = this.Context.OwnedCars.Where(x=>x.Vin == Id);
+			var ownedCar = cars
+				.FirstOrDefault(x => x.UserId == userId);
+			var Recordings = Context.MileageRecordings.Where(x=>x.OwnedCarId == ownedCar.Id);
+			Context.MileageRecordings.RemoveRange(Recordings);
 			Context.OwnedCars.Remove(ownedCar);
 			Context.SaveChanges();
 		}
@@ -76,6 +80,8 @@ namespace CoreApp.Services
 		public OwnedCarModel Get(string Id)
 		{
 			var ownedCar = Context.OwnedCars.FirstOrDefault(x => x.Vin == Id);
+			if(ownedCar == null)
+				throw new KeyNotFoundException("Coult not find Car");	
 			var carModel = this.vinService.GetCar(ownedCar.Vin);
 			ownedCar.MileageRecordings = Context.MileageRecordings.Where(x=>x.OwnedCarId == ownedCar.Id).ToList();
 			
