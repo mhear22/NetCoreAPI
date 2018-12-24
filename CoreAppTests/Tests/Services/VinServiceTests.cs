@@ -12,7 +12,7 @@ namespace CoreAppTests.Tests.Services
 		[Fact]
 		public void CorollaCheck()
 		{
-			var result = Service.GetCar("6T154AEA10D326365");
+			var result = Service.GetCar(VinCollection.Corolla);
 
 			Assert.NotNull(result);
 			Assert.NotNull(result.ManufacturerId);
@@ -23,7 +23,7 @@ namespace CoreAppTests.Tests.Services
 		[Fact]
 		public void Nissan240Check()
 		{
-			var result = Service.GetCar("JN1MS36P0MW002130");
+			var result = Service.GetCar(VinCollection.Nissan240);
 
 			Assert.NotNull(result);
 			Assert.NotNull(result.ManufacturerId);

@@ -16,7 +16,7 @@ namespace CoreAppTests.Tests.Services
 		{
 			var model = new CarCreateModel()
 			{
-				Vin = "6T154AEA10D326365",
+				Vin = VinCollection.Corolla,
 				Nickname = "Corolla"
 			};
 			
