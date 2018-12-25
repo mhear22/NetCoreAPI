@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CoreApp.Repositories;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoreApp.Services
 {
 	public interface IFormService
 	{
-		IActionResult GenerateForm(string Type, string Format, object Data = null);
+		IActionResult GenerateForm(string Type, string Format, IQueryCollection Data = null);
 		IActionResult FormTypes();
 		IActionResult FormFormats();
 		
@@ -36,7 +37,7 @@ namespace CoreApp.Services
 			this.htmlDocumentService = htmlDocumentService;
 		}
 
-		public IActionResult GenerateForm(string Type, string Format, object Data = null)
+		public IActionResult GenerateForm(string Type, string Format, IQueryCollection Data = null)
 		{
 			switch (Format.ToLower())
 			{

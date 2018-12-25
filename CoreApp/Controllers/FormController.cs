@@ -22,7 +22,7 @@ namespace CoreApp.Controllers
 		[Route("gen/{Type}/{Format}/")]
 		[HttpGet]
 		public IActionResult GetForm([FromQuery]object Data, string Type, string Format) => 
-			ReturnResult(() => this.formService.GenerateForm(Type, Format, Data));
+			ReturnResult(() => this.formService.GenerateForm(Type, Format, Request.Query));
 		
 		[Route("generator/types")]
 		[HttpGet]

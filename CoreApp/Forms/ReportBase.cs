@@ -1,4 +1,5 @@
 ﻿using CoreApp.Repositories;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,27 +10,22 @@ namespace CoreApp.Forms
 	public abstract class ReportBase
 	{
 		protected IContext Context;
-		protected Object Data;
+		protected IQueryCollection Data;
 		public ReportBase(IContext context)
 		{
 			this.Context = context;
 		}
 		
 		protected abstract object Execute();
-		public object Build(object Data = null) {
+		public object Build(IQueryCollection Data = null) {
 			this.Data = Data;
 			return this.Execute();
 		}
 		
-		protected T Get<T>(string PropertyName) {
-			var type = this.Data.GetType();
-			var properties = type.GetProperties();
-			var fields = type.GetFields();
-			var members = type.GetMembers();
-			
-			var prop = properties.FirstOrDefault(x=>x.Name == PropertyName);
-			var val = prop.GetValue(this.Data);
-			return (T)val;
+		protected string Get(string PropertyName) {
+			var data = this.Data.FirstOrDefault(x=>x.Key == PropertyName);
+			var val = data.Value;
+			return val.ToString();
 		}
 	}
 }

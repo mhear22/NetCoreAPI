@@ -20,10 +20,13 @@ namespace CoreApp.Forms.CarService
 
 		protected override object Execute() 
 		{
-			var vin = this.Get<string>("vin");
+			var vin = this.Get("vin");
+			var car = this.carService.Get(vin);
+			
 			
 			return new {
-				Vin = this.carService.Get(vin)
+				Car = car,
+				Vin = car.Vin
 			};
 		}
 	}

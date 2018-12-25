@@ -5,12 +5,13 @@ using System.Threading.Tasks;
 using CoreApp.Repositories;
 using DinkToPdf;
 using DinkToPdf.Contracts;
+using Microsoft.AspNetCore.Http;
 
 namespace CoreApp.Services
 {
 	public interface IPdfService
 	{
-		byte[] GeneratePDF(string ReportType, object Data);
+		byte[] GeneratePDF(string ReportType, IQueryCollection Data);
 	}
 
 	public class PdfService : ServiceBase, IPdfService
@@ -28,7 +29,7 @@ namespace CoreApp.Services
 			this.converter = converter;
 		}
 
-		public byte[] GeneratePDF(string ReportType, object Data)
+		public byte[] GeneratePDF(string ReportType, IQueryCollection Data)
 		{
 			var html = this.htmlService.GenerateHtml(ReportType, Data);
 

@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CoreApp.Repositories;
+using Microsoft.AspNetCore.Http;
 
 namespace CoreApp.Services
 {
 	public interface IEmailTemplateService
 	{
-		string GenerateEmailHtml(string ReportType, object Data = null);
+		string GenerateEmailHtml(string ReportType, IQueryCollection Data = null);
 	}
 
 	public class EmailTemplateService : ServiceBase, IEmailTemplateService
@@ -20,7 +21,7 @@ namespace CoreApp.Services
 			this.htmlService = htmlService;
 		}
 
-		public string GenerateEmailHtml(string ReportType, object Data = null)
+		public string GenerateEmailHtml(string ReportType, IQueryCollection Data = null)
 		{
 			return this.htmlService.GenerateHtml(ReportType, Data);
 		}
