@@ -69,7 +69,21 @@ namespace CoreApp.Services
 					Recording = x.Mileage,
 					Year = x.RecordingDate.Year
 				}).ToList();
-			return mileage;
+			var start = mileage.OrderBy(x=>x.Year).FirstOrDefault().Year;
+			var end = DateTime.Now.Year;
+			return Enumerable.Range(0, end - start + 1).Select(x=>{ 
+				var recording = 0;
+				var year = start + x;
+				
+				var mileRecording = mileage.FirstOrDefault(z=>z.Year == year);
+				if(mileRecording != null)
+					recording = int.Parse(mileRecording.Recording);
+				
+				return new MileageRecordingModel() {
+					Year =  year,
+					Recording = recording.ToString()
+				};
+			}).ToList();
 		}
 	}
 	
