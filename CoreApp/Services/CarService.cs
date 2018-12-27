@@ -77,11 +77,12 @@ namespace CoreApp.Services
 			Context.SaveChanges();
 		}
 
-		public OwnedCarModel Get(string Id)
+		public OwnedCarModel Get(string Vin)
 		{
-			var ownedCar = Context.OwnedCars.FirstOrDefault(x => x.Vin == Id);
+			var userId = this.currentUserService.UserId();
+			var ownedCar = Context.OwnedCars.FirstOrDefault(x => x.Vin == Vin/* && x.UserId == userId*/);
 			if(ownedCar == null)
-				throw new KeyNotFoundException("Coult not find Car");	
+				throw new KeyNotFoundException("Coult not find Car");
 			var carModel = this.vinService.GetCar(ownedCar.Vin);
 			ownedCar.MileageRecordings = Context.MileageRecordings.Where(x=>x.OwnedCarId == ownedCar.Id).ToList();
 			

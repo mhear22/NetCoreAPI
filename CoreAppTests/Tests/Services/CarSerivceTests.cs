@@ -21,7 +21,7 @@ namespace CoreAppTests.Tests.Services
 			};
 			
 			var result = Service.AddCar(model);
-			var CarModel = Service.Get(result);
+			var CarModel = Service.Get(model.Vin);
 
 			Assert.NotNull(result);
 			Assert.NotNull(CarModel);
