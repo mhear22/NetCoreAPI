@@ -9,5 +9,6 @@ namespace CoreApp.Models.Vehicle
 	{
 		public string Vin { get; set; }
 		public string Mileage { get; set; }
+		public DateTime? RecordingDate { get; set; }
 	}
 }
