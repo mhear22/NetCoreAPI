@@ -26,6 +26,9 @@ namespace CoreApp.Repositories
 		DbSet<VinVIS> VinVISs { get; set; }
 		DbSet<CountryDto> Countries { get; set; }
 		DbSet<MileageRecordingDto> MileageRecordings { get; set; }
+		DbSet<RepeatTypeDto> RepeatTypes { get; set; }
+		DbSet<ServiceReminderDto> ServiceReminders { get; set; }
+		DbSet<ServiceTypeDto> ServiceTypes { get; set; }
 
 		DbSet<TEntity> Set<TEntity>() where TEntity : class;
 		int SaveChanges();
@@ -46,7 +49,9 @@ namespace CoreApp.Repositories
 			StaticData.Countries.ForEach(x => modelBuilder.Entity<CountryDto>().HasData(x));
 			StaticData.Manufacturers.ForEach(x => modelBuilder.Entity<ManufacturerDto>().HasData(x));
 			StaticData.WorldManufactuerIdenifier.ForEach(x => modelBuilder.Entity<VinWMI>().HasData(x));
-			
+			StaticData.RepeatingTypes.ForEach(x => modelBuilder.Entity<RepeatTypeDto>().HasData(x));
+			StaticData.ServiceTypes.ForEach(x => modelBuilder.Entity<ServiceTypeDto>().HasData(x));
+
 			modelBuilder.Entity<OwnedCarDto>(x=> {
 				x.HasMany(z=>z.MileageRecordings)
 					.WithOne(z=>z.OwnedCar)
@@ -70,6 +75,9 @@ namespace CoreApp.Repositories
 		public DbSet<VinVIS> VinVISs { get; set; }
 		public DbSet<CountryDto> Countries { get; set; }
 		public DbSet<MileageRecordingDto> MileageRecordings { get; set; }
+		public DbSet<RepeatTypeDto> RepeatTypes { get; set; }
+		public DbSet<ServiceReminderDto> ServiceReminders { get; set; }
+		public DbSet<ServiceTypeDto> ServiceTypes { get; set; }
 	}
 
 	public class DatabaseBuilder : IDesignTimeDbContextFactory<DatabaseContext>

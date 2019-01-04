@@ -486,5 +486,31 @@ namespace CoreApp.Repositories
 				};
 			}
 		}
+
+		public static List<RepeatTypeDto> RepeatingTypes
+		{
+			get
+			{
+				return new List<RepeatTypeDto>()
+				{
+					new RepeatTypeDto() { Id= "age",Name = "Age" },
+					new RepeatTypeDto() { Id= "mileage",Name = "Mileage" }
+				};
+			}
+		}
+
+		public static List<ServiceTypeDto> ServiceTypes
+		{
+			get
+			{
+				return new List<ServiceTypeDto>()
+				{
+					new ServiceTypeDto() { Id="oilchange", Name="Oil Change"},
+					new ServiceTypeDto() { Id="coolantflush", Name="Coolant Flush"},
+					new ServiceTypeDto() { Id="timingbelt", Name="Replace Timing Equipment"},
+					new ServiceTypeDto() { Id="brakes", Name="Check Brakes Depth"}
+				};
+			}
+		}
 	}
 }

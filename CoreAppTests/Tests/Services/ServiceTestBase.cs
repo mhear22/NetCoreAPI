@@ -44,6 +44,8 @@ namespace CoreAppTests.Tests.Services
 			Context.Countries.AddRange(StaticData.Countries);
 			Context.VinWMIs.AddRange(StaticData.WorldManufactuerIdenifier);
 			Context.Manufacturers.AddRange(StaticData.Manufacturers);
+			Context.RepeatTypes.AddRange(StaticData.RepeatingTypes);
+			Context.ServiceTypes.AddRange(StaticData.ServiceTypes);
 			Context.SaveChanges();
 		}
 	}
