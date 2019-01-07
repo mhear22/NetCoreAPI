@@ -493,8 +493,8 @@ namespace CoreApp.Repositories
 			{
 				return new List<RepeatTypeDto>()
 				{
-					new RepeatTypeDto() { Id= "age",Name = "Age" },
-					new RepeatTypeDto() { Id= "mileage",Name = "Mileage" }
+					new RepeatTypeDto() { Id= RepeatTypeDto.Age,Name = "Age" },
+					new RepeatTypeDto() { Id= RepeatTypeDto.Mileage,Name = "Mileage" }
 				};
 			}
 		}
@@ -505,10 +505,10 @@ namespace CoreApp.Repositories
 			{
 				return new List<ServiceTypeDto>()
 				{
-					new ServiceTypeDto() { Id="oilchange", Name="Oil Change"},
-					new ServiceTypeDto() { Id="coolantflush", Name="Coolant Flush"},
-					new ServiceTypeDto() { Id="timingbelt", Name="Replace Timing Equipment"},
-					new ServiceTypeDto() { Id="brakes", Name="Check Brakes Depth"}
+					new ServiceTypeDto() { Id=ServiceTypeDto.OilChange, Name="Oil Change"},
+					new ServiceTypeDto() { Id=ServiceTypeDto.CoolantFlush, Name="Coolant Flush"},
+					new ServiceTypeDto() { Id=ServiceTypeDto.TimingEquipment, Name="Replace Timing Equipment"},
+					new ServiceTypeDto() { Id=ServiceTypeDto.Brakes, Name="Check Brakes Depth"}
 				};
 			}
 		}

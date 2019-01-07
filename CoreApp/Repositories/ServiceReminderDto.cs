@@ -20,7 +20,7 @@ namespace CoreApp.Repositories
 
 
 		[ForeignKey("OwnedCarId")]
-		public OwnedCarDto ownedCar { get; set; }
+		public OwnedCarDto OwnedCar { get; set; }
 
 		[ForeignKey("RepeatingTypeId")]
 		public RepeatTypeDto RepeatingType { get; set; }

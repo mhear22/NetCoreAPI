@@ -10,5 +10,8 @@ namespace CoreApp.Repositories
 	{
 		public string Id { get; set; }
 		public string Name { get; set; }
+
+		public static string Age = "age";
+		public static string Mileage = "mileage";
 	}
 }

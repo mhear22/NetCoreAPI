@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CoreApp.Repositories;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -24,5 +25,8 @@ namespace CoreApp.Models.Repositories.Vehicle
 
 		[ForeignKey("OwnedCarId")]
 		public ICollection<MileageRecordingDto> MileageRecordings { get; set; }
+
+		[ForeignKey("OwnedCarId")]
+		public ICollection<ServiceReminderDto> ServiceReminders { get; set; }
 	}
 }

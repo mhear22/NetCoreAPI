@@ -8,6 +8,8 @@ namespace CoreAppTests.Tests.Fixtures
 {
 	class TestCurrentUserService : ICurrentUserService
 	{
+		private static string userId = Guid.NewGuid().ToString();
+
 		public UserModel CurrentUser()
 		{
 			throw new NotImplementedException();
@@ -15,7 +17,7 @@ namespace CoreAppTests.Tests.Fixtures
 
 		public string UserId()
 		{
-			return Guid.NewGuid().ToString();
+			return userId;
 		}
 	}
 }

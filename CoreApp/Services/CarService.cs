@@ -12,7 +12,7 @@ namespace CoreApp.Services
 	public interface ICarService
 	{
 		string AddCar(CarCreateModel model);
-		OwnedCarModel Get(string Id);
+		OwnedCarModel Get(string Vin);
 		void Delete(string Id);
 		Page<OwnedCarModel> GetForUser(string UserId);
 		

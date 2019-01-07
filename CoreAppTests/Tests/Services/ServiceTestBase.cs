@@ -25,6 +25,11 @@ namespace CoreAppTests.Tests.Services
 			}
 		}
 
+		protected T Get<T>()
+		{
+			return (T)provider.GetService<T>();
+		}
+
 		public ServiceTestBase()
 		{
 			var cus = new TestCurrentUserService();
@@ -63,8 +68,7 @@ namespace CoreAppTests.Tests.Services
 		public ServiceTestBase()
 			:base()
 		{
-			 
-			Service = (T)provider.GetService<T>();
+			Service = Get<T>();
 		}
 	}
 }
