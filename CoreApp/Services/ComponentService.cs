@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CoreApp.Models.Vehicle;
 using CoreApp.Repositories;
 
 namespace CoreApp.Services
@@ -80,13 +81,5 @@ namespace CoreApp.Services
 		}
 	}
 
-	public class ServiceItem
-	{
-		public string Id;
-		public string ServiceTypeId;
-		public string Description;
-		public string RepeatingTypeId;
-		public string RepeatingFrequency;
-		
-	}
+	
 }
