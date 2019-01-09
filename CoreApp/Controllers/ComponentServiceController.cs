@@ -41,12 +41,12 @@ namespace CoreApp.Controllers
 		[Route("parttypes")]
 		[HttpGet]
 		[ProducesResponseType(200, Type = typeof(List<ServiceTypeDto>))]
-		public IActionResult GetTypes(string Vin) =>
+		public IActionResult GetTypes() =>
 			ReturnResult(() => Context.ServiceTypes.ToList());
 
 		[Route("repeattypes")]
 		[HttpGet]
-		[ProducesResponseType(200, Type = typeof(List<ServiceTypeDto>))]
+		[ProducesResponseType(200, Type = typeof(List<RepeatTypeDto>))]
 		public IActionResult GetRepeatTypes() =>
 			ReturnResult(() => Context.RepeatTypes.ToList());
 	}
