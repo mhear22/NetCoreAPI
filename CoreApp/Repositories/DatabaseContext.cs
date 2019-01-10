@@ -29,6 +29,7 @@ namespace CoreApp.Repositories
 		DbSet<RepeatTypeDto> RepeatTypes { get; set; }
 		DbSet<ServiceReminderDto> ServiceReminders { get; set; }
 		DbSet<ServiceTypeDto> ServiceTypes { get; set; }
+		DbSet<ServiceReceiptDto> ServiceReceipts { get; set; }
 
 		DbSet<TEntity> Set<TEntity>() where TEntity : class;
 		int SaveChanges();
@@ -81,6 +82,7 @@ namespace CoreApp.Repositories
 		public DbSet<RepeatTypeDto> RepeatTypes { get; set; }
 		public DbSet<ServiceReminderDto> ServiceReminders { get; set; }
 		public DbSet<ServiceTypeDto> ServiceTypes { get; set; }
+		public DbSet<ServiceReceiptDto> ServiceReceipts { get; set; }
 	}
 
 	public class DatabaseBuilder : IDesignTimeDbContextFactory<DatabaseContext>

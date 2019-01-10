@@ -27,5 +27,8 @@ namespace CoreApp.Repositories
 
 		[ForeignKey("ServiceTypeId")]
 		public ServiceTypeDto ServiceType { get; set; }
+
+		[ForeignKey("ServiceReminderId")]
+		public ICollection<ServiceReceiptDto> Receipts { get; set; }
 	}
 }

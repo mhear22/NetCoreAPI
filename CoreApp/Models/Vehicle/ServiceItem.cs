@@ -9,8 +9,10 @@ namespace CoreApp.Models.Vehicle
 	{
 		public string Id;
 		public string ServiceTypeId;
+		public string ServiceType;
 		public string Description;
 		public string RepeatingTypeId;
+		public string RepeatingType;
 		public string RepeatingFrequency;
 	}
 }

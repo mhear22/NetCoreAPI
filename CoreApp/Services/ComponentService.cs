@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CoreApp.Models.Vehicle;
 using CoreApp.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace CoreApp.Services
 {
@@ -53,7 +54,12 @@ namespace CoreApp.Services
 		public List<ServiceItem> GetForVin(string Vin)
 		{
 			var userId = currentUserService.UserId();
-			var car = Context.OwnedCars.FirstOrDefault(x => x.Vin == Vin && x.UserId == userId);
+			var car = Context.OwnedCars
+				.Include(x=>x.ServiceReminders)
+				.FirstOrDefault(x => x.Vin == Vin && x.UserId == userId);
+
+			var repeatingTypes = Context.RepeatTypes.ToList();
+			var serviceTypes = Context.ServiceTypes.ToList();
 
 			return car.ServiceReminders.Select(x =>
 			{
@@ -63,7 +69,9 @@ namespace CoreApp.Services
 					RepeatingTypeId = x.RepeatingTypeId,
 					ServiceTypeId = x.ServiceTypeId,
 					Description = x.Description,
-					Id = x.Id
+					Id = x.Id,
+					RepeatingType = repeatingTypes.Where(z=>z.Id == x.RepeatingTypeId).FirstOrDefault().Name,
+					ServiceType = serviceTypes.Where(z=>z.Id == x.ServiceTypeId).FirstOrDefault().Name,
 				};
 			}).ToList();
 
