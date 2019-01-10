@@ -13,6 +13,8 @@ namespace CoreApp.Services
 		void AddServiceItem(string Vin, ServiceItem serviceItem);
 		void DeleteServiceItem(string ServiceItemId);
 		List<ServiceItem> GetForVin(string Vin);
+
+		ServiceItemModel GetPart(string Vin, string ServiceId);
 	}
 
 	public class ComponentService : ServiceBase, IComponentService
@@ -87,7 +89,34 @@ namespace CoreApp.Services
 			Context.ServiceReminders.Remove(reminder);
 			Context.SaveChanges();
 		}
-	}
 
-	
+		public ServiceItemModel GetPart(string Vin, string ServiceId)
+		{
+			var ownedCar = Context.OwnedCars
+				.Include(x=>x.ServiceReminders)
+				.FirstOrDefault(x => x.Vin == Vin);
+
+			var ServiceComponent = Context.ServiceReminders
+				.Where(x => x.OwnedCarId == ownedCar.Id)
+				.Include(x=>x.Receipts)
+				.FirstOrDefault(x => x.Id == ServiceId);
+
+			var receipts = Context.ServiceReceipts.Where(x => x.ServiceReminderId == ServiceComponent.Id).ToList();
+
+			var result = new ServiceItemModel()
+			{
+				RepeatingFrequency = ServiceComponent.RepeatingFigure,
+				RepeatingTypeId = ServiceComponent.RepeatingTypeId,
+				ServiceTypeId = ServiceComponent.ServiceTypeId,
+				Description = ServiceComponent.Description,
+				Id = ServiceComponent.Id,
+				RepeatingType = Context.RepeatTypes.FirstOrDefault(x => x.Id == ServiceComponent.RepeatingTypeId).Name,
+				ServiceType = Context.ServiceTypes.FirstOrDefault(x => x.Id == ServiceComponent.ServiceTypeId).Name
+			};
+
+			result.LastServiceMileage = receipts.OrderByDescending(x => x.CurrentMiles)?.FirstOrDefault()?.CurrentMiles ?? "0";
+			
+			return result;
+		}
+	}
 }

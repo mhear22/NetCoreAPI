@@ -32,7 +32,7 @@ namespace CoreApp.Controllers
 		public IActionResult AddPart(string Vin, [FromBody]ServiceItem item) =>
 			ReturnResult(() => this.componentService.AddServiceItem(Vin, item));
 
-		[Route("car/{Vin}/parts/{Id}")]
+		[Route("car/{Vin}/part/{Id}")]
 		[HttpDelete]
 		[ProducesResponseType(200, Type = typeof(void))]
 		public IActionResult DeletePart(string Vin, string Id) =>
@@ -49,5 +49,11 @@ namespace CoreApp.Controllers
 		[ProducesResponseType(200, Type = typeof(List<RepeatTypeDto>))]
 		public IActionResult GetRepeatTypes() =>
 			ReturnResult(() => Context.RepeatTypes.ToList());
+
+		[Route("car/{Vin}/part/{Id}")]
+		[HttpGet]
+		[ProducesResponseType(200, Type = typeof(ServiceItemModel))]
+		public IActionResult GetPart(string Vin, string Id) =>
+			ReturnResult(() => this.componentService.GetPart(Vin, Id));
 	}
 }
