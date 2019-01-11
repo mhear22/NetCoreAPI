@@ -1,5 +1,6 @@
 ﻿using CoreApp.Repositories;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Primitives;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,14 +11,14 @@ namespace CoreApp.Forms
 	public abstract class ReportBase
 	{
 		protected IContext Context;
-		protected IQueryCollection Data;
+		protected IEnumerable<KeyValuePair<string, StringValues>> Data;
 		public ReportBase(IContext context)
 		{
 			this.Context = context;
 		}
 		
 		protected abstract object Execute();
-		public object Build(IQueryCollection Data = null) {
+		public object Build(IEnumerable<KeyValuePair<string, StringValues>> Data = null) {
 			this.Data = Data;
 			return this.Execute();
 		}

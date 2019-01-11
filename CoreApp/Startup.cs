@@ -1,6 +1,7 @@
 ﻿using Amazon;
 using Amazon.Runtime;
 using Amazon.S3;
+using Amazon.SimpleEmail;
 using CoreApp.Forms.CarService;
 using CoreApp.Models.Repositories;
 using CoreApp.Models.Repositories.Vehicle;
@@ -43,6 +44,7 @@ namespace CoreApp
 		}
 
 		public IConfigurationRoot Configuration { get; private set; }
+		internal static BasicAWSCredentials creds;
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
@@ -60,10 +62,12 @@ namespace CoreApp
 			var secret = Configuration.GetSection("AWSSecret").Value;
 			var opt = Configuration.GetAWSOptions();
 			opt.Region = RegionEndpoint.APSoutheast2;
-			opt.Credentials = new BasicAWSCredentials(key, secret);
+			Startup.creds = new BasicAWSCredentials(key, secret);
+			opt.Credentials = creds; 
 			
 			services.AddDefaultAWSOptions(opt);
 			services.AddAWSService<IAmazonS3>();
+			services.AddAWSService<IAmazonSimpleEmailService>();
 			services.AddScoped<IContext, DatabaseContext>();
 
 			services = StartupHelpers.RegisterService(services);
@@ -126,6 +130,7 @@ namespace CoreApp
 			services.AddScoped<IHtmlService, HtmlService>();
 			services.AddScoped<IUserService, UserService>();
 			services.AddScoped<IFormService, FormService>();
+			services.AddScoped<IEmailService, EmailService>();
 			services.AddScoped<ITokenService, TokenService>();
 			services.AddScoped<IImageService, ImageService>();
 			services.AddScoped<IMileageService, MileageService>();

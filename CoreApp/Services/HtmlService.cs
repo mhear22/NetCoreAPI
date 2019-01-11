@@ -7,12 +7,13 @@ using CoreApp.Forms.CarService;
 using CoreApp.Repositories;
 using HandlebarsDotNet;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Primitives;
 
 namespace CoreApp.Services
 {
 	public interface IHtmlService
 	{
-		string GenerateHtml(string ReportType, IQueryCollection Data = null);
+		string GenerateHtml(string ReportType, IEnumerable<KeyValuePair<string, StringValues>> Data = null);
 	}
 
 	public class HtmlService : ServiceBase, IHtmlService
@@ -51,14 +52,14 @@ namespace CoreApp.Services
 			new SM<CarReport>("carservice")
 		};
 		
-		private object BuildReportData(string ReportType, IQueryCollection Data = null)
+		private object BuildReportData(string ReportType, IEnumerable<KeyValuePair<string, StringValues>> Data = null)
 		{
 			var reportType = HtmlService.SMap.FirstOrDefault(x=>x.Name == ReportType);
 			var service = (ReportBase)this.serviceProvider.GetService(reportType.type);
 			return service.Build(Data);
 		}
 
-		public string GenerateHtml(string ReportType, IQueryCollection Data = null)
+		public string GenerateHtml(string ReportType, IEnumerable<KeyValuePair<string, StringValues>> Data = null)
 		{
 			var html = this.htmlDocumentService.GetDocument(ReportType);
 			if(html == null)

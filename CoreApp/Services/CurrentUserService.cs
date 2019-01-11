@@ -13,6 +13,7 @@ namespace CoreApp.Services
 	{
 		string UserId();
 		UserModel CurrentUser();
+		string GetSessionKey();
 	}
 
 	public class CurrentUserService : ServiceBase, ICurrentUserService
@@ -24,7 +25,7 @@ namespace CoreApp.Services
 			this.accessor = accessor;
 		}
 
-		public string UserId()
+		public string GetSessionKey()
 		{
 			StringValues prim = "";
 			try
@@ -40,8 +41,13 @@ namespace CoreApp.Services
 				}
 				catch { }
 			}
-			
-			var apikey = prim.ToString();
+
+			return prim.ToString();
+		}
+
+		public string UserId()
+		{
+			var apikey = this.GetSessionKey();
 			var session = Context.Sessions.FirstOrDefault(x => x.Id == apikey);
 
 			if (session != null)
