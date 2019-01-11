@@ -15,6 +15,7 @@ namespace CoreApp.Services
 		List<ServiceItem> GetForVin(string Vin);
 
 		ServiceItemModel GetPart(string Vin, string ServiceId);
+		void CompleteWorkOnPart(string Vin, string ServiceId, PartCompleteModel model);
 	}
 
 	public class ComponentService : ServiceBase, IComponentService
@@ -101,7 +102,9 @@ namespace CoreApp.Services
 				.Include(x=>x.Receipts)
 				.FirstOrDefault(x => x.Id == ServiceId);
 
-			var receipts = Context.ServiceReceipts.Where(x => x.ServiceReminderId == ServiceComponent.Id).ToList();
+			var receipts = Context.ServiceReceipts
+					.Where(x => x.ServiceReminderId == ServiceComponent.Id)
+					.ToList();
 
 			var result = new ServiceItemModel()
 			{
@@ -114,9 +117,30 @@ namespace CoreApp.Services
 				ServiceType = Context.ServiceTypes.FirstOrDefault(x => x.Id == ServiceComponent.ServiceTypeId).Name
 			};
 
-			result.LastServiceMileage = receipts.OrderByDescending(x => x.CurrentMiles)?.FirstOrDefault()?.CurrentMiles ?? "0";
-			
+			var lastTime = receipts.OrderByDescending(x => x.CreatedDate).FirstOrDefault();
+
+			result.LastServiceMileage = lastTime?.CurrentMiles ?? "0";
+			result.LastServiceTime = lastTime?.CreatedDate;
+
 			return result;
+		}
+
+		public void CompleteWorkOnPart(string Vin, string ServiceId, PartCompleteModel model)
+		{
+			var ownedCar = Context.OwnedCars.FirstOrDefault(x => x.Vin == Vin);
+			var serviceItem = Context.ServiceReminders
+				.Where(x => x.OwnedCarId == ownedCar.Id)
+				.FirstOrDefault(x => x.Id == ServiceId);
+
+			Context.ServiceReceipts.Add(new ServiceReceiptDto()
+			{
+				Id = Guid.NewGuid().ToString(),
+				CreatedDate = DateTime.UtcNow,
+				CurrentMiles = model.CurrentMiles,
+				ServiceReminderId = serviceItem.Id
+			});
+
+			Context.SaveChanges();
 		}
 	}
 }

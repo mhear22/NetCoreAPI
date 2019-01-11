@@ -55,5 +55,10 @@ namespace CoreApp.Controllers
 		[ProducesResponseType(200, Type = typeof(ServiceItemModel))]
 		public IActionResult GetPart(string Vin, string Id) =>
 			ReturnResult(() => this.componentService.GetPart(Vin, Id));
+
+		[Route("car/{Vin}/part/{Id}/complete")]
+		[HttpPost]
+		public IActionResult CompleteWork(string Vin, string Id, [FromBody] PartCompleteModel model) =>
+			ReturnResult(() => this.componentService.CompleteWorkOnPart(Vin, Id, model));
 	}
 }

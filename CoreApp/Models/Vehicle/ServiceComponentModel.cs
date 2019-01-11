@@ -16,5 +16,6 @@ namespace CoreApp.Models.Vehicle
 		public string ServiceType;
 
 		public string LastServiceMileage;
+		public DateTime? LastServiceTime;
 	}
 }
