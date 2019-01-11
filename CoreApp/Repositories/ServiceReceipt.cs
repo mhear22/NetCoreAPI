@@ -12,7 +12,8 @@ namespace CoreApp.Repositories
 		public string Id { get; set; }
 		public string ServiceReminderId { get; set; }
 		public string CurrentMiles { get; set; }
-
+		public DateTime CreatedDate { get; set; }
+		
 		[ForeignKey("ServiceReminderId")]
 		public ServiceReminderDto ServiceReminder { get; set; }
 	}
