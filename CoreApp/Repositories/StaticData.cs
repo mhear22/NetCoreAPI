@@ -1,5 +1,6 @@
 ﻿using CoreApp.Models.Repositories;
 using CoreApp.Models.Repositories.Vehicle;
+using CoreApp.Repositories.Payment;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -509,6 +510,52 @@ namespace CoreApp.Repositories
 					new ServiceTypeDto() { Id=ServiceTypeDto.CoolantFlush, Name="Coolant Flush"},
 					new ServiceTypeDto() { Id=ServiceTypeDto.TimingEquipment, Name="Replace Timing Equipment"},
 					new ServiceTypeDto() { Id=ServiceTypeDto.Brakes, Name="Check Brakes Depth"}
+				};
+			}
+		}
+
+		public static List<PaymentPlanDto> PaymentPlans
+		{
+			get
+			{
+				return new List<PaymentPlanDto>()
+				{
+					new PaymentPlanDto()
+					{
+						Name = "Free Trial",
+						Id = "free trial",
+						Repeatable = false,
+						Description = "Test out the application to see how healthy your car is before you commit",
+						Amount = 0,
+						MonthsCovered = 1,
+					},
+					new PaymentPlanDto()
+					{
+						Id = "monthly",
+						Amount = 100,
+						Description = "Pay for //productname on a monthly basis",
+						Name = "Monthly Plan",
+						MonthsCovered = 1,
+						Repeatable = true,
+					},
+					new PaymentPlanDto()
+					{
+						Id="annual",
+						Name = "Annual",
+						Amount = 1000,
+						MonthsCovered = 12,
+						Description = "Pay for //productname on a yearly basis and get two month free",
+						Repeatable = true
+					},
+					new PaymentPlanDto()
+					{
+						Id="lifetime",
+						Name="",
+						Amount = 10000,
+						MonthsCovered = 9999,
+						Description = "Purchase //productname for the life of the Vin, transferable",
+						Repeatable = false
+					}
 				};
 			}
 		}

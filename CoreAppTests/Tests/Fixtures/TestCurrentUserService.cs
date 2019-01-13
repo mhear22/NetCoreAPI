@@ -15,6 +15,11 @@ namespace CoreAppTests.Tests.Fixtures
 			throw new NotImplementedException();
 		}
 
+		public string GetSessionKey()
+		{
+			throw new NotImplementedException();
+		}
+
 		public string UserId()
 		{
 			return userId;
