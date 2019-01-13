@@ -4,7 +4,7 @@ using CoreApp.Models.Authentication;
 using Newtonsoft.Json;
 using Xunit;
 
-namespace CoreAppTests.Tests.Fixtures
+namespace CoreAppTests.Fixtures
 {
 	public class UserFixture : BaseFixture
 	{

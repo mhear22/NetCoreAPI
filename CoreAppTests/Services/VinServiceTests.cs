@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using Xunit;
 
-namespace CoreAppTests.Tests.Services
+namespace CoreAppTests.Services
 {
 	public class VinServiceTests : ServiceTestBase<IVinService>
 	{

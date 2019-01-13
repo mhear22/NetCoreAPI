@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CoreAppTests.Tests
+namespace CoreAppTests
 {
 	public static class VinCollection
 	{

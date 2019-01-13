@@ -1,6 +1,5 @@
 ﻿using CoreApp.Models.Payments;
 using CoreApp.Services;
-using CoreAppTests.Tests.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;

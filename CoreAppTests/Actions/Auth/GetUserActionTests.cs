@@ -2,7 +2,7 @@ using System;
 using System.Net;
 using Xunit;
 
-namespace CoreAppTests.Tests.Actions.Auth
+namespace CoreAppTests.Actions.Auth
 {
 	public class GetUserActionTests : AuthenticationActionTestBase
 	{

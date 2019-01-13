@@ -6,11 +6,11 @@ using CoreApp.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Http;
-using CoreAppTests.Tests.Fixtures;
+using CoreAppTests.Fixtures;
 using Stripe;
 using CoreAppTests.Mocks;
 
-namespace CoreAppTests.Tests.Services
+namespace CoreAppTests.Services
 {
 	public class ServiceTestBase
 	{

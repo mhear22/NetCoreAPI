@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using Newtonsoft.Json;
 
-namespace CoreAppTests.Tests.Fixtures
+namespace CoreAppTests.Fixtures
 {
 	public class BaseFixture
 	{

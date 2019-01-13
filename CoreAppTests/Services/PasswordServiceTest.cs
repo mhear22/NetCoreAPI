@@ -4,7 +4,7 @@ using CoreApp.Services;
 using System.Linq;
 using Xunit;
 
-namespace CoreAppTests.Tests.Services
+namespace CoreAppTests.Services
 {
 	public class PasswordServiceTest : ServiceTestBase
 	{

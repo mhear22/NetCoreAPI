@@ -7,7 +7,7 @@ using System.IO;
 using System.Text;
 using Xunit;
 
-namespace CoreAppTests.Tests.Services
+namespace CoreAppTests.Services
 {
 	public class CarSerivceTests : ServiceTestBase<ICarService>
 	{

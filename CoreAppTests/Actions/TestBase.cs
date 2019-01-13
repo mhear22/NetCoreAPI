@@ -3,7 +3,7 @@ using CoreApp;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 
-namespace CoreAppTests.Tests.Actions
+namespace CoreAppTests.Actions
 {
 	public class TestBase
 	{
