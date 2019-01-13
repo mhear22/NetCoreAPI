@@ -12,7 +12,12 @@ namespace CoreAppTests.Tests.Fixtures
 
 		public UserModel CurrentUser()
 		{
-			throw new NotImplementedException();
+			return new UserModel()
+			{
+				EmailAddress = "test@test.com",
+				Id = userId,
+				Username = "Test User"
+			};
 		}
 
 		public string GetSessionKey()

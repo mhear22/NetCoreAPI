@@ -67,7 +67,7 @@ namespace CoreApp
 			opt.Credentials = creds;
 
 			StripeConfiguration.SetApiKey(Configuration.GetSection("StripeKey").Value);
-
+			services.AddScoped<IStripeService, StripeService>();
 
 			services.AddDefaultAWSOptions(opt);
 			services.AddAWSService<IAmazonS3>();

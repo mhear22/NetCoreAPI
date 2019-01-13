@@ -8,7 +8,7 @@ namespace CoreApp.Models.Payments
 	public class PaymentModel
 	{
 		public TokenModel Token;
-		public string Amount;
+		public string PlanId;
 	}
 
 	public class TokenModel

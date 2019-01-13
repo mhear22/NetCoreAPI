@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Http;
 using CoreAppTests.Tests.Fixtures;
+using Stripe;
+using CoreAppTests.Mocks;
 
 namespace CoreAppTests.Tests.Services
 {
@@ -32,6 +34,8 @@ namespace CoreAppTests.Tests.Services
 
 		public ServiceTestBase()
 		{
+			StripeConfiguration.SetApiKey("sk_test_qOZ3NhkLGoGlKxaka6VMubgd");
+
 			var cus = new TestCurrentUserService();
 
 			provider = new ServiceCollection()
@@ -39,6 +43,7 @@ namespace CoreAppTests.Tests.Services
 				.RegisterService()
 				.AddScoped<IContext>(x=> { return Context; })
 				.AddScoped<ICurrentUserService>(x=> { return cus; })
+				.AddScoped<IStripeService, MockStripeService>()
 				.BuildServiceProvider();
 
 			var builder = new DbContextOptionsBuilder<DatabaseContext>();

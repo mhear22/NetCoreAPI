@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CoreApp.Models.Payments;
 using CoreApp.Repositories;
+using CoreApp.Repositories.Payment;
 using Stripe;
 
 namespace CoreApp.Services
@@ -16,34 +17,36 @@ namespace CoreApp.Services
 	public class PaymentService : ServiceBase, IPaymentService
 	{
 		private ICurrentUserService currentUserService;
+		private IPaymentPlanService paymentPlanService;
+		private IStripeService stripeService;
 		public PaymentService(
 			IContext context,
-			ICurrentUserService currentUserService
+			ICurrentUserService currentUserService,
+			IPaymentPlanService paymentPlanService,
+			IStripeService stripeService
+
 		) : base(context)
 		{
+			this.stripeService = stripeService;
+			this.paymentPlanService = paymentPlanService;
 			this.currentUserService = currentUserService;
 		}
 
 		public void ProcessPayment(PaymentModel model)
 		{
-			var customers = new CustomerService();
-			var charges = new ChargeService();
+			var user = currentUserService.CurrentUser();
+			var plan = Context.PaymentPlans.FirstOrDefault(x => x.Id == model.PlanId);
 
-			//var currentUser
+			this.stripeService.HandleCharge(model.Token, plan);
 
-			var customer = customers.Create(new CustomerCreateOptions
+			Context.Payments.Add(new PaymentDto()
 			{
-				Email = model.Token.email,
-				SourceToken = model.Token.id
+				CreatedDate = DateTime.UtcNow,
+				Id = Guid.NewGuid().ToString(),
+				UserId = user.Id,
+				PaymentPlanId = plan.Id
 			});
-
-			var charge = charges.Create(new ChargeCreateOptions
-			{
-				Amount = 100,
-				Description = "Test Charge",
-				Currency = "aud",
-				CustomerId = customer.Id
-			});
+			Context.SaveChanges();
 		}
 	}
 }
