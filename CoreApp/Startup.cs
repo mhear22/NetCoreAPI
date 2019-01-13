@@ -17,6 +17,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
 using Newtonsoft.Json.Serialization;
+using Stripe;
 using Swashbuckle.AspNetCore.Swagger;
 using System.Collections.Generic;
 using System.IO;
@@ -63,8 +64,11 @@ namespace CoreApp
 			var opt = Configuration.GetAWSOptions();
 			opt.Region = RegionEndpoint.APSoutheast2;
 			Startup.creds = new BasicAWSCredentials(key, secret);
-			opt.Credentials = creds; 
-			
+			opt.Credentials = creds;
+
+			StripeConfiguration.SetApiKey(Configuration.GetSection("StripeKey").Value);
+
+
 			services.AddDefaultAWSOptions(opt);
 			services.AddAWSService<IAmazonS3>();
 			services.AddAWSService<IAmazonSimpleEmailService>();
@@ -131,12 +135,13 @@ namespace CoreApp
 			services.AddScoped<IUserService, UserService>();
 			services.AddScoped<IFormService, FormService>();
 			services.AddScoped<IEmailService, EmailService>();
-			services.AddScoped<ITokenService, TokenService>();
 			services.AddScoped<IImageService, ImageService>();
 			services.AddScoped<IMileageService, MileageService>();
 			services.AddScoped<ICountryService, CountryService>();
 			services.AddScoped<IStorageService, StorageService>();
+			services.AddScoped<IPaymentService, PaymentService>();
 			services.AddScoped<IPasswordService, PasswordService>();
+			services.AddScoped<ITokenService, Services.TokenService>();
 			services.AddScoped<ICurrentUserService, CurrentUserService>();
 			services.AddScoped<IHtmlDocumentService, HtmlDocumentService>();
 			services.AddScoped<IManufacturerService, ManufacturerService>();
