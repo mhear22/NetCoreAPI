@@ -21,7 +21,7 @@ namespace CoreApp.Services
 
 		public List<PaymentPlanModel> GetPlans()
 		{
-			return Context.PaymentPlans.Select(x => new PaymentPlanModel()
+			return Context.PaymentPlans.OrderBy(x=>x.Amount).Select(x => new PaymentPlanModel()
 			{
 				Amount = $"${x.Amount / 100}",
 				Description = x.Description,

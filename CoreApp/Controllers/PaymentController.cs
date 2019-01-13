@@ -12,12 +12,16 @@ namespace CoreApp.Controllers
 	public class PaymentController : ApiController
 	{
 		private IPaymentService paymentService;
+		private IPaymentPlanService paymentPlanService;
+
 		public PaymentController(
 			IContext context,
-			IPaymentService paymentService
+			IPaymentService paymentService,
+			IPaymentPlanService paymentPlanService
 		) : base(context)
 		{
 			this.paymentService = paymentService;
+			this.paymentPlanService = paymentPlanService;
 		}
 
 		[HttpPost]
@@ -25,5 +29,11 @@ namespace CoreApp.Controllers
 		[ProducesResponseType(200, Type = typeof(PaymentModel))]
 		public IActionResult ProcessPayment([FromBody]PaymentModel model) =>
 			ReturnResult(() => this.paymentService.ProcessPayment(model));
+
+		[HttpGet]
+		[Route("paymentplans/")]
+		[ProducesResponseType(200, Type=typeof(List<PaymentPlanModel>))]
+		public IActionResult GetPlans() =>
+			ReturnResult(() => this.paymentPlanService.GetPlans());
 	}
 }

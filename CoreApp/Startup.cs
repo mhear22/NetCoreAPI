@@ -142,6 +142,7 @@ namespace CoreApp
 			services.AddScoped<IPaymentService, PaymentService>();
 			services.AddScoped<IPasswordService, PasswordService>();
 			services.AddScoped<ITokenService, Services.TokenService>();
+			services.AddScoped<IPaymentPlanService, PaymentPlanService>();
 			services.AddScoped<ICurrentUserService, CurrentUserService>();
 			services.AddScoped<IHtmlDocumentService, HtmlDocumentService>();
 			services.AddScoped<IManufacturerService, ManufacturerService>();

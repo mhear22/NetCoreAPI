@@ -550,7 +550,7 @@ namespace CoreApp.Repositories
 					new PaymentPlanDto()
 					{
 						Id="lifetime",
-						Name="",
+						Name="Lifetime",
 						Amount = 10000,
 						MonthsCovered = 9999,
 						Description = "Purchase //productname for the life of the Vin, transferable",
