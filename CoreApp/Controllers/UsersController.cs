@@ -9,9 +9,14 @@ namespace CoreApp.Controllers
 	public class UsersController : ApiController
 	{
 		private IUserService userService;
-		public UsersController(IContext context,IUserService userService) 
-			: base(context)
+		private IPaymentService paymentService;
+		public UsersController(
+			IContext context,
+			IUserService userService,
+			IPaymentService paymentService
+		) : base(context)
 		{
+			this.paymentService = paymentService;
 			this.userService = userService;
 		}
 
@@ -44,6 +49,14 @@ namespace CoreApp.Controllers
 			var user = userService.GetUser(userIdOrName);
 			return Ok(userService.UpdateUser(user.Id, model));
 		}
+
+		[Route("users/{userIdOrName}/plan/{planId}")]
+		[HttpPut]
+		[ProducesResponseType(200)]
+		public IActionResult SetPaymentPlan(string userIdOrName, string planId) =>
+			ReturnResult(() => this.paymentService.SetPlan(planId, userService.GetUser(userIdOrName).Id));
+
+
 		
 		[Route("user/{userIdOrName}/password")]
 		[HttpPost]

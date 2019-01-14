@@ -12,6 +12,7 @@ namespace CoreApp.Services
 	public interface IPaymentService
 	{
 		void ProcessPayment(PaymentModel model);
+		void SetPlan(string PlanId, string UserId);
 	}
 
 	public class PaymentService : ServiceBase, IPaymentService
@@ -47,6 +48,26 @@ namespace CoreApp.Services
 				PaymentPlanId = plan.Id
 			});
 			Context.SaveChanges();
+		}
+
+		public void SetPlan(string PlanId, string UserId)
+		{
+			var user = Context.Users.FirstOrDefault(x => x.Id == UserId);
+			var plan = Context.PaymentPlans.FirstOrDefault(x => x.Id == PlanId);
+			
+			user.PaymentPlanId = plan.Id;
+			Context.SaveChanges();
+		}
+
+		public PaymentPlanModel GetCurrentPlan()
+		{
+			var user = currentUserService.CurrentUser();
+			var plan = Context.PaymentPlans
+				.FirstOrDefault(x => x.Id == user.PaymentPlanId)
+				.ToModel();
+
+			return plan;
+
 		}
 	}
 }
