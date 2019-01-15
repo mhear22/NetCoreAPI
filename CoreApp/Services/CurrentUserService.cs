@@ -19,9 +19,15 @@ namespace CoreApp.Services
 	public class CurrentUserService : ServiceBase, ICurrentUserService
 	{
 		private IHttpContextAccessor accessor;
-		public CurrentUserService(IContext context, IHttpContextAccessor accessor)
-			: base(context)
+		private IStripeService stripeService;
+		
+		public CurrentUserService(
+			IContext context,
+			IHttpContextAccessor accessor,
+			IStripeService stripeService
+		) : base(context)
 		{
+			this.stripeService = stripeService;
 			this.accessor = accessor;
 		}
 
@@ -61,8 +67,18 @@ namespace CoreApp.Services
 		public UserModel CurrentUser()
 		{
 			var userId = UserId();
-			return Context.Users
-				.FirstOrDefault(x => x.Id == userId).ToModel();
+			var userDto = Context.Users
+				.FirstOrDefault(x => x.Id == userId);
+			var user = userDto.ToModel();
+			if(userDto.StripeId != null)
+			{
+				var sub = stripeService.CurrentSubForCustomer(userDto.StripeId);
+				user.PlanNickname = sub.Plan.Nickname;
+				user.PlanId = sub.Plan.Id;
+			}
+
+
+			return user;
 		}
 	}
 }

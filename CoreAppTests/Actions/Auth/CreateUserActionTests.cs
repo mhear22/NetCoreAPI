@@ -6,7 +6,7 @@ namespace CoreAppTests.Actions.Auth
 	public class CreateUserActionTest : AuthenticationActionTestBase
 	{
 		public CreateUserActionTest() : base() { }
-		
+
 		[Fact]
 		public void CreateUserAction_WithCorrectCreds_CreatesUser()
 		{

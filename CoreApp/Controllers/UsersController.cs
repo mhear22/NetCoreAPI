@@ -49,14 +49,6 @@ namespace CoreApp.Controllers
 			var user = userService.GetUser(userIdOrName);
 			return Ok(userService.UpdateUser(user.Id, model));
 		}
-
-		[Route("users/{userIdOrName}/plan/{planId}")]
-		[HttpPut]
-		[ProducesResponseType(200)]
-		public IActionResult SetPaymentPlan(string userIdOrName, string planId) =>
-			ReturnResult(() => this.paymentService.SetPlan(planId, userService.GetUser(userIdOrName).Id));
-
-
 		
 		[Route("user/{userIdOrName}/password")]
 		[HttpPost]

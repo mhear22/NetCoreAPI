@@ -1,5 +1,4 @@
 ﻿using CoreApp.Models.Payments;
-using CoreApp.Repositories.Payment;
 using CoreApp.Services;
 using Stripe;
 using System;
@@ -10,9 +9,14 @@ namespace CoreAppTests.Mocks
 {
 	class MockStripeService : IStripeService
 	{
-		public Charge HandleCharge(TokenModel model, PaymentPlanDto plan)
+		public List<Plan> GetPlans()
 		{
-			return new Charge();
+			throw new NotImplementedException();
+		}
+
+		public Charge HandleCharge(TokenModel model, string PlanId)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

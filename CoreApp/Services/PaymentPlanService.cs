@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CoreApp.Repositories;
-using CoreApp.Repositories.Payment;
 
 namespace CoreApp.Services
 {
@@ -14,19 +13,23 @@ namespace CoreApp.Services
 
 	public class PaymentPlanService : ServiceBase, IPaymentPlanService
 	{
-		public PaymentPlanService(IContext context)
-			: base(context)
+		IStripeService stripeService;
+		public PaymentPlanService(
+			IContext context,
+			IStripeService stripeService
+		) : base(context)
 		{
-
+			this.stripeService = stripeService;
 		}
 
 		public List<PaymentPlanModel> GetPlans()
 		{
-			return Context.PaymentPlans
-				.OrderBy(x => x.Amount)
-				.ToList()
-				.Select(x => x.ToModel())
-				.ToList();
+			return this.stripeService.GetPlans().Select(x => new PaymentPlanModel()
+			{
+				Amount = x.Amount.ToString(),
+				Name = x.Nickname,
+				Id = x.Id
+			}).ToList();
 		}
 	}
 
@@ -36,19 +39,5 @@ namespace CoreApp.Services
 		public string Name;
 		public string Description;
 		public string Amount;
-	}
-
-	public static class PaymentPlanModelExtentions
-	{
-		public static PaymentPlanModel ToModel(this PaymentPlanDto dto)
-		{
-			return new PaymentPlanModel()
-			{
-				Amount = $"${dto.Amount / 100}",
-				Description = dto.Description,
-				Name = dto.Name,
-				Id = dto.Id
-			};
-		}
 	}
 }

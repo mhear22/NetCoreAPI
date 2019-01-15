@@ -11,9 +11,11 @@ using DinkToPdf;
 using DinkToPdf.Contracts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
 using Newtonsoft.Json.Serialization;
@@ -75,6 +77,8 @@ namespace CoreApp
 			services.AddScoped<IContext, DatabaseContext>();
 
 			services = StartupHelpers.RegisterService(services);
+			
+			services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 			services.AddSwaggerGen(x=>
 			{

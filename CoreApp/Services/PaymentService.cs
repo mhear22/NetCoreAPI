@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using CoreApp.Models.Payments;
 using CoreApp.Repositories;
-using CoreApp.Repositories.Payment;
 using Stripe;
 
 namespace CoreApp.Services
@@ -12,7 +11,6 @@ namespace CoreApp.Services
 	public interface IPaymentService
 	{
 		void ProcessPayment(PaymentModel model);
-		void SetPlan(string PlanId, string UserId);
 	}
 
 	public class PaymentService : ServiceBase, IPaymentService
@@ -36,38 +34,25 @@ namespace CoreApp.Services
 		public void ProcessPayment(PaymentModel model)
 		{
 			var user = currentUserService.CurrentUser();
-			var plan = Context.PaymentPlans.FirstOrDefault(x => x.Id == model.PlanId);
+			var userDto = Context.Users.FirstOrDefault(x => x.Id == user.Id);
+			var plan = stripeService.GetPlans().FirstOrDefault(x => x.Id == model.PlanId);
 
-			this.stripeService.HandleCharge(model.Token, plan);
 
-			Context.Payments.Add(new PaymentDto()
+			if(userDto.StripeId == null)
 			{
-				CreatedDate = DateTime.UtcNow,
-				Id = Guid.NewGuid().ToString(),
-				UserId = user.Id,
-				PaymentPlanId = plan.Id
-			});
-			Context.SaveChanges();
-		}
-
-		public void SetPlan(string PlanId, string UserId)
-		{
-			var user = Context.Users.FirstOrDefault(x => x.Id == UserId);
-			var plan = Context.PaymentPlans.FirstOrDefault(x => x.Id == PlanId);
-			
-			user.PaymentPlanId = plan.Id;
-			Context.SaveChanges();
-		}
-
-		public PaymentPlanModel GetCurrentPlan()
-		{
-			var user = currentUserService.CurrentUser();
-			var plan = Context.PaymentPlans
-				.FirstOrDefault(x => x.Id == user.PaymentPlanId)
-				.ToModel();
-
-			return plan;
-
+				var customer = stripeService.CreateCustomer(model.Token.email, model.Token.id);
+				userDto.StripeId = customer.Id;
+				Context.SaveChanges();
+			}
+			else
+			{
+				var currentSub = stripeService.CurrentSubForCustomer(userDto.StripeId);
+				if(currentSub != null)
+				{
+					stripeService.CancelSub(currentSub.Id);
+				}
+			}
+			stripeService.CreateSubscription(plan.Id, userDto.StripeId);
 		}
 	}
 }

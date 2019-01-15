@@ -56,7 +56,6 @@ namespace CoreAppTests.Services
 			Context.Manufacturers.AddRange(StaticData.Manufacturers);
 			Context.RepeatTypes.AddRange(StaticData.RepeatingTypes);
 			Context.ServiceTypes.AddRange(StaticData.ServiceTypes);
-			Context.PaymentPlans.AddRange(StaticData.PaymentPlans);
 			Context.SaveChanges();
 		}
 	}

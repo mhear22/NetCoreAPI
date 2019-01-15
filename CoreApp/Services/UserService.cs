@@ -59,9 +59,15 @@ namespace CoreApp.Services
 
 		public UserModel UpdateUser(string Id, UserModel model)
 		{
-			return userRepository.Update(Id, model.ToDTO()).ToModel();
+			var dto = userRepository.Get(Id);
+
+			dto.EmailAddress = model.EmailAddress;
+			dto.ImageId = model.ImageId;
+			dto.Username = model.Username;
+
+			return userRepository.Update(Id, dto).ToModel();
 		}
-        
+		
 		public UserModel CreateUser(CreateUserModel model)
 		{
 			var userDto = new UserDto()
@@ -70,7 +76,7 @@ namespace CoreApp.Services
 				EmailAddress = model.EmailAddress,
 				Id = Guid.NewGuid().ToString()
 			};
-            
+			
 			userRepository.Create(userDto);
 			passwordService.SetPassword(userDto.Id, model.Password);
 			return GetUser(userDto.Id);

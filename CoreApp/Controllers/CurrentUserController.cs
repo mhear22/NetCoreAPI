@@ -7,16 +7,18 @@ namespace CoreApp.Controllers
 {
 	public class CurrentUserController: ApiController
 	{
-		private IUserService userService;
-		public CurrentUserController(IContext context, IUserService userService)
-			: base(context)
+		private ICurrentUserService currentUserService;
+		public CurrentUserController(
+			IContext context,
+			ICurrentUserService currentUserService
+		) : base(context)
 		{
-			this.userService = userService;
+			this.currentUserService = currentUserService;
 		}
 		
 		[Route("currentuser")]
 		[HttpGet]
 		[ProducesResponseType(200, Type = typeof(UserModel))]
-		public IActionResult GetCurrentUser() => ReturnResult(() => this.userService.GetFromSession(GetAPIKey()));
+		public IActionResult GetCurrentUser() => ReturnResult(() => this.currentUserService.CurrentUser());
 	}
 }

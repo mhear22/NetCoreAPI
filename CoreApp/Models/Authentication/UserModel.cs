@@ -8,7 +8,8 @@ namespace CoreApp.Models.Authentication
 		public string Username;
 		public string EmailAddress;
 		public string ImageId { get; set; }
-		public string PaymentPlanId { get; set; }
+		public string PlanId { get; set; }
+		public string PlanNickname { get; set; }
 	}
 	
 	public static class UserModelExtentions
@@ -21,8 +22,7 @@ namespace CoreApp.Models.Authentication
 				Id = dto.Id,
 				Username = dto.Username,
 				EmailAddress = dto.EmailAddress,
-				ImageId = dto.ImageId,
-				PaymentPlanId = dto.PaymentPlanId
+				ImageId = dto.ImageId
 			};
 		}
 		
@@ -35,7 +35,6 @@ namespace CoreApp.Models.Authentication
 				Username = model.Username,
 				EmailAddress = model.EmailAddress,
 				ImageId = model.ImageId,
-				PaymentPlanId = model.PaymentPlanId
 			};
 		}
 	}

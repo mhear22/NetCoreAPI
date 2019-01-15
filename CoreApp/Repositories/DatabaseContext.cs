@@ -1,6 +1,5 @@
 using CoreApp.Models.Repositories;
 using CoreApp.Models.Repositories.Vehicle;
-using CoreApp.Repositories.Payment;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Design;
@@ -31,8 +30,6 @@ namespace CoreApp.Repositories
 		DbSet<ServiceReminderDto> ServiceReminders { get; set; }
 		DbSet<ServiceTypeDto> ServiceTypes { get; set; }
 		DbSet<ServiceReceiptDto> ServiceReceipts { get; set; }
-		DbSet<PaymentDto> Payments { get; set; }
-		DbSet<PaymentPlanDto> PaymentPlans { get; set; }
 
 
 		DbSet<TEntity> Set<TEntity>() where TEntity : class;
@@ -56,7 +53,6 @@ namespace CoreApp.Repositories
 			StaticData.WorldManufactuerIdenifier.ForEach(x => modelBuilder.Entity<VinWMI>().HasData(x));
 			StaticData.RepeatingTypes.ForEach(x => modelBuilder.Entity<RepeatTypeDto>().HasData(x));
 			StaticData.ServiceTypes.ForEach(x => modelBuilder.Entity<ServiceTypeDto>().HasData(x));
-			StaticData.PaymentPlans.ForEach(x => modelBuilder.Entity<PaymentPlanDto>().HasData(x));
 
 			modelBuilder.Entity<OwnedCarDto>(x=> {
 				x.HasMany(z=>z.MileageRecordings)
@@ -88,8 +84,6 @@ namespace CoreApp.Repositories
 		public DbSet<ServiceReminderDto> ServiceReminders { get; set; }
 		public DbSet<ServiceTypeDto> ServiceTypes { get; set; }
 		public DbSet<ServiceReceiptDto> ServiceReceipts { get; set; }
-		public DbSet<PaymentDto> Payments { get; set; }
-		public DbSet<PaymentPlanDto> PaymentPlans { get; set; }
 	}
 
 	public class DatabaseBuilder : IDesignTimeDbContextFactory<DatabaseContext>
