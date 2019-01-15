@@ -11,6 +11,7 @@ namespace CoreApp.Services
 	public interface IPaymentService
 	{
 		void ProcessPayment(PaymentModel model);
+		void DropSubscription(string UserId);
 	}
 
 	public class PaymentService : ServiceBase, IPaymentService
@@ -53,6 +54,13 @@ namespace CoreApp.Services
 				}
 			}
 			stripeService.CreateSubscription(plan.Id, userDto.StripeId);
+		}
+
+		public void DropSubscription(string UserId)
+		{
+			var userDto = Context.Users.FirstOrDefault(x => x.Id == UserId);
+			var sub = stripeService.CurrentSubForCustomer(userDto.StripeId);
+			stripeService.CancelSub(sub.Id);
 		}
 	}
 }

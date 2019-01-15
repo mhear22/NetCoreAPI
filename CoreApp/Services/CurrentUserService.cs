@@ -73,8 +73,11 @@ namespace CoreApp.Services
 			if(userDto.StripeId != null)
 			{
 				var sub = stripeService.CurrentSubForCustomer(userDto.StripeId);
-				user.PlanNickname = sub.Plan.Nickname;
-				user.PlanId = sub.Plan.Id;
+				if(sub != null)
+				{
+					user.PlanNickname = sub.Plan.Nickname;
+					user.PlanId = sub.Plan.Id;
+				}
 			}
 
 

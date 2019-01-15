@@ -35,5 +35,10 @@ namespace CoreApp.Controllers
 		[ProducesResponseType(200, Type=typeof(List<PaymentPlanModel>))]
 		public IActionResult GetPlans() =>
 			ReturnResult(() => this.paymentPlanService.GetPlans());
+
+		[HttpDelete]
+		[Route("payments/{userId}")]
+		public IActionResult DeleteSubscription(string userId) =>
+			ReturnResult(() => this.paymentService.DropSubscription(userId));
 	}
 }
