@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using CoreApp.Models.Repositories.Vehicle;
 using CoreApp.Models.Vehicle;
 using CoreApp.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace CoreApp.Services
 {
@@ -12,6 +13,7 @@ namespace CoreApp.Services
 	{
 		void UpdateMileage(MileageModel model);
 		List<MileageRecordingModel> GetMileage(string Vin);
+		string EstimateCurrent(string Vin);
 	}
 
 	public class MileageService : ServiceBase, IMileageService
@@ -96,10 +98,29 @@ namespace CoreApp.Services
 				};
 			}).ToList();
 		}
-	}
-	
-	public class MileageRecordingModel {
-		public int Year;
-		public string Recording;
+
+		public string EstimateCurrent(string Vin)
+		{
+			var ownedCar = Context.OwnedCars
+				.Include(x=>x.MileageRecordings)
+				.FirstOrDefault(x => x.Vin == Vin);
+
+			var recordings = ownedCar.MileageRecordings.OrderByDescending(x => x.RecordingDate);
+
+			var lastRecording = recordings.FirstOrDefault();
+
+			var last3Average = recordings.Take(4).Skip(1).Select(x=> {
+				var timeSpan = lastRecording.RecordingDate - x.RecordingDate;
+				var distanceSplit = int.Parse(lastRecording.Mileage) - int.Parse(x.Mileage);
+
+				var dailySplit = distanceSplit / timeSpan.TotalDays;
+
+				return dailySplit;
+			}).Average();
+
+			var days = Math.Abs((lastRecording.RecordingDate - DateTime.UtcNow).Days);
+
+			return ((days * last3Average) + double.Parse(lastRecording.Mileage)).ToString("F");
+		}
 	}
 }

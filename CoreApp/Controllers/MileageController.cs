@@ -30,5 +30,11 @@ namespace CoreApp.Controllers
 		[Route("car/mileage/{vin}")]
 		[ProducesResponseType(200, Type=typeof(List<MileageRecordingModel>))]
 		public IActionResult GetMileage(string vin) => ReturnResult(() => this.mileageService.GetMileage(vin));
+
+		[HttpGet]
+		[Route("car/mileage/{Vin}/current")]
+		[ProducesResponseType(200, Type = typeof(string))]
+		public IActionResult GetEstimatedMileage(string Vin) =>
+			ReturnResult(() => this.mileageService.EstimateCurrent(Vin));
 	}
 }
