@@ -16,6 +16,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
 using Newtonsoft.Json.Serialization;
@@ -28,14 +29,14 @@ namespace CoreApp
 {
 	public class TestStartup : Startup
 	{
-		public TestStartup(IHostingEnvironment env)
+		public TestStartup(Microsoft.AspNetCore.Hosting.IHostingEnvironment env)
 			: base(env, true)
 		{ }
 	}
 	public class Startup
 	{
 		private bool IsTesting = false;
-		public Startup(IHostingEnvironment env, bool IsTesting = false)
+		public Startup(Microsoft.AspNetCore.Hosting.IHostingEnvironment env, bool IsTesting = false)
 		{
 			this.IsTesting = IsTesting;
 			var builder = new ConfigurationBuilder()
@@ -76,6 +77,9 @@ namespace CoreApp
 			services.AddAWSService<IAmazonSimpleEmailService>();
 			services.AddScoped<IContext, DatabaseContext>();
 
+			services.AddSingleton<IHostedService, MileageHostedService>();
+			services.AddSingleton<IScheduledTask, MileageScheduledTask>();
+
 			services = StartupHelpers.RegisterService(services);
 			
 			services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -106,7 +110,7 @@ namespace CoreApp
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+		public void Configure(IApplicationBuilder app, Microsoft.AspNetCore.Hosting.IHostingEnvironment env, ILoggerFactory loggerFactory)
 		{
 			app.UseSwagger();
 			app.UseSwaggerUI(x=>
