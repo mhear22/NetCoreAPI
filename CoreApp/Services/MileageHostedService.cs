@@ -28,8 +28,8 @@ namespace CoreApp.Services
 			while(!cancellationToken.IsCancellationRequested)
 			{
 				await ExecuteOnceAsync(cancellationToken);
-				//await Task.Delay(TimeSpan.FromDays(1), cancellationToken);
-				await Task.Delay(TimeSpan.FromMinutes(1), cancellationToken);
+				await Task.Delay(TimeSpan.FromDays(1), cancellationToken);
+				//await Task.Delay(TimeSpan.FromSeconds(30), cancellationToken);
 			}
 		}
 
@@ -40,7 +40,14 @@ namespace CoreApp.Services
 			{
 				factory.StartNew(async () =>
 				{
-					await x.ExecuteAsync(cancellationToken);
+					try
+					{
+						await x.ExecuteAsync(cancellationToken);
+					}
+					catch (Exception ex)
+					{
+						Console.WriteLine(ex.Message);
+					}
 				});
 			});
 

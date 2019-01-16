@@ -1,5 +1,6 @@
 ﻿using CoreApp.Repositories;
 using CoreApp.Services;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,19 +10,20 @@ namespace CoreApp.Forms.CarService
 {
 	public class CarReport: ReportBase
 	{
-		private ICarService carService;
 		public CarReport(
-			IContext Context,
-			ICarService carService
+			IContext Context
 		) :base(Context)
 		{
-			this.carService = carService;
+
 		}
 
 		protected override object Execute() 
 		{
 			var vin = this.Get("vin");
-			var car = this.carService.Get(vin);
+			var car = Context.OwnedCars
+				.Include(x=>x.ServiceReminders)
+				.Include(x=>x.MileageRecordings)
+				.FirstOrDefault(z=>z.Vin == vin);
 			
 			
 			return new {

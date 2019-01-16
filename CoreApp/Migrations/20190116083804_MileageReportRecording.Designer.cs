@@ -3,14 +3,16 @@ using System;
 using CoreApp.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CoreApp.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20190116083804_MileageReportRecording")]
+    partial class MileageReportRecording
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -215,8 +217,6 @@ namespace CoreApp.Migrations
                     b.Property<string>("UserId");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Sessions");
                 });
@@ -800,13 +800,6 @@ namespace CoreApp.Migrations
                         new { Id = "timing", Name = "Replace Timing Equipment" },
                         new { Id = "brakes", Name = "Check Brakes Depth" }
                     );
-                });
-
-            modelBuilder.Entity("CoreApp.Models.Repositories.SessionDto", b =>
-                {
-                    b.HasOne("CoreApp.Models.Repositories.UserDto", "User")
-                        .WithMany("sessions")
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("CoreApp.Models.Repositories.Vehicle.CarDto", b =>

@@ -10,5 +10,8 @@ namespace CoreApp.Models.Repositories
 		public string EmailAddress { get; set; }
 		public string ImageId { get; set; }
 		public string StripeId { get; set; }
+
+		[ForeignKey("UserId")]
+		public ICollection<SessionDto> sessions { get; set; }
 	}
 }

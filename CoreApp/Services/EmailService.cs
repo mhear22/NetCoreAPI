@@ -14,6 +14,7 @@ namespace CoreApp.Services
 	public interface IEmailService
 	{
 		void SendTestEmail(string Vin);
+		void SendServiceEmail(string Vin, string Reason);
 	}
 
 	public class EmailService : ServiceBase, IEmailService
@@ -34,51 +35,60 @@ namespace CoreApp.Services
 			this.simpleEmail = simpleEmail;
 		}
 
-		public void SendTestEmail(string Vin)
+		private void SendPlainEmail(string ToAddress,string EmailHtml, string Subject = "Test Email")
 		{
-			var user = this.currentUserService.CurrentUser();
-			var session = this.currentUserService.GetSessionKey();
-
-			var data = new List<KeyValuePair<string, StringValues>>();
-			data.Add(new KeyValuePair<string, StringValues>("apikey", new StringValues(session)));
-			data.Add(new KeyValuePair<string, StringValues>("vin", new StringValues(Vin)));
-			var emailTemplate = this.emailTemplateService.GenerateEmailHtml("carservice", data);
-
-
 			var email = new SendEmailRequest()
 			{
 				Source = "mhear22@gmail.com",
 				Destination = new Destination()
 				{
-					ToAddresses = new List<string> { user.EmailAddress }
+					ToAddresses = new List<string> { ToAddress }
 				},
 				Message = new Message()
 				{
-					Subject = new Content("Test Email"),
+					Subject = new Content(Subject),
 					Body = new Body()
 					{
 						Html = new Content()
 						{
 							Charset = "UTF-8",
-							Data = emailTemplate
+							Data = EmailHtml
 						}
 					}
 				}
 			};
-			
-			using(var client = new AmazonSimpleEmailServiceClient(Startup.creds, RegionEndpoint.USEast1))
+
+			using (var client = new AmazonSimpleEmailServiceClient(Startup.creds, RegionEndpoint.USEast1))
 			{
-				try
-				{
-					var result = client.SendEmailAsync(email).Result;
-				}
-				catch (Exception ex)
-				{
-					Console.WriteLine(ex);
-				}
+				var result = client.SendEmailAsync(email).Result;
 			}
+		}
 
+		public void SendServiceEmail(string Vin, string Reason)
+		{
+			var users = Context.OwnedCars
+				.Where(x => x.Vin == Vin).Select(x => x.Owner)
+				.Select(x => new { Email = x.EmailAddress, ApiKey = x.sessions.OrderBy(z=>z.SetTime).FirstOrDefault().Id })
+				.ToList();
+			foreach(var user in users)
+			{
+				var data = new List<KeyValuePair<string, StringValues>>();
+				data.Add(new KeyValuePair<string, StringValues>("apikey", new StringValues(user.ApiKey)));
+				data.Add(new KeyValuePair<string, StringValues>("vin", new StringValues(Vin)));
+				var emailTemplate = this.emailTemplateService.GenerateEmailHtml("carservice", data);
+				SendPlainEmail(user.Email, emailTemplate, Reason);
+			}
+		}
 
+		public void SendTestEmail(string Vin)
+		{
+			var user = this.currentUserService.CurrentUser();
+			var session = this.currentUserService.GetSessionKey();
+			var data = new List<KeyValuePair<string, StringValues>>();
+			data.Add(new KeyValuePair<string, StringValues>("apikey", new StringValues(session)));
+			data.Add(new KeyValuePair<string, StringValues>("vin", new StringValues(Vin)));
+			var emailTemplate = this.emailTemplateService.GenerateEmailHtml("carservice", data);
+			SendPlainEmail(user.EmailAddress, emailTemplate);
 		}
 	}
 }
