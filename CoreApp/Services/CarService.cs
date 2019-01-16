@@ -23,13 +23,16 @@ namespace CoreApp.Services
 	{
 		private ICurrentUserService currentUserService;
 		private IVinService vinService;
+		private IMileageService mileageService;
 
 		public CarService(
 			IContext context,
 			ICurrentUserService currentUserService,
-			IVinService vinService
+			IVinService vinService,
+			IMileageService mileageService
 		) : base(context)
 		{
+			this.mileageService = mileageService;
 			this.vinService = vinService;
 			this.currentUserService = currentUserService;
 		}
@@ -110,7 +113,8 @@ namespace CoreApp.Services
 						Base = this.vinService.GetCar(x.Vin),
 						Vin = x.Vin,
 						Mileage = x.MileageRecordings?.OrderByDescending(z => z.RecordingDate).FirstOrDefault()?.Mileage ?? "0",
-						Nickname = x.Nickname??""
+						Nickname = x.Nickname??"",
+						EstimatedCurrentMileage = this.mileageService.EstimateCurrent(x.Vin)
 					};
 				})
 				.ToList();

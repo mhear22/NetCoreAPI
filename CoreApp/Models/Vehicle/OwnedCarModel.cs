@@ -12,5 +12,6 @@ namespace CoreApp.Models.Vehicle
 		public string Vin;
 		public string Mileage;
 		public string Nickname;
+		public string EstimatedCurrentMileage;
 	}
 }
