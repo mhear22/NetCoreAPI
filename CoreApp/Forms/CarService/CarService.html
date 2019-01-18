@@ -3,8 +3,59 @@
 <head>
 	<meta charset="utf-8" />
 	<title></title>
+	<style>
+		.column {
+			max-width:{{seperation}}%;
+		}
+	</style>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css" integrity="sha384-PmY9l28YgO4JwMKbTvgaS7XNZJ30MK9FAZjjzXtlqyZCqBY6X6bXIkM++IkyinN+" crossorigin="anonymous">
 </head>
 <body>
-	<h1>Car Service for {{Vin}}</h1>
+	<div class="col-md-12">
+
+		<div class="col-sm-12 title-card">
+			<a href="{{domain}}/#/car/{{Vin}}">
+				<h1>Car Service Reminder</h1>
+			</a>
+			<h6>{{car.Nickname}}</h6>
+			<h6>{{Vin}}</h6>
+		</div>
+
+		{{#each ServiceReminders}}
+		<div class="col-sm-6 service-reminder">
+			<a href="{{../domain}}/#/car/{{../Vin}}/part/{{this.Id}}">
+				<h3>
+					{{this.ServiceType.Name}}
+				</h3>
+			</a>
+			<h6>
+				Last check: {{this.Receipts[0].CurrentMiles}}
+			</h6>
+		</div>
+		{{/each}}
+
+		<div class="recordings col-sm-6">
+			<h2 style="float:left;">Mileage Recordings</h2>
+			<span style="float:right;">({{estimatedMileage}}KM)</span>
+			<div class="mileage-table">
+				{{#each mileage}}
+				<div class="column">
+					<div class="column-item" style="height:{{this.Percentage}}%">
+						<div class="text">
+							{{this.Year}}
+						</div>
+					</div>
+				</div>
+				{{/each}}
+			</div>
+		</div>
+		<div class="col-md-12 end-card">
+			<a href="{{domain}}/">
+				<h6>
+					Mechie
+				</h6>
+			</a>
+		</div>
+	</div>
 </body>
 </html>

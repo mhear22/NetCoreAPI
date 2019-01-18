@@ -14,6 +14,7 @@ namespace CoreApp.Services
 		void UpdateMileage(MileageModel model);
 		List<MileageRecordingModel> GetMileage(string Vin);
 		string EstimateCurrent(string Vin);
+		List<MileageRecordingModel> GetGraphMileage(string Vin);
 	}
 
 	public class MileageService : ServiceBase, IMileageService
@@ -121,6 +122,11 @@ namespace CoreApp.Services
 			var days = Math.Abs((lastRecording.RecordingDate - DateTime.UtcNow).Days);
 
 			return ((days * last3Average) + double.Parse(lastRecording.Mileage)).ToString("F");
+		}
+
+		public List<MileageRecordingModel> GetGraphMileage(string Vin)
+		{
+			return this.GetMileage(Vin);
 		}
 	}
 }
