@@ -330,4 +330,5 @@ __pycache__/
 
 # End of https://www.gitignore.io/api/visualstudiocode,visualstudio,macos
 CoreApp/appsettings.json
+CoreApp.Serverless/appsettings.json
 CoreApp/obj/CoreApp.csproj.nuget.g.targets
