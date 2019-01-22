@@ -35,9 +35,11 @@ namespace CoreApp.Forms.CarService
 					.Include(x => x.Receipts)
 					.Include(x => x.ServiceType)
 					.ToList().Select(x=> {
-						var CurrentMiles =
-								x.Receipts?.OrderByDescending(z => z.CurrentMiles)
-								.FirstOrDefault()?.CurrentMiles ?? "0";
+						var lastChange = x.Receipts?
+							.OrderByDescending(z => z.CurrentMiles)
+							.FirstOrDefault();
+
+						var CurrentMiles = lastChange?.CurrentMiles ?? "0";
 
 						var ServicePeriod = double.Parse(x.RepeatingFigure);
 						var timeSinceChange = (mileageDouble - double.Parse(CurrentMiles));
@@ -51,8 +53,10 @@ namespace CoreApp.Forms.CarService
 							x.ServiceType.Name,
 							x.Id,
 							CurrentMiles,
+							LastChangeDate = lastChange?.CreatedDate,
 							Health = Health.ToString("0.##"),
-							HealthColor = (Health > 80) ? "green" : (Health > 50) ? "yellow" : "red"
+							HealthColor = (Health > 80) ? "green" : (Health > 50) ? "yellow" : "red",
+							
 						};
 					}).ToList();
 
