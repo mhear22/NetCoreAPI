@@ -332,3 +332,4 @@ __pycache__/
 CoreApp/appsettings.json
 CoreApp.Serverless/appsettings.json
 CoreApp/obj/CoreApp.csproj.nuget.g.targets
+CoreApp.Serverless/CoreApp.xml

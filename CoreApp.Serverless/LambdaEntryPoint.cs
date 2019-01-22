@@ -24,6 +24,7 @@ namespace CoreApp.Serverless
 		protected override void Init(IWebHostBuilder builder)
 		{
 			builder
+				.UseContentRoot(Directory.GetCurrentDirectory())
 				.UseStartup<CoreApp.Startup>();
 		}
 	}

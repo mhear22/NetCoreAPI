@@ -6,6 +6,10 @@
     <AWSProjectType>Lambda</AWSProjectType>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\Git\NetCoreAPI\CoreApp.Serverless\CoreApp.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Amazon.Lambda.AspNetCoreServer" Version="2.1.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="2.1.4" />
@@ -13,6 +17,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CoreApp\CoreApp.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="CoreApp.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
