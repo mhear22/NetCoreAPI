@@ -36,11 +36,13 @@ namespace CoreApp.Services
 
 			var doc = new HtmlToPdfDocument()
 			{
-				GlobalSettings = new GlobalSettings() { }
+				GlobalSettings = new GlobalSettings() {
+					Margins = new MarginSettings(0,0,0,0)
+				}
 			};
 
 			doc.Objects.Add(new ObjectSettings() {
-				HtmlContent = html
+				HtmlContent = html,
 			});
 
 			var pdf = converter.Convert(doc);

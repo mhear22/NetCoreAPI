@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using CoreApp.Forms;
 using CoreApp.Forms.CarService;
@@ -58,7 +59,7 @@ namespace CoreApp.Services
 			var service = (ReportBase)this.serviceProvider.GetService(reportType.type);
 			return service.Build(Data);
 		}
-
+		
 		public string GenerateHtml(string ReportType, IEnumerable<KeyValuePair<string, StringValues>> Data = null)
 		{
 			var html = this.htmlDocumentService.GetDocument(ReportType);
@@ -66,7 +67,8 @@ namespace CoreApp.Services
 				throw new ArgumentException($"Could not find a report called {ReportType}");
 			var template = Handlebars.Compile(html);
 			var data = BuildReportData(ReportType, Data);
-			return template(data);
+			var response = template(data);
+			return response;
 		}
 	}
 }

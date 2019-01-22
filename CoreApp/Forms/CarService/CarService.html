@@ -8,12 +8,11 @@
 			max-width:{{seperation}}%;
 		}
 	</style>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css" integrity="sha384-PmY9l28YgO4JwMKbTvgaS7XNZJ30MK9FAZjjzXtlqyZCqBY6X6bXIkM++IkyinN+" crossorigin="anonymous">
 </head>
 <body>
-	<div class="col-md-12">
+	<div class="psudo-body">
 
-		<div class="col-sm-12 title-card">
+		<div class="title-card">
 			<a href="{{domain}}/#/car/{{Vin}}">
 				<h1>Car Service Reminder</h1>
 			</a>
@@ -22,19 +21,23 @@
 		</div>
 
 		{{#each ServiceReminders}}
-		<div class="col-sm-6 service-reminder">
+		<div class="service-reminder">
 			<a href="{{../domain}}/#/car/{{../Vin}}/part/{{this.Id}}">
 				<h3>
-					{{this.ServiceType.Name}}
+					{{this.Name}}
 				</h3>
 			</a>
-			<h6>
-				Last check: {{this.Receipts[0].CurrentMiles}}
+			<h6 style="float:left;">
+				Last check: {{this.CurrentMiles}}KM
 			</h6>
+			<h3 style=" float:right; color:{{this.HealthColor}}">
+				Health: {{this.Health}}%
+			</h3>
+			<div style="clear:both;"></div>
 		</div>
 		{{/each}}
 
-		<div class="recordings col-sm-6">
+		<div class="recordings">
 			<h2 style="float:left;">Mileage Recordings</h2>
 			<span style="float:right;">({{estimatedMileage}}KM)</span>
 			<div class="mileage-table">
@@ -49,10 +52,10 @@
 				{{/each}}
 			</div>
 		</div>
-		<div class="col-md-12 end-card">
+		<div class="end-card">
 			<a href="{{domain}}/">
 				<h6>
-					Mechie
+					{{domain}}
 				</h6>
 			</a>
 		</div>

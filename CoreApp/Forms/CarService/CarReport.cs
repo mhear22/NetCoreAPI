@@ -26,15 +26,37 @@ namespace CoreApp.Forms.CarService
 				.Include(x=>x.ServiceReminders)
 				.Include(x=>x.MileageRecordings)
 				.FirstOrDefault(z=>z.Vin == vin);
+			var estimatedMileage = mileageService.EstimateCurrent(vin);
+
+			var mileageDouble = double.Parse(estimatedMileage);
 
 			var serviceReminders = Context.ServiceReminders
 					.Where(x => x.OwnedCarId == car.Id)
 					.Include(x => x.Receipts)
 					.Include(x => x.ServiceType)
-					.ToList();
+					.ToList().Select(x=> {
+						var CurrentMiles =
+								x.Receipts?.OrderByDescending(z => z.CurrentMiles)
+								.FirstOrDefault()?.CurrentMiles ?? "0";
+
+						var ServicePeriod = double.Parse(x.RepeatingFigure);
+						var timeSinceChange = (mileageDouble - double.Parse(CurrentMiles));
+
+						var Health = 100 - ((timeSinceChange / ServicePeriod) * 50);
+						if (Health < 0)
+							Health = 0;
+						return new
+						{
+							x.Description,
+							x.ServiceType.Name,
+							x.Id,
+							CurrentMiles,
+							Health,
+							HealthColor = (Health > 80) ? "green" : (Health > 50) ? "yellow" : "red"
+						};
+					}).ToList();
 
 			var mileage = mileageService.GetGraphMileage(vin);
-			var estimatedMileage = mileageService.EstimateCurrent(vin);
 			var seperation = 100d/(double)mileage.Count();
 
 

@@ -1,6 +1,5 @@
 ﻿body {
 	display: block;
-	background-color: grey !important;
 	font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
@@ -23,19 +22,22 @@
 
 .recordings {
 	overflow:hidden;
-	padding:15px;
 	max-width:100%;
 }
 
 .service-reminder {
-	padding:15px;
 }
 
 .mileage-table, .end-card {
-clear:both;
+	clear:both;
 }
 
 .service-reminder, .recordings,.title-card, .end-card {
+	padding:15px;
 	background-color:gainsboro;
-	border:2px solid gray;
+	border:5px solid white;
+}
+
+.psudo-body {
+	padding:15px;
 }

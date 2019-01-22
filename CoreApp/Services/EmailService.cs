@@ -39,7 +39,7 @@ namespace CoreApp.Services
 		{
 			var email = new SendEmailRequest()
 			{
-				Source = "mhear22@gmail.com",
+				Source = "noreply@mechie.net",
 				Destination = new Destination()
 				{
 					ToAddresses = new List<string> { ToAddress }

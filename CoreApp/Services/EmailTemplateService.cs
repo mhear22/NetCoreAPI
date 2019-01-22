@@ -24,7 +24,11 @@ namespace CoreApp.Services
 
 		public string GenerateEmailHtml(string ReportType, IEnumerable<KeyValuePair<string, StringValues>> Data = null)
 		{
-			return this.htmlService.GenerateHtml(ReportType, Data);
+			var html = this.htmlService.GenerateHtml(ReportType, Data);
+
+			//Nuke CSS and remove body styling
+
+			return html;
 		}
 	}
 }

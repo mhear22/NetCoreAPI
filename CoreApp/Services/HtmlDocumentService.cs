@@ -10,6 +10,7 @@ namespace CoreApp.Services
 {
 	public interface IHtmlDocumentService
 	{
+		string GetStaticContent();
 		string GetDocument(string Type);
 		List<string> GetDocumentNames();
 	}
@@ -48,11 +49,18 @@ namespace CoreApp.Services
 			return Regex.Replace(html, "<head>", $"<head><style>{css}</style>");
 		}
 		
+		public string GetStaticContent()
+		{
+			var dir = Root + $"/StaticContent/Bootstrap/css/bootstrap.min.css";
+			var css = File.ReadAllText(dir);
+			return css;
+		}
+
 		public List<string> GetDocumentNames()
 		{
 			var dir = Root + $"/Forms/";
 			var Folders = Directory.GetDirectories(dir);
-			return Folders.ToList();
+			return Folders.Select(x=> x.Split('/').LastOrDefault()).ToList();
 		}
 	}
 }
