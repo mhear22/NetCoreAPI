@@ -10,7 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.3.6" />
-    <PackageReference Include="AWSSDK.S3" Version="3.3.11.1" />
+    <PackageReference Include="AWSSDK.S3" Version="3.3.31.11" />
     <PackageReference Include="AWSSDK.SimpleEmail" Version="3.3.7.25" />
     <PackageReference Include="DinkToPdfIncludesDependencies" Version="1.0.8" />
     <PackageReference Include="Handlebars.Net" Version="1.9.5" />
