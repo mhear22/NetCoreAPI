@@ -51,7 +51,7 @@ namespace CoreApp.Forms.CarService
 							x.ServiceType.Name,
 							x.Id,
 							CurrentMiles,
-							Health,
+							Health = Health.ToString("0.##"),
 							HealthColor = (Health > 80) ? "green" : (Health > 50) ? "yellow" : "red"
 						};
 					}).ToList();

@@ -18,14 +18,12 @@
 	width: 40px;
 	height: 40px;
 	transform: rotate(-90.0deg);
+	font-size:10px;
 }
 
 .recordings {
 	overflow:hidden;
 	max-width:100%;
-}
-
-.service-reminder {
 }
 
 .mileage-table, .end-card {

@@ -5,7 +5,7 @@
 	<title></title>
 	<style>
 		.column {
-			max-width:{{seperation}}%;
+			width:{{seperation}}%;
 		}
 	</style>
 </head>
@@ -22,12 +22,12 @@
 
 		{{#each ServiceReminders}}
 		<div class="service-reminder">
-			<a href="{{../domain}}/#/car/{{../Vin}}/part/{{this.Id}}">
+			<a style="float:left; width:51%;" href="{{../domain}}/#/car/{{../Vin}}/part/{{this.Id}}">
 				<h3>
 					{{this.Name}}
 				</h3>
 			</a>
-			<h6 style="float:left;">
+			<h6 style="float:left; width:51%;">
 				Last check: {{this.CurrentMiles}}KM
 			</h6>
 			<h3 style=" float:right; color:{{this.HealthColor}}">
