@@ -15,10 +15,24 @@ namespace CoreApp.Services
 		Subscription CurrentSubForCustomer(string CustomerId);
 		Subscription CancelSub(string SubId);
 		List<Plan> GetPlans();
+
+		bool StripeStatus();
 	}
 
 	public class StripeService : IStripeService
 	{
+		public bool StripeStatus()
+		{
+			try
+			{
+				return new PlanService().List().Any();
+			}
+			catch
+			{
+				return false;
+			}
+		}
+
 		public List<Plan> GetPlans()
 		{
 			var planService = new PlanService();
