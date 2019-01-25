@@ -64,7 +64,7 @@ namespace CoreAppTests.Fixtures
 			{
 				Username = RandomString(),
 				EmailAddress = RandomString() + "@" + RandomString(),
-				Password = RandomString()
+				Password = RandomString(),
 			};
 			
 			return Generate(model);

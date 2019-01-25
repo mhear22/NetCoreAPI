@@ -60,9 +60,15 @@ namespace CoreApp
 			services.AddMvc().AddJsonOptions(x => x.SerializerSettings.ContractResolver = new DefaultContractResolver());
 			services.AddCors(x => x.AddPolicy("cors", z => z.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials()));
 			if (IsTesting)
+			{
 				services.AddDbContext<DatabaseContext>(options => options.UseInMemoryDatabase("Test"), ServiceLifetime.Transient);
+
+			}
 			else
+			{
+
 				services.AddDbContext<DatabaseContext>(options => options.UseMySql(connectionString));
+			}
 			var key = Configuration.GetSection("AWSKey").Value;
 			var secret = Configuration.GetSection("AWSSecret").Value;
 			var opt = Configuration.GetAWSOptions();
@@ -78,9 +84,12 @@ namespace CoreApp
 			services.AddAWSService<IAmazonSimpleEmailService>();
 			services.AddSingleton<IConfiguration>(Configuration);
 			services.AddScoped<IContext, DatabaseContext>();
+			services.AddScoped<IEmailSendService, EmailSendService>();
+
 
 			services.AddSingleton<IHostedService, MileageHostedService>();
 			services.AddSingleton<IScheduledTask, MileageScheduledTask>();
+
 
 			services = StartupHelpers.RegisterService(services);
 			

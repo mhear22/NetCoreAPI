@@ -23,48 +23,22 @@ namespace CoreApp.Services
 		private ICurrentUserService currentUserService;
 		private IEmailTemplateService emailTemplateService;
 		private IAmazonSimpleEmailService simpleEmail;
+		private IEmailSendService emailSendService;
 
 		public EmailService(
 			IContext context,
 			ICurrentUserService currentUserService,
 			IEmailTemplateService emailTemplateService,
-			IAmazonSimpleEmailService simpleEmail
+			IAmazonSimpleEmailService simpleEmail,
+			IEmailSendService emailSendService
 		) : base(context)
 		{
+			this.emailSendService = emailSendService;
 			this.currentUserService = currentUserService;
 			this.emailTemplateService = emailTemplateService;
 			this.simpleEmail = simpleEmail;
 		}
-
-		private void SendPlainEmail(string ToAddress,string EmailHtml, string Subject = "Test Email")
-		{
-			var email = new SendEmailRequest()
-			{
-				Source = "noreply@mechie.net",
-				Destination = new Destination()
-				{
-					ToAddresses = new List<string> { ToAddress }
-				},
-				Message = new Message()
-				{
-					Subject = new Content(Subject),
-					Body = new Body()
-					{
-						Html = new Content()
-						{
-							Charset = "UTF-8",
-							Data = EmailHtml
-						}
-					}
-				}
-			};
-
-			using (var client = new AmazonSimpleEmailServiceClient(Startup.creds, RegionEndpoint.USEast1))
-			{
-				var result = client.SendEmailAsync(email).Result;
-			}
-		}
-
+		
 		public void SendServiceEmail(string Vin, string Reason)
 		{
 			var users = Context.OwnedCars
@@ -77,7 +51,7 @@ namespace CoreApp.Services
 				data.Add(new KeyValuePair<string, StringValues>("apikey", new StringValues(user.ApiKey)));
 				data.Add(new KeyValuePair<string, StringValues>("vin", new StringValues(Vin)));
 				var emailTemplate = this.emailTemplateService.GenerateEmailHtml("carservice", data);
-				SendPlainEmail(user.Email, emailTemplate, Reason);
+				this.emailSendService.SendPlainEmail(user.Email, emailTemplate, Reason);
 			}
 		}
 
@@ -89,7 +63,7 @@ namespace CoreApp.Services
 			data.Add(new KeyValuePair<string, StringValues>("apikey", new StringValues(session)));
 			data.Add(new KeyValuePair<string, StringValues>("vin", new StringValues(Vin)));
 			var emailTemplate = this.emailTemplateService.GenerateEmailHtml("carservice", data);
-			SendPlainEmail(user.EmailAddress, emailTemplate);
+			this.emailSendService.SendPlainEmail(user.EmailAddress, emailTemplate);
 		}
 
 		public void SendSignUpEmail(string UserId)
@@ -98,7 +72,7 @@ namespace CoreApp.Services
 			var data = new List<KeyValuePair<string, StringValues>>();
 			data.Add(new KeyValuePair<string, StringValues>("userId", new StringValues(user.Id)));
 			var html = this.emailTemplateService.GenerateEmailHtml("signup", data);
-			SendPlainEmail(user.EmailAddress, html, "Welcome to Mechie");
+			this.emailSendService.SendPlainEmail(user.EmailAddress, html, "Welcome to Mechie");
 		}
 	}
 }
