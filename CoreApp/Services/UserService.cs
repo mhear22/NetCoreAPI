@@ -14,6 +14,7 @@ namespace CoreApp.Services
 		void SetPassword(string userId, string password);
 		UserModel UpdateUser(string Id, UserModel model);
 		UserModel CreateUser(CreateUserModel model);
+		void VerifyUser(string UserId);
 	}
 	public class UserService : ServiceBase, IUserService
 	{
@@ -85,6 +86,13 @@ namespace CoreApp.Services
 			passwordService.SetPassword(userDto.Id, model.Password);
 			emailService.SendSignUpEmail(userDto.Id);
 			return GetUser(userDto.Id);
+		}
+
+		public void VerifyUser(string UserId)
+		{
+			var user = Context.Users.FirstOrDefault(x => x.Id == UserId);
+			user.EmailVerified = true;
+			Context.SaveChanges();
 		}
 	}
 }

@@ -22,7 +22,8 @@ namespace CoreApp.Forms.SignUp
 
 			return new
 			{
-				user
+				user,
+				api = this.Api
 			};
 		}
 	}

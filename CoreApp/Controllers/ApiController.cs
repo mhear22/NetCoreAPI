@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using CoreApp.Repositories;
+using CoreApp.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
 
@@ -8,6 +9,10 @@ namespace CoreApp.Controllers
 {
 	public class ApiController : Controller
 	{
+		protected string Api = Domains.Api;
+		protected string Domain = Domains.Route;
+
+
 		protected IContext Context { get; private set; }
 		public ApiController(IContext context)
 		{

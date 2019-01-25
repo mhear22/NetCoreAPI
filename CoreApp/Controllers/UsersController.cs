@@ -60,5 +60,13 @@ namespace CoreApp.Controllers
 			userService.SetPassword(currentUser.Id, model.NewPassword);
 			return Ok();
 		});
+
+		[Route("verify/{userId}")]
+		[HttpGet]
+		public IActionResult VerifyUser(string userId) => ReturnResult(() =>
+		{
+			this.userService.VerifyUser(userId);
+			return Redirect(this.Domain + "#/verified");
+		});
 	}
 }

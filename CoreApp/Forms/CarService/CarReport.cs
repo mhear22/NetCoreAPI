@@ -65,7 +65,7 @@ namespace CoreApp.Forms
 
 
 			return new {
-				domain = "http://localhost:4200",
+				domain = this.Domain,
 				seperation,
 				Car = car,
 				Vin = car.Vin,
