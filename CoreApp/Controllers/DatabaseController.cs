@@ -4,14 +4,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using CoreApp.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using System.Configuration;
+using Microsoft.Extensions.Configuration;
 
 namespace CoreApp.Controllers
 {
 	public class DatabaseController : ApiController
 	{
-		public DatabaseController(IContext context)
+		private IConfiguration Configuration;
+		public DatabaseController(IContext context, IConfiguration Configuration)
 			: base(context)
 		{
+			this.Configuration = Configuration;
 		}
 
 		[HttpGet]
@@ -23,7 +27,15 @@ namespace CoreApp.Controllers
 
 			if(Context != null)
 				result.ContextExists = true;
-			
+
+			var config = this.Configuration.GetConnectionString("DefaultConnection");
+			if(!string.IsNullOrWhiteSpace(config))
+			{
+				var split = config.Split(';');
+				var first = split.Where(x=>x.Contains("server"));
+				result.ConfigString = first.FirstOrDefault();
+			}
+
 			try
 			{
 				if (Context.VinWMIs.Any())
@@ -39,5 +51,6 @@ namespace CoreApp.Controllers
 	{
 		public bool ContextExists = false;
 		public bool DbConnection = false;
+		public string ConfigString;
 	}
 }

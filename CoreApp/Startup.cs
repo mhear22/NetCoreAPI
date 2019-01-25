@@ -75,6 +75,7 @@ namespace CoreApp
 			services.AddDefaultAWSOptions(opt);
 			services.AddAWSService<IAmazonS3>();
 			services.AddAWSService<IAmazonSimpleEmailService>();
+			services.AddSingleton<IConfiguration>(Configuration);
 			services.AddScoped<IContext, DatabaseContext>();
 
 			services.AddSingleton<IHostedService, MileageHostedService>();

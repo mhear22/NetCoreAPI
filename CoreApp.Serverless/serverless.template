@@ -26,12 +26,6 @@
 	"AspNetCoreFunction" : {
 	  "Type" : "AWS::Serverless::Function",
 	  "Properties": {
-		"VpcConfig":{
-			"SecurityGroupIds" : ["sg-0b18507850904b531"],
-			"SubnetIds" : ["subnet-4998552e",
-				"subnet-0f7b9f46",
-				"subnet-975f14cf"]
-			},
 		"Handler": "CoreApp.Serverless::CoreApp.Serverless.LambdaEntryPoint::FunctionHandlerAsync",
 		"Runtime": "dotnetcore2.1",
 		"CodeUri": "",

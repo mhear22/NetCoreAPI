@@ -7,12 +7,12 @@
         "All the command line options for the Lambda command can be specified in this file."
     ],
     "profile"     : "VS2017-McKay",
-    "region"      : "us-west-2",
+    "region"      : "ap-southeast-2",
     "configuration" : "Release",
     "framework"     : "netcoreapp2.1",
     "s3-prefix"     : "CoreApp.Serverless/",
     "template"      : "serverless.template",
     "template-parameters" : "\"ShouldCreateBucket\"=\"true\";\"BucketName\"=\"\"",
-    "s3-bucket"           : "mechie-storage",
+    "s3-bucket"           : "mechie-aus-storage",
     "stack-name"          : "mechie"
 }
