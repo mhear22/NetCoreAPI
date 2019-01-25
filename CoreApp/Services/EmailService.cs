@@ -15,6 +15,7 @@ namespace CoreApp.Services
 	{
 		void SendTestEmail(string Vin);
 		void SendServiceEmail(string Vin, string Reason);
+		void SendSignUpEmail(string UserId);
 	}
 
 	public class EmailService : ServiceBase, IEmailService
@@ -89,6 +90,15 @@ namespace CoreApp.Services
 			data.Add(new KeyValuePair<string, StringValues>("vin", new StringValues(Vin)));
 			var emailTemplate = this.emailTemplateService.GenerateEmailHtml("carservice", data);
 			SendPlainEmail(user.EmailAddress, emailTemplate);
+		}
+
+		public void SendSignUpEmail(string UserId)
+		{
+			var user = Context.Users.FirstOrDefault(x => x.Id == UserId);
+			var data = new List<KeyValuePair<string, StringValues>>();
+			data.Add(new KeyValuePair<string, StringValues>("userId", new StringValues(user.Id)));
+			var html = this.emailTemplateService.GenerateEmailHtml("signup", data);
+			SendPlainEmail(user.EmailAddress, html, "Welcome to Mechie");
 		}
 	}
 }

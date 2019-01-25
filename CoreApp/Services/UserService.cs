@@ -21,14 +21,18 @@ namespace CoreApp.Services
 		private IAuthenticationService authService;
 		private IPasswordService passwordService;
 		private IRepository<UserDto> userRepository;
+		private IEmailService emailService;
+
 		public UserService(
 			IContext context,
+			IEmailService emailService,
 			ITokenService tokenService,
 			IPasswordService passwordService,
 			IAuthenticationService authenticationService,
 			IRepository<UserDto> userRepository) 
 			: base(context)
 		{
+			this.emailService = emailService;
 			this.tokenService = tokenService;
 			this.authService = authenticationService;
 			this.passwordService = passwordService;
@@ -79,6 +83,7 @@ namespace CoreApp.Services
 			
 			userRepository.Create(userDto);
 			passwordService.SetPassword(userDto.Id, model.Password);
+			emailService.SendSignUpEmail(userDto.Id);
 			return GetUser(userDto.Id);
 		}
 	}

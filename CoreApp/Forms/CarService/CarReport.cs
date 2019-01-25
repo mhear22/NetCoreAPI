@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CoreApp.Forms.CarService
+namespace CoreApp.Forms
 {
 	public class CarReport: ReportBase
 	{
