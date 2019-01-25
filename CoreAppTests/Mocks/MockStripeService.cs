@@ -38,5 +38,10 @@ namespace CoreAppTests.Mocks
 		{
 			throw new NotImplementedException();
 		}
+
+		public bool StripeStatus()
+		{
+			throw new NotImplementedException();
+		}
 	}
 }
