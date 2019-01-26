@@ -44,6 +44,7 @@ namespace CoreAppTests.Services
 				.AddScoped<IContext>(x=> { return Context; })
 				.AddScoped<ICurrentUserService>(x=> { return cus; })
 				.AddScoped<IStripeService, MockStripeService>()
+				.AddScoped<IEmailSendService, MockEmailSendService>()
 				.BuildServiceProvider();
 
 			var builder = new DbContextOptionsBuilder<DatabaseContext>();
