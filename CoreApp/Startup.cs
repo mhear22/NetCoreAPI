@@ -2,7 +2,8 @@
 using Amazon.Runtime;
 using Amazon.S3;
 using Amazon.SimpleEmail;
-using CoreApp.Forms.CarService;
+using CoreApp.Forms;
+using CoreApp.Forms.SignUp;
 using CoreApp.Models.Repositories;
 using CoreApp.Models.Repositories.Vehicle;
 using CoreApp.Repositories;
@@ -59,9 +60,15 @@ namespace CoreApp
 			services.AddMvc().AddJsonOptions(x => x.SerializerSettings.ContractResolver = new DefaultContractResolver());
 			services.AddCors(x => x.AddPolicy("cors", z => z.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials()));
 			if (IsTesting)
+			{
 				services.AddDbContext<DatabaseContext>(options => options.UseInMemoryDatabase("Test"), ServiceLifetime.Transient);
+
+			}
 			else
+			{
+
 				services.AddDbContext<DatabaseContext>(options => options.UseMySql(connectionString));
+			}
 			var key = Configuration.GetSection("AWSKey").Value;
 			var secret = Configuration.GetSection("AWSSecret").Value;
 			var opt = Configuration.GetAWSOptions();
@@ -75,10 +82,14 @@ namespace CoreApp
 			services.AddDefaultAWSOptions(opt);
 			services.AddAWSService<IAmazonS3>();
 			services.AddAWSService<IAmazonSimpleEmailService>();
+			services.AddSingleton<IConfiguration>(Configuration);
 			services.AddScoped<IContext, DatabaseContext>();
+			services.AddScoped<IEmailSendService, EmailSendService>();
+
 
 			services.AddSingleton<IHostedService, MileageHostedService>();
 			services.AddSingleton<IScheduledTask, MileageScheduledTask>();
+
 
 			services = StartupHelpers.RegisterService(services);
 			
@@ -135,6 +146,7 @@ namespace CoreApp
 		public static IServiceCollection RegisterService(this IServiceCollection services)
 		{
 			services.AddSingleton<CarReport>();
+			services.AddSingleton<SignUpReport>();
 			
 			services.AddScoped<ICarService, CarService>();
 			services.AddScoped<IVinService, VinService>();

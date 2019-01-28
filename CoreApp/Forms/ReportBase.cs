@@ -1,4 +1,5 @@
 ﻿using CoreApp.Repositories;
+using CoreApp.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Primitives;
 using System;
@@ -10,6 +11,9 @@ namespace CoreApp.Forms
 {	
 	public abstract class ReportBase
 	{
+		public string Domain = Domains.Route;
+		public string Api = Domains.Api;
+
 		protected IContext Context;
 		protected IEnumerable<KeyValuePair<string, StringValues>> Data;
 		public ReportBase(IContext context)

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using CoreApp.Forms;
-using CoreApp.Forms.CarService;
+using CoreApp.Forms.SignUp;
 using CoreApp.Repositories;
 using HandlebarsDotNet;
 using Microsoft.AspNetCore.Http;
@@ -50,12 +50,15 @@ namespace CoreApp.Services
 		}
 		
 		private static List<ServiceMap> SMap = new List<ServiceMap>() {
-			new SM<CarReport>("carservice")
+			new SM<CarReport>("carservice"),
+			new SM<SignUpReport>("signup")
 		};
 		
 		private object BuildReportData(string ReportType, IEnumerable<KeyValuePair<string, StringValues>> Data = null)
 		{
 			var reportType = HtmlService.SMap.FirstOrDefault(x=>x.Name == ReportType);
+			if (reportType == null)
+				throw new ArgumentException($"Service Map Doesnt contain a {ReportType}");
 			var service = (ReportBase)this.serviceProvider.GetService(reportType.type);
 			return service.Build(Data);
 		}

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CoreApp.Forms.CarService
+namespace CoreApp.Forms
 {
 	public class CarReport: ReportBase
 	{
@@ -65,7 +65,7 @@ namespace CoreApp.Forms.CarService
 
 
 			return new {
-				domain = "http://localhost:4200",
+				domain = this.Domain,
 				seperation,
 				Car = car,
 				Vin = car.Vin,

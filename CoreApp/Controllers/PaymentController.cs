@@ -13,15 +13,18 @@ namespace CoreApp.Controllers
 	{
 		private IPaymentService paymentService;
 		private IPaymentPlanService paymentPlanService;
+		private IStripeService stripeService;
 
 		public PaymentController(
 			IContext context,
 			IPaymentService paymentService,
-			IPaymentPlanService paymentPlanService
+			IPaymentPlanService paymentPlanService,
+			IStripeService stripeService
 		) : base(context)
 		{
 			this.paymentService = paymentService;
 			this.paymentPlanService = paymentPlanService;
+			this.stripeService = stripeService;
 		}
 
 		[HttpPost]
@@ -40,5 +43,11 @@ namespace CoreApp.Controllers
 		[Route("payments/{userId}")]
 		public IActionResult DeleteSubscription(string userId) =>
 			ReturnResult(() => this.paymentService.DropSubscription(userId));
+
+		[HttpGet]
+		[Route("paymentstatus")]
+		[ProducesResponseType(200, Type=typeof(bool))]
+		public IActionResult StripeStatus() =>
+			ReturnResult(() => this.stripeService.StripeStatus());
 	}
 }
