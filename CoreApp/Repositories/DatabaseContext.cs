@@ -58,9 +58,6 @@ namespace CoreApp.Repositories
 				x.HasMany(z=>z.MileageRecordings)
 					.WithOne(z=>z.OwnedCar)
 					.HasForeignKey(z=>z.OwnedCarId);
-				x.HasMany(z => z.ServiceReminders)
-					.WithOne(z => z.OwnedCar)
-					.HasForeignKey(z => z.OwnedCarId);
 			});
 		}
 

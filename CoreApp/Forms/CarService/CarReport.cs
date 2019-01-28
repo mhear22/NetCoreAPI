@@ -31,7 +31,7 @@ namespace CoreApp.Forms
 			var mileageDouble = double.Parse(estimatedMileage);
 
 			var serviceReminders = Context.ServiceReminders
-					.Where(x => x.OwnedCarId == car.Id)
+					//.Where(x => x.OwnedCarId == car.Id)
 					.Include(x => x.Receipts)
 					.Include(x => x.ServiceType)
 					.ToList().Select(x=> {

@@ -1,4 +1,5 @@
 ﻿using CoreApp.Models.Repositories;
+using CoreApp.Models.Repositories.Vehicle;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -11,10 +12,14 @@ namespace CoreApp.Repositories
 	{
 		public string Id { get; set; }
 		public string ServiceReminderId { get; set; }
+		public string OwnedCarId { get; set; }
 		public string CurrentMiles { get; set; }
 		public DateTime CreatedDate { get; set; }
 		
 		[ForeignKey("ServiceReminderId")]
 		public ServiceReminderDto ServiceReminder { get; set; }
+		
+		[ForeignKey("OwnedCarId")]
+		public OwnedCarDto OwnedCar { get; set; }
 	}
 }

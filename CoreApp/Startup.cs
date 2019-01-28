@@ -157,19 +157,19 @@ namespace CoreApp
 			services.AddScoped<IEmailService, EmailService>();
 			services.AddScoped<IImageService, ImageService>();
 			services.AddScoped<IMileageService, MileageService>();
-			services.AddScoped<ICountryService, CountryService>();
 			services.AddScoped<IStorageService, StorageService>();
 			services.AddScoped<IPaymentService, PaymentService>();
+			services.AddScoped<IWorkItemService,WorkItemService>();
 			services.AddScoped<IPasswordService, PasswordService>();
 			services.AddScoped<ITokenService, Services.TokenService>();
 			services.AddScoped<IPaymentPlanService, PaymentPlanService>();
 			services.AddScoped<ICurrentUserService, CurrentUserService>();
 			services.AddScoped<IHtmlDocumentService, HtmlDocumentService>();
 			services.AddScoped<IManufacturerService, ManufacturerService>();
+			services.AddScoped<IRepeatingItemService,RepeatingItemService>();
 			services.AddScoped<IEmailTemplateService, EmailTemplateService>();
 			services.AddScoped<IAuthenticationService, AuthenticationService>();
 			services.AddSingleton<IConverter>(new SynchronizedConverter(new PdfTools()));
-			services.AddScoped<IComponentService, ComponentService>();
 
 			services.AddRepo<ManufacturerDto>();
 			services.AddRepo<FilePiecesDto>();
