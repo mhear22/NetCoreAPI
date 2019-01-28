@@ -61,7 +61,7 @@ namespace CoreApp.Services
 				return session.UserId;
 			}
 			else
-				throw new ArgumentException("Could not find user, no Api Key");
+				throw new UnauthorizedAccessException("Could not find user, no Api Key");
 		}
 
 		public UserModel CurrentUser()
