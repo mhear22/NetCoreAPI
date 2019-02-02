@@ -1,12 +1,12 @@
 using CoreApp.Repositories;
+using System.Linq;
 
 namespace CoreApp.Services
 {
 	public interface IRepeatingItemService
 	{
-		void AddRepeatingItem();
-		void GetForVin();
-		void Delete();
+		void AddRepeatingItem(AddRepeatingSettings model);
+		void Delete(string Id);
 	}
 
 	public class RepeatingItemService : ServiceBase, IRepeatingItemService
@@ -16,19 +16,31 @@ namespace CoreApp.Services
 		{
 		}
 
-		public void AddRepeatingItem()
+		public void AddRepeatingItem(AddRepeatingSettings model)
 		{
-			throw new System.NotImplementedException();
+			var reminder = Context.ServiceReminders.FirstOrDefault(x => x.Id == model.Id);
+
+			reminder.RepeatingTypeId = model.TypeId;
+			reminder.RepeatingFigure = model.Amount;
+
+			Context.SaveChanges();
 		}
 
-		public void Delete()
+		public void Delete(string Id)
 		{
-			throw new System.NotImplementedException();
-		}
+			var reminder = Context.ServiceReminders.FirstOrDefault(x => x.Id == Id);
 
-		public void GetForVin()
-		{
-			throw new System.NotImplementedException();
+			reminder.RepeatingTypeId = null;
+			reminder.RepeatingFigure = null;
+
+			Context.SaveChanges();
 		}
+	}
+
+	public class AddRepeatingSettings
+	{
+		public string Id;
+		public string TypeId;
+		public string Amount;
 	}
 }

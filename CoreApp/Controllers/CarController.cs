@@ -13,15 +13,18 @@ namespace CoreApp.Controllers
 	public class CarController: ApiController
 	{
 		private ICarService carService;
+		private IWorkItemService workItemService;
 
 		public CarController(
 			IContext context,
-			ICarService carService
+			ICarService carService,
+			IWorkItemService workItemService
 		) : base(context)
 		{
+			this.workItemService = workItemService;
 			this.carService = carService;
 		}
-
+		
 		[Route("car")]
 		[HttpPost]
 		[ProducesResponseType(200, Type=typeof(string))]
@@ -49,5 +52,10 @@ namespace CoreApp.Controllers
 		[HttpGet]
 		[ProducesResponseType(200, Type = typeof(Page<OwnedCarModel>))]
 		public IActionResult GetForUser(string UserId) => ReturnResult(() => this.carService.GetForUser(UserId));
+
+		[Route("car/{Id}/parts")]
+		[HttpGet]
+		[ProducesResponseType(200, Type= typeof(List<ReceiptModel>))]
+		public IActionResult GetParts(string Id) => ReturnResult(() => this.workItemService.GetForVin(Id));
 	}
 }

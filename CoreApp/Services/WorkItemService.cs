@@ -1,3 +1,4 @@
+using CoreApp.Models.Vehicle;
 using CoreApp.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,7 +11,7 @@ namespace CoreApp.Services
 	{
 		void AddItem(AddWorkItem model);
 		void Delete(string Id);
-		List<ReceiptModels> GetForVin(string Vin);
+		List<ReceiptModel> GetForVin(string Vin);
 	}
 
 	public class WorkItemService : ServiceBase, IWorkItemService
@@ -78,7 +79,7 @@ namespace CoreApp.Services
 				throw new ArgumentException("Can not find this service Item");
 		}
 
-		public List<ReceiptModels> GetForVin(string Vin)
+		public List<ReceiptModel> GetForVin(string Vin)
 		{
 			var Car = Context.OwnedCars
 				.Include(x=>x.ServiceReminders)
@@ -90,7 +91,7 @@ namespace CoreApp.Services
 				.Include(x => x.ServiceType)
 				.Where(x => Ids.Contains(x.Id))
 				.ToList()
-				.Select(x => new ReceiptModels()
+				.Select(x => new ReceiptModel()
 				{
 					ServiceType = x.ServiceType.Name,
 					RepeatFrequency = x.RepeatingFigure,
@@ -99,19 +100,5 @@ namespace CoreApp.Services
 				})
 				.ToList();
 		}
-	}
-
-	public class AddWorkItem
-	{
-		public string Vin;
-		public string ServiceTypeId;
-	}
-
-	public class ReceiptModels
-	{
-		public string Id;
-		public string ServiceType;
-		public string RepeatType;
-		public string RepeatFrequency;
 	}
 }
