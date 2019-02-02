@@ -160,6 +160,7 @@ namespace CoreApp
 			services.AddScoped<IStorageService, StorageService>();
 			services.AddScoped<IPaymentService, PaymentService>();
 			services.AddScoped<IWorkItemService,WorkItemService>();
+			services.AddScoped<IWorkItemService, WorkItemService>();
 			services.AddScoped<IPasswordService, PasswordService>();
 			services.AddScoped<ITokenService, Services.TokenService>();
 			services.AddScoped<IPaymentPlanService, PaymentPlanService>();

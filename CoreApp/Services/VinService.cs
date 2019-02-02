@@ -18,7 +18,6 @@ namespace CoreApp.Services
 	public class VinService : ServiceBase, IVinService
 	{
 		private IManufacturerService manufacturerService;
-		private ICountryService countryService;
 		private IRepository<VinVIS> VinVIS;
 		private IRepository<VinWMI> VinWMI;
 		private IRepository<VinVDS> VinVDS;
@@ -26,7 +25,6 @@ namespace CoreApp.Services
 		public VinService(
 			IContext context,
 			IManufacturerService manufacturerService,
-			ICountryService countryService,
 			IRepository<VinVIS> VinVIS,
 			IRepository<VinWMI> VinWMI,
 			IRepository<VinVDS> VinVDS
@@ -35,7 +33,6 @@ namespace CoreApp.Services
 			this.VinVIS = VinVIS;
 			this.VinWMI = VinWMI;
 			this.VinVDS = VinVDS;
-			this.countryService = countryService;
 			this.manufacturerService = manufacturerService;
 		}
 

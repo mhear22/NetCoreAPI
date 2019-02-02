@@ -16,6 +16,10 @@ namespace CoreApp.Repositories
 		public string ServiceTypeId { get; set; }
 		public string RepeatingTypeId { get; set; }
 		public string RepeatingFigure { get; set; }
+		public string OwnedCarId { get; set; }
+
+		[ForeignKey("OwnedCarId")]
+		public OwnedCarDto OwnedCar { get; set; }
 
 		[ForeignKey("RepeatingTypeId")]
 		public RepeatTypeDto RepeatingType { get; set; }
