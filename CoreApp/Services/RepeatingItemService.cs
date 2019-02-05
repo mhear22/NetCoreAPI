@@ -47,6 +47,7 @@ namespace CoreApp.Services
 		public double RepeatingHealth(string ReminderId)
 		{
 			var reminder = Context.ServiceReminders
+				.Include(x=>x.OwnedCar)
 				.Select(x=> new
 				{
 					dto = x,

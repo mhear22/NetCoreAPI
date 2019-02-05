@@ -19,7 +19,19 @@ namespace CoreApp.Controllers
 			this.workItemService = workItemService;
 			this.repeatingItemService = repeatingItemService;
 		}
-		
+
+		[Route("part/{Id}")]
+		[HttpGet]
+		[ProducesResponseType(200, Type = typeof(ReceiptModel))]
+		public IActionResult GetItem(string Id) =>
+			ReturnResult(() => this.workItemService.Get(Id));
+
+		[Route("part/{Id}")]
+		[HttpPatch]
+		[ProducesResponseType(200)]
+		public IActionResult AddReceipt(string Id, [FromBody] string CurrentMiles) =>
+			ReturnResult(() => this.workItemService.CompleteWork(Id, CurrentMiles));
+
 		[Route("part/")]
 		[HttpPost]
 		[ProducesResponseType(200)]

@@ -11,6 +11,7 @@ namespace CoreApp.Models.Vehicle
 		public string Id;
 		public string ServiceType;
 		public string RepeatType;
+		public string RepeatTypeId;
 		public string RepeatFrequency;
 		public bool Repeating { get { return !string.IsNullOrWhiteSpace(this.RepeatType); } }
 		public ServiceReceiptModel LastChange;

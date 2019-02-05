@@ -12,6 +12,8 @@ namespace CoreApp.Services
 		void AddItem(AddWorkItem model);
 		void Delete(string Id);
 		List<ReceiptModel> GetForVin(string Vin);
+		ReceiptModel Get(string Id);
+		void CompleteWork(string Id, string CurrentMiles);
 	}
 
 	public class WorkItemService : ServiceBase, IWorkItemService
@@ -64,6 +66,21 @@ namespace CoreApp.Services
 			Context.SaveChanges();
 		}
 
+		public void CompleteWork(string Id, string CurrentMiles)
+		{
+			var operation = Context.ServiceReminders
+				.FirstOrDefault(x => x.Id == Id);
+
+			operation.Receipts.Add(new ServiceReceiptDto()
+			{
+				CreatedDate = DateTime.UtcNow,
+				Id = Guid.NewGuid().ToString(),
+				CurrentMiles = CurrentMiles,
+				ServiceReminderId = operation.Id
+			});
+			Context.SaveChanges();
+		}
+
 		public void Delete(string Id)
 		{
 			var item = Context.ServiceReminders
@@ -80,6 +97,36 @@ namespace CoreApp.Services
 			}
 			else
 				throw new ArgumentException("Can not find this service Item");
+		}
+
+		public ReceiptModel Get(string Id)
+		{
+			var result = Context.ServiceReminders
+				.Include(x => x.RepeatingType)
+				.Include(x => x.ServiceType)
+				.Include(x => x.Receipts)
+				.Where(x => x.Id == Id)
+				.ToList()
+				.Select(x => new ReceiptModel()
+				{
+					ServiceType = x.ServiceType.Name,
+					RepeatFrequency = x.RepeatingFigure,
+					RepeatType = x.RepeatingType?.Name,
+					RepeatTypeId = x.RepeatingTypeId,
+					Id = x.Id,
+					Health = this.repeatingItemService.RepeatingHealth(x.Id),
+					LastChange = x.Receipts?
+						.OrderByDescending(z => z.CurrentMiles)
+						.Select(z => new ServiceReceiptModel()
+						{
+							Date = z.CreatedDate,
+							Mileage = z.CurrentMiles
+						})
+						.FirstOrDefault(),
+
+				})
+				.FirstOrDefault();
+			return result;
 		}
 
 		public List<ReceiptModel> GetForVin(string Vin)
@@ -100,6 +147,7 @@ namespace CoreApp.Services
 					ServiceType = x.ServiceType.Name,
 					RepeatFrequency = x.RepeatingFigure,
 					RepeatType = x.RepeatingType?.Name,
+					RepeatTypeId = x.RepeatingTypeId,
 					Id = x.Id,
 					Health = this.repeatingItemService.RepeatingHealth(x.Id),
 					LastChange = x.Receipts?
@@ -113,5 +161,6 @@ namespace CoreApp.Services
 				})
 				.ToList();
 		}
+		
 	}
 }
