@@ -18,15 +18,18 @@ namespace CoreApp.Services
 	{
 		private IMileageService mileageService;
 		private ICurrentUserService currentUserService;
+		private IRepeatingItemService repeatingItemService;
 
 		public WorkItemService(
 			IContext context,
 			IMileageService mileageService,
-			ICurrentUserService currentUserService
+			ICurrentUserService currentUserService,
+			IRepeatingItemService repeatingItemService
 		) : base(context)
 		{
 			this.currentUserService = currentUserService;
 			this.mileageService = mileageService;
+			this.repeatingItemService = repeatingItemService;
 		}
 
 		public void AddItem(AddWorkItem model)
@@ -89,6 +92,7 @@ namespace CoreApp.Services
 			return Context.ServiceReminders
 				.Include(x => x.RepeatingType)
 				.Include(x => x.ServiceType)
+				.Include(x => x.Receipts)
 				.Where(x => Ids.Contains(x.Id))
 				.ToList()
 				.Select(x => new ReceiptModel()
@@ -96,7 +100,16 @@ namespace CoreApp.Services
 					ServiceType = x.ServiceType.Name,
 					RepeatFrequency = x.RepeatingFigure,
 					RepeatType = x.RepeatingType?.Name,
-					Id = x.Id
+					Id = x.Id,
+					Health = this.repeatingItemService.RepeatingHealth(x.Id),
+					LastChange = x.Receipts?
+						.OrderByDescending(z=>z.CurrentMiles)
+						.Select(z=> new ServiceReceiptModel() {
+							Date = z.CreatedDate,
+							Mileage = z.CurrentMiles
+						})
+						.FirstOrDefault(),
+					
 				})
 				.ToList();
 		}

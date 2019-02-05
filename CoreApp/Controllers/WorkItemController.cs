@@ -23,7 +23,7 @@ namespace CoreApp.Controllers
 		[Route("part/")]
 		[HttpPost]
 		[ProducesResponseType(200)]
-		public IActionResult CreateWorkItem(AddWorkItem item) => 
+		public IActionResult CreateWorkItem([FromBody]AddWorkItem item) => 
 			ReturnResult(() => this.workItemService.AddItem(item));
 
 		[Route("part/{Id}")]
@@ -35,7 +35,7 @@ namespace CoreApp.Controllers
 		[Route("part/{Id}/repeat")]
 		[HttpPost]
 		[ProducesResponseType(200)]
-		public IActionResult SetRepeat(AddRepeatingSettings settings) =>
+		public IActionResult SetRepeat([FromBody]AddRepeatingSettings settings) =>
 			ReturnResult(() => this.repeatingItemService.AddRepeatingItem(settings));
 
 		[Route("part/{Id}/repeat")]
