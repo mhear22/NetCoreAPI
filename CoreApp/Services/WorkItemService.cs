@@ -71,7 +71,7 @@ namespace CoreApp.Services
 			var operation = Context.ServiceReminders
 				.FirstOrDefault(x => x.Id == Id);
 
-			operation.Receipts.Add(new ServiceReceiptDto()
+			Context.ServiceReceipts.Add(new ServiceReceiptDto()
 			{
 				CreatedDate = DateTime.UtcNow,
 				Id = Guid.NewGuid().ToString(),
