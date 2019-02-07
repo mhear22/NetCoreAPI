@@ -42,12 +42,15 @@ namespace CoreApp.Services
 			
 			return Context.ServiceTypes
 				.Where(x=>x.UserId == currentUser || x.UserId == null)
+				.ToList()
 				.Select(x => new ServiceTypeModel()
 				{
 					Id = x.Id,
 					Name = x.Name,
 					Enabled = (x.Premium)?premium:true
-				}).ToList();
+				})
+				.OrderByDescending(x=>x.Enabled)
+				.ToList();
 		}
 	}
 }
