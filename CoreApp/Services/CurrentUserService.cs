@@ -14,6 +14,7 @@ namespace CoreApp.Services
 		string UserId();
 		UserModel CurrentUser();
 		string GetSessionKey();
+		bool IsPremium();
 	}
 
 	public class CurrentUserService : ServiceBase, ICurrentUserService
@@ -82,6 +83,11 @@ namespace CoreApp.Services
 
 
 			return user;
+		}
+
+		public bool IsPremium()
+		{
+			return CurrentUser().PlanId != null;
 		}
 	}
 }

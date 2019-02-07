@@ -39,6 +39,11 @@ namespace CoreApp.Services
 
 		public string AddCar(CarCreateModel model)
 		{
+			var userId = this.currentUserService.CurrentUser()?.Id;
+			var numOtherCars = Context.OwnedCars.Where(x => x.UserId == userId).Count();
+			if (numOtherCars > 1 && !this.currentUserService.IsPremium())
+				throw new UnauthorizedAccessException("Need to be premium to access more cars");
+			
 			var car = new OwnedCarDto()
 			{
 				Vin = model.Vin,

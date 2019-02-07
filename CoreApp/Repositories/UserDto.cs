@@ -1,3 +1,4 @@
+using CoreApp.Repositories;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -14,5 +15,8 @@ namespace CoreApp.Models.Repositories
 
 		[ForeignKey("UserId")]
 		public ICollection<SessionDto> sessions { get; set; }
+
+		[ForeignKey("UserId")]
+		public ICollection<ServiceTypeDto> CustomTypes { get; set; }
 	}
 }
