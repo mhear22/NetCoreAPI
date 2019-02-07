@@ -505,10 +505,12 @@ namespace CoreApp.Repositories
 			{
 				return new List<ServiceTypeDto>()
 				{
-					new ServiceTypeDto() { Id=ServiceTypeDto.OilChange, Name="Oil Change"},
-					new ServiceTypeDto() { Id=ServiceTypeDto.CoolantFlush, Name="Coolant Flush"},
-					new ServiceTypeDto() { Id=ServiceTypeDto.TimingEquipment, Name="Replace Timing Equipment"},
-					new ServiceTypeDto() { Id=ServiceTypeDto.Brakes, Name="Check Brakes Depth"}
+					new ServiceTypeDto() { Id=ServiceTypeDto.OilChange, Name="Oil Change", Premium = true },
+					new ServiceTypeDto() { Id=ServiceTypeDto.CoolantFlush, Name="Coolant Flush", Premium = true },
+					new ServiceTypeDto() { Id=ServiceTypeDto.TimingEquipment, Name="Replace Timing Equipment", Premium = true },
+					new ServiceTypeDto() { Id=ServiceTypeDto.Brakes, Name="Check Brakes Depth", Premium = true },
+					new ServiceTypeDto() { Id=ServiceTypeDto.Registration, Name="Renew Registration",Premium = false },
+					new ServiceTypeDto() { Id=ServiceTypeDto.GeneralService, Name="General Service Reminder", Premium = false }
 				};
 			}
 		}

@@ -11,21 +11,25 @@ namespace CoreApp.Controllers
 {
 	public class ComponentServiceController : ApiController
 	{
+		private IServiceTypeService serviceTypeService;
 		public ComponentServiceController(
-			IContext context
+			IContext context,
+			IServiceTypeService serviceTypeService
 		) : base(context)
-		{ }
+		{
+			this.serviceTypeService = serviceTypeService;
+		}
 
 		[Route("parttypes")]
 		[HttpGet]
-		[ProducesResponseType(200, Type = typeof(List<ServiceTypeDto>))]
+		[ProducesResponseType(200, Type = typeof(List<ServiceTypeModel>))]
 		public IActionResult GetTypes() =>
-			ReturnResult(() => Context.ServiceTypes.ToList());
+			ReturnResult(() => this.serviceTypeService.GetTypes());
 
 		[Route("repeattypes")]
 		[HttpGet]
-		[ProducesResponseType(200, Type = typeof(List<RepeatTypeDto>))]
+		[ProducesResponseType(200, Type = typeof(List<RepeatTypeModel>))]
 		public IActionResult GetRepeatTypes() =>
-			ReturnResult(() => Context.RepeatTypes.ToList());
+			ReturnResult(() => this.serviceTypeService.GetRepeats());
 	}
 }

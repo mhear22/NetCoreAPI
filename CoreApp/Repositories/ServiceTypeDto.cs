@@ -27,5 +27,7 @@ namespace CoreApp.Repositories
 		public static string OilChange = "oilchange";
 		public static string CoolantFlush = "coolant";
 		public static string TimingEquipment = "timing";
+		public static string Registration = "rego";
+		public static string GeneralService = "generalservice";
 	}
 }
