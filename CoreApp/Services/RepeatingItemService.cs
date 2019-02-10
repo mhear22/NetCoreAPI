@@ -30,6 +30,7 @@ namespace CoreApp.Services
 
 			reminder.RepeatingTypeId = model.TypeId;
 			reminder.RepeatingFigure = model.Amount;
+			reminder.RepeatOffsetDate = model.Offset;
 
 			Context.SaveChanges();
 		}

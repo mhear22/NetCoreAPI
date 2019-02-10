@@ -10,5 +10,6 @@ namespace CoreApp.Models.Vehicle
 		public string Id;
 		public string TypeId;
 		public string Amount;
+		public DateTime Offset;
 	}
 }

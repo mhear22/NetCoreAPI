@@ -36,6 +36,9 @@ namespace CoreApp.Services
 
 		public string AddItem(AddWorkItem model)
 		{
+			if (model.ServiceTypeId == null)
+				throw new ArgumentException("Service Type is required");
+
 			var car = Context.OwnedCars
 				.Include(x=>x.ServiceReminders)
 				.FirstOrDefault(x => x.Vin == model.Vin);
@@ -112,7 +115,7 @@ namespace CoreApp.Services
 				.ToList()
 				.Select(x => new ReceiptModel()
 				{
-					ServiceType = x.ServiceType.Name,
+					ServiceType = x.ServiceType?.Name,
 					RepeatFrequency = x.RepeatingFigure,
 					RepeatType = x.RepeatingType?.Name,
 					RepeatTypeId = x.RepeatingTypeId,
@@ -147,7 +150,7 @@ namespace CoreApp.Services
 				.ToList()
 				.Select(x => new ReceiptModel()
 				{
-					ServiceType = x.ServiceType.Name,
+					ServiceType = x.ServiceType?.Name,
 					RepeatFrequency = x.RepeatingFigure,
 					RepeatType = x.RepeatingType?.Name,
 					RepeatTypeId = x.RepeatingTypeId,
