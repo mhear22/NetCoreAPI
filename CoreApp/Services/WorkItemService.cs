@@ -9,7 +9,7 @@ namespace CoreApp.Services
 {
 	public interface IWorkItemService
 	{
-		void AddItem(AddWorkItem model);
+		string AddItem(AddWorkItem model);
 		void Delete(string Id);
 		List<ReceiptModel> GetForVin(string Vin);
 		ReceiptModel Get(string Id);
@@ -34,7 +34,7 @@ namespace CoreApp.Services
 			this.repeatingItemService = repeatingItemService;
 		}
 
-		public void AddItem(AddWorkItem model)
+		public string AddItem(AddWorkItem model)
 		{
 			var car = Context.OwnedCars
 				.Include(x=>x.ServiceReminders)
@@ -64,6 +64,7 @@ namespace CoreApp.Services
 
 			Context.ServiceReceipts.Add(receipt);
 			Context.SaveChanges();
+			return Item.Id;
 		}
 
 		public void CompleteWork(string Id, string CurrentMiles)
@@ -86,12 +87,14 @@ namespace CoreApp.Services
 			var item = Context.ServiceReminders
 				.Include(x=>x.OwnedCar)
 				.Include(x=>x.OwnedCar.Owner)
+				.Include(x=>x.Receipts)
 				.FirstOrDefault(x => x.Id == Id);
 
 			var currentUser = this.currentUserService.UserId();
 
 			if (item.OwnedCar.UserId == currentUser)
 			{
+				Context.ServiceReceipts.RemoveRange(item.Receipts);
 				Context.ServiceReminders.Remove(item);
 				Context.SaveChanges();
 			}

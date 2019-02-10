@@ -34,7 +34,7 @@ namespace CoreApp.Controllers
 
 		[Route("part/")]
 		[HttpPost]
-		[ProducesResponseType(200)]
+		[ProducesResponseType(200, Type = typeof(string))]
 		public IActionResult CreateWorkItem([FromBody]AddWorkItem item) => 
 			ReturnResult(() => this.workItemService.AddItem(item));
 
