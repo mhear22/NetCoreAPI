@@ -69,9 +69,16 @@ namespace CoreApp.Services
 			if(html == null)
 				throw new ArgumentException($"Could not find a report called {ReportType}");
 			var template = Handlebars.Compile(html);
-			var data = BuildReportData(ReportType, Data);
-			var response = template(data);
-			return response;
+			try
+			{
+				var data = BuildReportData(ReportType, Data);
+				var response = template(data);
+				return response;
+			}
+			catch(Exception ex)
+			{
+				throw new ArgumentException("Could not Run Report", ex);
+			}
 		}
 	}
 }

@@ -24,7 +24,14 @@ namespace CoreApp.Forms
 		protected abstract object Execute();
 		public object Build(IEnumerable<KeyValuePair<string, StringValues>> Data = null) {
 			this.Data = Data;
-			return this.Execute();
+			try
+			{
+				return this.Execute();
+			}
+			catch(Exception ex)
+			{
+				throw new ArgumentException("Could not Get Report Data", ex);
+			}
 		}
 		
 		protected string Get(string PropertyName) {

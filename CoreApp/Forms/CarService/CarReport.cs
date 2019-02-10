@@ -41,16 +41,22 @@ namespace CoreApp.Forms
 
 						var CurrentMiles = lastChange?.CurrentMiles ?? "0";
 
-						var ServicePeriod = double.Parse(x.RepeatingFigure);
-						var timeSinceChange = (mileageDouble - double.Parse(CurrentMiles));
+						var Health = 100.0;
 
-						var Health = 100 - ((timeSinceChange / ServicePeriod) * 50);
-						if (Health < 0)
-							Health = 0;
+						if(x.RepeatingFigure!= null)
+						{
+							var ServicePeriod = double.Parse(x.RepeatingFigure);
+							var timeSinceChange = (mileageDouble - double.Parse(CurrentMiles));
+
+							Health = 100 - ((timeSinceChange / ServicePeriod) * 50);
+							if (Health < 0)
+								Health = 0;
+						}
+						
 						return new
 						{
 							x.Description,
-							x.ServiceType.Name,
+							x.ServiceType?.Name,
 							x.Id,
 							CurrentMiles,
 							LastChangeDate = lastChange?.CreatedDate,

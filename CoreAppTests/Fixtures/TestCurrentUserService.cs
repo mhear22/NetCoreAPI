@@ -25,6 +25,11 @@ namespace CoreAppTests.Fixtures
 			throw new NotImplementedException();
 		}
 
+		public bool IsPremium()
+		{
+			throw new NotImplementedException();
+		}
+
 		public string UserId()
 		{
 			return userId;
