@@ -9,7 +9,7 @@ using Xunit;
 
 namespace CoreAppTests.Services
 {
-	public class RepearingItemService: ServiceTestBase<IRepeatingItemService>
+	public class RepeatingItemServiceTests : ServiceTestBase<IRepeatingItemService>
 	{
 		private void SetupCar(string Vin)
 		{
