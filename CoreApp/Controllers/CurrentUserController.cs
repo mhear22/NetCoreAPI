@@ -19,6 +19,7 @@ namespace CoreApp.Controllers
 		[Route("currentuser")]
 		[HttpGet]
 		[ProducesResponseType(200, Type = typeof(UserModel))]
-		public IActionResult GetCurrentUser() => ReturnResult(() => this.currentUserService.CurrentUser());
+		public IActionResult GetCurrentUser() => 
+			ReturnResult(() => this.currentUserService.CurrentUser());
 	}
 }

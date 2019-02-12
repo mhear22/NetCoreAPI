@@ -73,7 +73,11 @@ namespace CoreApp.Services
 			var user = GetDto(model.Username);
 			if(user == null) { return null; }
 			if(_passwordService.CheckPassword(user.Id, model.Password))
-				return _tokenService.Create(user.Id);
+			{
+				var token = _tokenService.Create(user.Id);
+				_tokenService.Get(token);
+				return token;
+			}
 			return null;
 		}
 
