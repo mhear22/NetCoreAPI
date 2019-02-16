@@ -5,6 +5,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using Amazon.Lambda.AspNetCoreServer;
 
 namespace CoreApp.Serverless
 {
@@ -14,7 +15,7 @@ namespace CoreApp.Serverless
 	/// 
 	/// CoreApp.Serverless::CoreApp.Serverless.LambdaEntryPoint::FunctionHandlerAsync
 	/// </summary>
-	public class LambdaEntryPoint : Amazon.Lambda.AspNetCoreServer.APIGatewayProxyFunction
+	public class LambdaEntryPoint : APIGatewayProxyFunction
 	{
 		/// <summary>
 		/// The builder has configuration, logging and Amazon API Gateway already configured. The startup class
@@ -25,7 +26,7 @@ namespace CoreApp.Serverless
 		{
 			builder
 				.UseContentRoot(Directory.GetCurrentDirectory())
-				.UseStartup<CoreApp.Startup>();
+				.UseStartup<Startup>();
 		}
 	}
 }

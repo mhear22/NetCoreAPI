@@ -18,29 +18,19 @@ namespace CoreApp.Services
 	{
 		private IMileageService mileageService;
 		private IEmailService emailService;
-		private IAmazonSimpleNotificationService simpleNotificationService;
 
 		public ReminderReportService(
 			IContext context,
 			IMileageService mileageService,
 			IEmailService emailService,
-			IAmazonSimpleNotificationService simpleNotificationService
 		) : base(context)
 		{
 			this.mileageService = mileageService;
 			this.emailService = emailService;
-			this.simpleNotificationService = simpleNotificationService;
 		}
 
 		public async void BuildEmails()
 		{
-			this.simpleNotificationService.PublishAsync(new PublishRequest()
-			{
-				Message = "Daily emails ran right now " + DateTime.Now,
-				Subject = "Daily Emails Ran",
-				TopicArn = "arn:aws:sns:ap-southeast-2:115136208505:EmailRun"
-			}).Wait();
-
 			var Vins = await Context.OwnedCars.Select(x => x.Vin).ToListAsync();
 			Vins.ForEach(x =>
 			{
