@@ -53,11 +53,6 @@ namespace CoreApp.Services
 				SignUpReport = TryGetService<SignUpReport>(),
 				HostedService = TryGetService<IHostedService>(),
 			};
-			try
-			{
-				result.IScheduledTasks = GetService<IEnumerable<IScheduledTask>>().Count();
-			}
-			catch { }
 
 			try
 			{
@@ -77,7 +72,6 @@ namespace CoreApp.Services
 	{
 		public bool CarReport;
 		public bool SignUpReport;
-		public int IScheduledTasks;
 		public bool HostedService;
 		public List<string> S3Buckets = new List<string>();
 	}

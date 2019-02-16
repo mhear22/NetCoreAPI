@@ -94,10 +94,6 @@ namespace CoreApp
 			services.AddScoped<IContext, DatabaseContext>();
 			services.AddScoped<IEmailSendService, EmailSendService>();
 			
-			services.AddSingleton<IHostedService, MileageHostedService>();
-			services.AddSingleton<IScheduledTask, MileageScheduledTask>();
-
-
 			services = StartupHelpers.RegisterService(services);
 			
 			services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
