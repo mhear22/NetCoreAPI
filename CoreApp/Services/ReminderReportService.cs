@@ -22,7 +22,7 @@ namespace CoreApp.Services
 		public ReminderReportService(
 			IContext context,
 			IMileageService mileageService,
-			IEmailService emailService,
+			IEmailService emailService
 		) : base(context)
 		{
 			this.mileageService = mileageService;
