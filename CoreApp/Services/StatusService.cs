@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Amazon.S3;
 using CoreApp.Forms;
 using CoreApp.Forms.SignUp;
 using CoreApp.Repositories;
@@ -57,6 +58,17 @@ namespace CoreApp.Services
 				result.IScheduledTasks = GetService<IEnumerable<IScheduledTask>>().Count();
 			}
 			catch { }
+
+			try
+			{
+				var service = GetService<IAmazonS3>();
+
+				result.S3Buckets = service.ListBucketsAsync().Result.Buckets
+					.Select(x => x.BucketName)
+					.ToList();
+			}
+			catch (Exception ex) { result.S3Buckets.Add(ex.Message); }
+
 			return result;
 		}
 	}
@@ -67,5 +79,6 @@ namespace CoreApp.Services
 		public bool SignUpReport;
 		public int IScheduledTasks;
 		public bool HostedService;
+		public List<string> S3Buckets = new List<string>();
 	}
 }

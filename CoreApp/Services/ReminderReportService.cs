@@ -1,28 +1,46 @@
-﻿using CoreApp.Repositories;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
+using Amazon.SimpleNotificationService;
+using Amazon.SimpleNotificationService.Model;
+using CoreApp.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace CoreApp.Services
 {
-	public class MileageScheduledTask : ServiceBase, IScheduledTask
+	public interface IReminderReportService
+	{
+		void BuildEmails();
+	}
+
+	public class ReminderReportService : ServiceBase, IReminderReportService
 	{
 		private IMileageService mileageService;
 		private IEmailService emailService;
-		public MileageScheduledTask(
+		private IAmazonSimpleNotificationService simpleNotificationService;
+
+		public ReminderReportService(
 			IContext context,
 			IMileageService mileageService,
-			IEmailService emailService
+			IEmailService emailService,
+			IAmazonSimpleNotificationService simpleNotificationService
 		) : base(context)
 		{
-			this.emailService = emailService;
 			this.mileageService = mileageService;
+			this.emailService = emailService;
+			this.simpleNotificationService = simpleNotificationService;
 		}
 
-		public async Task ExecuteAsync(CancellationToken cancellationToken)
+		public async void BuildEmails()
 		{
+			this.simpleNotificationService.PublishAsync(new PublishRequest()
+			{
+				Message = "Daily emails ran right now " + DateTime.Now,
+				Subject = "Daily Emails Ran",
+				TopicArn = "arn:aws:sns:ap-southeast-2:115136208505:EmailRun"
+			}).Wait();
+
 			var Vins = await Context.OwnedCars.Select(x => x.Vin).ToListAsync();
 			Vins.ForEach(x =>
 			{
@@ -35,7 +53,7 @@ namespace CoreApp.Services
 				if (normalLast < check)
 				{
 					var serviceItems = Context.ServiceReminders
-					.Include(z=>z.ServiceType)
+					.Include(z => z.ServiceType)
 					.Select(z => new ServiceReminderDto()
 					{
 						Receipts = z.Receipts.OrderByDescending(c => c.CurrentMiles).Take(1).ToList(),
@@ -44,13 +62,13 @@ namespace CoreApp.Services
 						RepeatingFigure = z.RepeatingFigure,
 						ServiceType = z.ServiceType
 					}).ToList();
-					
+
 					var expiredArticles = serviceItems.Where(z =>
 					{
 						var lastrec = z.Receipts.FirstOrDefault();
 						if (z.RepeatingTypeId == RepeatTypeDto.Age)
 						{
-							var span = DateTime.UtcNow - (lastrec?.CreatedDate??DateTime.MinValue);
+							var span = DateTime.UtcNow - (lastrec?.CreatedDate ?? DateTime.MinValue);
 							if (span.TotalDays / 365 > double.Parse(z.RepeatingFigure))
 							{
 								return true;
@@ -62,14 +80,14 @@ namespace CoreApp.Services
 						}
 						else
 						{
-							var span = double.Parse(estimate) - double.Parse(lastrec?.CurrentMiles??"0.0");
+							var span = double.Parse(estimate) - double.Parse(lastrec?.CurrentMiles ?? "0.0");
 							return span > double.Parse(z.RepeatingFigure);
 						}
 					}).ToList();
-					if(expiredArticles.Any())
+					if (expiredArticles.Any())
 					{
-						var reason = expiredArticles.Select(z =>$"{z.ServiceType.Name} ").SelectMany(z=>z).ToArray();
-						
+						var reason = expiredArticles.Select(z => $"{z.ServiceType.Name} ").SelectMany(z => z).ToArray();
+
 						try
 						{
 							var rsn = "These Parts are out of date: " + new string(reason);
@@ -78,7 +96,7 @@ namespace CoreApp.Services
 							car.LastRecordingMileage = estimate;
 							Context.SaveChanges();
 						}
-						catch(Exception ex)
+						catch (Exception ex)
 						{
 							Console.WriteLine(ex.Message);
 						}

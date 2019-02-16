@@ -2,6 +2,7 @@
 using Amazon.Runtime;
 using Amazon.S3;
 using Amazon.SimpleEmail;
+using Amazon.SimpleNotificationService;
 using CoreApp.Forms;
 using CoreApp.Forms.SignUp;
 using CoreApp.Models.Repositories;
@@ -69,11 +70,16 @@ namespace CoreApp
 
 				services.AddDbContext<DatabaseContext>(options => options.UseMySql(connectionString));
 			}
-			var key = Configuration.GetSection("AWSKey").Value;
-			var secret = Configuration.GetSection("AWSSecret").Value;
+			try
+			{
+				var key = Configuration.GetSection("AWSKey").Value;
+				var secret = Configuration.GetSection("AWSSecret").Value;
+				creds = new BasicAWSCredentials(key, secret);
+			}
+			catch { }
+
 			var opt = Configuration.GetAWSOptions();
 			opt.Region = RegionEndpoint.APSoutheast2;
-			Startup.creds = new BasicAWSCredentials(key, secret);
 			opt.Credentials = creds;
 
 			StripeConfiguration.SetApiKey(Configuration.GetSection("StripeKey").Value);
@@ -82,11 +88,12 @@ namespace CoreApp
 			services.AddDefaultAWSOptions(opt);
 			services.AddAWSService<IAmazonS3>();
 			services.AddAWSService<IAmazonSimpleEmailService>();
+			services.AddAWSService<IAmazonSimpleNotificationService>();
+
 			services.AddSingleton<IConfiguration>(Configuration);
 			services.AddScoped<IContext, DatabaseContext>();
 			services.AddScoped<IEmailSendService, EmailSendService>();
-
-
+			
 			services.AddSingleton<IHostedService, MileageHostedService>();
 			services.AddSingleton<IScheduledTask, MileageScheduledTask>();
 
@@ -147,7 +154,7 @@ namespace CoreApp
 		{
 			services.AddSingleton<CarReport>();
 			services.AddSingleton<SignUpReport>();
-			
+
 			services.AddScoped<ICarService, CarService>();
 			services.AddScoped<IVinService, VinService>();
 			services.AddScoped<IPdfService, PdfService>();
@@ -172,6 +179,7 @@ namespace CoreApp
 			services.AddScoped<IRepeatingItemService,RepeatingItemService>();
 			services.AddScoped<IEmailTemplateService, EmailTemplateService>();
 			services.AddScoped<IAuthenticationService, AuthenticationService>();
+			services.AddScoped<IReminderReportService, ReminderReportService>();
 			services.AddSingleton<IConverter>(new SynchronizedConverter(new PdfTools()));
 
 			services.AddRepo<ManufacturerDto>();

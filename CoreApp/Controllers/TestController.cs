@@ -1,3 +1,5 @@
+using Amazon.SimpleNotificationService;
+using Amazon.SimpleNotificationService.Model;
 using CoreApp.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -6,10 +8,16 @@ namespace CoreApp.Controllers
 {
 	public class TestController : Controller
 	{
-		private IServiceProvider provider;
-		public TestController(IServiceProvider provider)
+		private IStatusService statusService;
+		private IReminderReportService reminderReportService;
+
+		public TestController(
+			IStatusService statusService,
+			IReminderReportService reminderReportService
+		)
 		{
-			this.provider = provider;
+			this.reminderReportService = reminderReportService;
+			this.statusService = statusService;
 		}
 
 		[HttpGet]
@@ -46,17 +54,14 @@ namespace CoreApp.Controllers
 		[HttpGet("services")]
 		public IActionResult ServicesAccess()
 		{
-
-			IStatusService statusService = null;
-
-			try
-			{
-				statusService = (IStatusService)provider.GetService(typeof(IStatusService));
-			}
-			catch (Exception ex) {
-				return Ok("Status Service is not building correctly, " + ex.Message);
-			}
 			return Ok(statusService.GetServiceStatus());
+		}
+
+		[HttpGet("dailyrun")]
+		public IActionResult DailyRun()
+		{
+			this.reminderReportService.BuildEmails();
+			return Ok();
 		}
 	}
 }
