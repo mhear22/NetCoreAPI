@@ -156,6 +156,7 @@ namespace CoreApp
 			services.AddScoped<IFormService, FormService>();
 			services.AddScoped<IEmailService, EmailService>();
 			services.AddScoped<IImageService, ImageService>();
+			services.AddScoped<IStatusService, StatusService>();
 			services.AddScoped<IMileageService, MileageService>();
 			services.AddScoped<IStorageService, StorageService>();
 			services.AddScoped<IPaymentService, PaymentService>();
