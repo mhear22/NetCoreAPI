@@ -58,7 +58,10 @@ namespace CoreApp
 			var connectionString = Configuration.GetConnectionString("DefaultConnection");
 			var basePath = PlatformServices.Default.Application.ApplicationBasePath;
 			var xmlPath = Path.Combine(basePath, "CoreApp.xml");
-			services.AddMvc().AddJsonOptions(x => x.SerializerSettings.ContractResolver = new DefaultContractResolver());
+			services.AddMvc()
+				.AddJsonOptions(x => x.SerializerSettings.ContractResolver = new DefaultContractResolver())
+				.AddJsonOptions(x=>x.SerializerSettings.DateTimeZoneHandling= Newtonsoft.Json.DateTimeZoneHandling.Utc);
+
 			services.AddCors(x => x.AddPolicy("cors", z => z.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials()));
 			if (IsTesting)
 			{
