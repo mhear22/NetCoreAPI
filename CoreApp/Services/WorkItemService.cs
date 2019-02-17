@@ -14,6 +14,7 @@ namespace CoreApp.Services
 		List<ReceiptModel> GetForVin(string Vin);
 		ReceiptModel Get(string Id);
 		void CompleteWork(string Id, string CurrentMiles);
+		List<ServiceReceiptModel> GetReceipts(string Id);
 	}
 
 	public class WorkItemService : ServiceBase, IWorkItemService
@@ -166,6 +167,18 @@ namespace CoreApp.Services
 					
 				})
 				.ToList();
+		}
+
+		public List<ServiceReceiptModel> GetReceipts(string Id)
+		{
+			return Context.ServiceReminders
+				.Include(x=>x.Receipts)
+				.FirstOrDefault(x => x.Id == Id).Receipts
+				.Select(x => new ServiceReceiptModel()
+			{
+				Date = x.CreatedDate,
+				Mileage = x.CurrentMiles
+			}).ToList();
 		}
 		
 	}

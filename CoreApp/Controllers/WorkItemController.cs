@@ -2,6 +2,7 @@ using CoreApp.Models.Vehicle;
 using CoreApp.Repositories;
 using CoreApp.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace CoreApp.Controllers
 {
@@ -55,5 +56,10 @@ namespace CoreApp.Controllers
 		[ProducesResponseType(200)]
 		public IActionResult DeleteRepeat(string Id) =>
 			ReturnResult(() => this.repeatingItemService.Delete(Id));
+
+		[HttpGet("part/{Id}/receipts")]
+		[ProducesResponseType(200, Type = typeof(List<ServiceReceiptModel>))]
+		public IActionResult GetReceipts(string Id) =>
+			ReturnResult(() => this.workItemService.GetReceipts(Id));
 	}
 }
