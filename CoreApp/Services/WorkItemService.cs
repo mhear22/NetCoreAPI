@@ -116,6 +116,7 @@ namespace CoreApp.Services
 				.ToList()
 				.Select(x => new ReceiptModel()
 				{
+					ServiceTypeId = x.ServiceTypeId,
 					ServiceType = x.ServiceType?.Name,
 					RepeatFrequency = x.RepeatingFigure,
 					RepeatType = x.RepeatingType?.Name,
@@ -151,6 +152,7 @@ namespace CoreApp.Services
 				.ToList()
 				.Select(x => new ReceiptModel()
 				{
+					ServiceTypeId = x.ServiceTypeId,
 					ServiceType = x.ServiceType?.Name,
 					RepeatFrequency = x.RepeatingFigure,
 					RepeatType = x.RepeatingType?.Name,
