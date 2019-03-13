@@ -4,9 +4,13 @@ phases:
     install:
         commands:
             - dotnet restore
+            - apt-get install tree
     build:
         commands:
             - dotnet build
+            - dir
+            - tree
+            
     #post_build:
     #    commands:
     #        - aws cloudformation package --template-file serverless.template --s3-bucket a----a
