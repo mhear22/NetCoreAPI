@@ -6,9 +6,9 @@ phases:
             - dotnet restore
     build:
         commands:
-            - dotnet build
+            - dotnet publish
             - dir
-            - cd CoreApp.Serverless/obj/Debug/netcoreapp2.1/
+            - cd CoreApp.Serverless/obj/Debug/netcoreapp2.1/publish
             - dir
 
             
@@ -18,5 +18,5 @@ phases:
 
 artifacts:
     files:
-        CoreApp.Serverless/obj/Debug/netcoreapp2.1/*
+        CoreApp.Serverless/obj/Debug/netcoreapp2.1/publish/*
     discard-paths: yes
