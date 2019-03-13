@@ -1,0 +1,17 @@
+version: 0.2
+
+phases:
+    install:
+        commands:
+            - dotnet restore
+    build:
+        commands:
+            - dotnet build
+    post_build:
+        commands:
+            - aws cloudformation package
+
+artifacts:
+    files:
+        CoreApp.Serverless/obj/Debug/netcoreapp2.1/*
+    discard-paths: yes
