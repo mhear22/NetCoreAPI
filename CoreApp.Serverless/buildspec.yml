@@ -8,6 +8,9 @@ phases:
         commands:
             - dotnet build
             - dir
+            - cd CoreApp.Serverless/obj/Debug/netcoreapp2.1/
+            - dir
+
             
     #post_build:
     #    commands:
