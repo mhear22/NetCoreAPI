@@ -8,7 +8,7 @@ phases:
         commands:
             - dotnet publish
             - dir
-            - cd CoreApp.Serverless/obj/Debug/netcoreapp2.1/publish
+            - cd CoreApp.Serverless/bin/Debug/netcoreapp2.1/publish
             - dir
 
             
@@ -18,5 +18,5 @@ phases:
 
 artifacts:
     files:
-        CoreApp.Serverless/obj/Debug/netcoreapp2.1/publish/*
+        CoreApp.Serverless/bin/Debug/netcoreapp2.1/publish/*
     discard-paths: yes
