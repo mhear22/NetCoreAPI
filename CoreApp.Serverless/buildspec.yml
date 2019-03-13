@@ -4,12 +4,10 @@ phases:
     install:
         commands:
             - dotnet restore
-            - apt-get install tree
     build:
         commands:
             - dotnet build
             - dir
-            - tree
             
     #post_build:
     #    commands:
