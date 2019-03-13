@@ -7,9 +7,9 @@ phases:
     build:
         commands:
             - dotnet build
-    post_build:
-        commands:
-            - aws cloudformation package
+    #post_build:
+    #    commands:
+    #        - aws cloudformation package --template-file serverless.template --s3-bucket a----a
 
 artifacts:
     files:
