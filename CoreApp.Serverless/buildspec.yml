@@ -7,16 +7,9 @@ phases:
     build:
         commands:
             - dotnet publish
-            - dir
-            - cd CoreApp.Serverless/bin/Debug/netcoreapp2.1/publish
-            - dir
-
-            
-    #post_build:
-    #    commands:
-    #        - aws cloudformation package --template-file serverless.template --s3-bucket a----a
+            - aws cloudformation package --template-file serverless.template --s3-bucket a----a --output-template-file serverless.yml
 
 artifacts:
     files:
-        CoreApp.Serverless/bin/Debug/netcoreapp2.1/publish/*
+        CoreApp.Serverless/serverless.yml
     discard-paths: yes
