@@ -1,10 +1,10 @@
 [
 	{
-		"ParameterKey":"CreateS3Bucket",
-		"ParameterValue":false
+		"ParameterKey":"ShouldCreateBucket",
+		"ParameterValue":"false"
 	},
 	{
-		"ParameterKey":"BucketNameGenerated",
+		"ParameterKey":"BucketName",
 		"ParameterValue":"mechie-backend-testbucket-bcjcfiear9tc"
 	}
 ]
