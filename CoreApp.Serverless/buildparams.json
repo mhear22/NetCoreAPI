@@ -1,4 +1,10 @@
-{
-	"CreateS3Bucket": false,
-	"BucketNameGenerated": "mechie-backend-testbucket-bcjcfiear9tc"
-}
+[
+	{
+		"ParameterKey":"CreateS3Bucket",
+		"ParameterValue":false
+	},
+	{
+		"ParameterKey":"BucketNameGenerated",
+		"ParameterValue":"mechie-backend-testbucket-bcjcfiear9tc"
+	}
+]
