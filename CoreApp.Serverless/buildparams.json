@@ -1,10 +1,6 @@
-[
-	{
-		"ParameterKey":"ShouldCreateBucket",
-		"ParameterValue":"false"
-	},
-	{
-		"ParameterKey":"BucketName",
-		"ParameterValue":"mechie-backend-testbucket-bcjcfiear9tc"
+{
+	"Parameters":{
+		"BucketName":"mechie-backend-testbucket-bcjcfiear9tc",
+		"ShouldCreateBucket":"false"
 	}
-]
+}
