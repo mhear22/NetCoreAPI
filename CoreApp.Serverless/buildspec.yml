@@ -8,8 +8,12 @@ phases:
         commands:
             - dotnet publish
             - aws cloudformation package --template-file CoreApp.Serverless/serverless.template --s3-bucket a----a --output-template-file serverless.yml
-
+    post_build:
+        commands:
+            - 
+      
 artifacts:
     files:
         serverless.yml
+        CoreApp.Serverless/buildparams.json
     discard-paths: yes
