@@ -9,16 +9,7 @@ phases:
         commands:
             - dotnet lambda package-ci -pl CoreApp.Serverless --output-template serverless.template --configuration release
             - aws cloudformation package --template-file serverless.template --s3-bucket a----a --output-template-file serverless.yml
-            - ls
-            - cd CoreApp.Serverless
-            - ls
-            - cd bin
-            - ls
-            - cd release
-            - ls
-            - cd netcoreapp2.1
-            - ls
-            - cd publish
+            - cd CoreApp.Serverless/bin/release/netcoreapp2.1/publish
             - ls
     post_build:
         commands:
