@@ -55,7 +55,7 @@ namespace CoreApp
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			var connectionString = Configuration.GetConnectionString("DefaultConnection");
+			var connectionString = Configuration.GetSection("DefaultConnection").Value;
 			var basePath = PlatformServices.Default.Application.ApplicationBasePath;
 			var xmlPath = Path.Combine(basePath, "CoreApp.xml");
 			services.AddMvc()
