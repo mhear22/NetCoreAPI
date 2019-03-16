@@ -4,10 +4,12 @@ phases:
     install:
         commands:
             - dotnet restore
+            - dotnet tool install -g Amazon.Lambda.Tools
     build:
         commands:
             - dotnet publish -c release
-            - aws cloudformation package --template-file CoreApp.Serverless/serverless.template --s3-bucket a----a --output-template-file serverless.yml
+            - dotnet lambda package-ci -pl CoreApp.Serverless
+            - aws cloudformation package --template-file serverless.template --s3-bucket a----a --output-template-file serverless.yml
     post_build:
         commands:
             - 
