@@ -1,31 +1,38 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
-    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
-    <AWSProjectType>Lambda</AWSProjectType>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netcoreapp2.1</TargetFramework>
+		<GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+		<AWSProjectType>Lambda</AWSProjectType>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>obj\CoreApp.xml</DocumentationFile>
-  </PropertyGroup>
+	<Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
+		<ItemGroup>
+			<DocFile Include="bin\$(Configuration)\$(TargetFramework)\*.xml" />
+		</ItemGroup>
+		<Copy SourceFiles="@(DocFile)" DestinationFolder="$(PublishDir)" SkipUnchangedFiles="false" />
+	</Target>
 
-  <ItemGroup>
-    <PackageReference Include="Amazon.Lambda.AspNetCoreServer" Version="3.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore" Version="2.1.4" />
-  </ItemGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<DocumentationFile>obj\CoreApp.xml</DocumentationFile>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\CoreApp\CoreApp.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Amazon.Lambda.AspNetCoreServer" Version="3.0.1" />
+		<PackageReference Include="Microsoft.AspNetCore" Version="2.1.4" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Update="CoreApp.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="serverless.template">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\CoreApp\CoreApp.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="CoreApp.xml">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="serverless.template">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
 
 </Project>
