@@ -1,18 +1,6 @@
 ﻿{
-	"ConnectionStrings": {
-		"DefaultConnection": ""
-	},
-	"Logging": {
-		"IncludeScopes": false,
-		"LogLevel": {
-			"Default": "Information",
-			"System": "Information",
-			"Microsoft": "Information"
-		}
-	},
-	"AWS": {
-		"Profile": "profile"
-	},
+	"DefaultConnection": "",
 	"AWSKey": "",
-	"AWSSecret": ""
+	"AWSSecret": "",
+	"StripeKey": ""
 }

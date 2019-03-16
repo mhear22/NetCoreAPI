@@ -35,7 +35,11 @@
 		"Policies": [ "AWSLambdaFullAccess" ],
 		"Environment" : {
 		  "Variables" : {
-			"AppS3Bucket" : { "Fn::If" : ["CreateS3Bucket", {"Ref":"Bucket"}, { "Ref" : "BucketName" } ] }
+			"AppS3Bucket" : { "Fn::If" : ["CreateS3Bucket", {"Ref":"Bucket"}, { "Ref" : "BucketName" } ] },
+			"DefaultConnection":"something",
+			"AWSKey":"something",
+			"AWSSecret":"something",
+			"StripeKey":"something"
 		  }
 		},
 		"Events": {
