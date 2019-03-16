@@ -24,7 +24,8 @@ namespace CoreApp.Controllers
 		[Route("status")]
 		public IActionResult Get()
 		{
-			return Ok("Server Up");
+			var date = DateTime.UtcNow;
+			return Ok($"Server Up at {date.ToShortDateString()}");
 		}
 
 		[HttpGet]
