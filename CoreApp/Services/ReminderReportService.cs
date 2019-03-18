@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Amazon.Lambda.Core;
 using Amazon.SimpleNotificationService;
 using Amazon.SimpleNotificationService.Model;
 using CoreApp.Repositories;
@@ -31,6 +32,7 @@ namespace CoreApp.Services
 
 		public async void BuildEmails()
 		{
+			LambdaLogger.Log("Daily Email Batch Initialised");
 			var Vins = await Context.OwnedCars.Select(x => x.Vin).ToListAsync();
 			Vins.ForEach(x =>
 			{
