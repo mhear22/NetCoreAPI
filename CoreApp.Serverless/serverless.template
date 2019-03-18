@@ -54,6 +54,42 @@
 	  }
 	},
 
+	"LambdaTriggerRule":{
+		"Type" : "AWS::Events::Rule",
+		"Properties": {
+			"ScheduleExpression":"rate(1 day)",
+			"Targets":[
+				{
+					"Id":"AspNetCoreFunction",
+					"Arn":{
+						"Fn::GetAtt":[
+						"AspNetCoreFunction",
+						"Arn"
+					]}
+				}
+			]
+		}
+	},
+	"LambdaTriggerPermission":{
+		"Type":"AWS::Lambda::Permission",
+		"Properties": {
+			"FunctionName":{
+				"Fn::GetAtt":[
+					"AspNetCoreFunction",
+					"Arn"
+				]
+			},
+			"Action":"Lambda:InvokeFunction",
+			"Principal":"events.amazonaws.com",
+			"SourceArn":{
+				"Fn::GetAtt":[
+					"LambdaTriggerRule",
+					"Arn"
+				]
+			}
+		}
+	},
+
 	"Bucket" : {
 		"Type" : "AWS::S3::Bucket",
 		"Condition" : "CreateS3Bucket",
