@@ -57,7 +57,7 @@ Resources:
   LambdaTriggerRule:
     Type: 'AWS::Events::Rule'
     Properties:
-      ScheduleExpression: rate(1 day)
+      ScheduleExpression: rate(1 hour)
       Targets:
         - Id: AspNetCoreFunction
           Arn: !GetAtt 
