@@ -11,7 +11,7 @@
     "configuration" : "Release",
     "framework"     : "netcoreapp2.1",
     "s3-prefix"     : "CoreApp.Serverless/",
-    "template"      : "serverless.template",
+    "template"      : "template.yml",
     "template-parameters" : "\"ShouldCreateBucket\"=\"true\";\"BucketName\"=\"\"",
     "s3-bucket"           : "mechie-aus-storage",
     "stack-name"          : "mechie"
