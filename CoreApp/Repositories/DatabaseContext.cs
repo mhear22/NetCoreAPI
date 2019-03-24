@@ -90,9 +90,10 @@ namespace CoreApp.Repositories
 			IConfigurationRoot configuration = new ConfigurationBuilder()
 				.SetBasePath(Directory.GetCurrentDirectory())
 				.AddJsonFile("appsettings.json")
+				.AddEnvironmentVariables()
 				.Build();
 			var builder = new DbContextOptionsBuilder<DatabaseContext>();
-			var connectionString = configuration.GetConnectionString("DefaultConnection");
+			var connectionString = configuration.GetSection("DefaultConnection").Value;
 			builder.UseMySql(connectionString);
 			return new DatabaseContext(builder.Options);
 
