@@ -26,6 +26,14 @@ Conditions:
     - !Ref BucketName
     - ''
 Resources:
+  AspNetCoreRole:
+    Type: AWS::IAM::Role
+    Properties:
+      Policies:
+        - AWSLambdaFullAccess
+        - AWSS3FullAccess
+      RoleName: AspNetCoreRole
+
   AspNetCoreFunction:
     Type: 'AWS::Serverless::Function'
     Properties:
@@ -35,9 +43,7 @@ Resources:
       CodeUri: ''
       MemorySize: 256
       Timeout: 30
-      Role: null
-      Policies:
-        - AWSLambdaFullAccess
+      Role: !GetAtt AspNetCoreRole.Arn
       Environment:
         Variables:
           AppS3Bucket: !If 
