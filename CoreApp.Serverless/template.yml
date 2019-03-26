@@ -26,6 +26,11 @@ Conditions:
     - !Ref BucketName
     - ''
 Resources:
+  FeedbackTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      DisplayName: "FeedbackTopic"
+
   AspNetCoreRole:
     Type: AWS::IAM::Role
     Properties:
@@ -54,6 +59,7 @@ Resources:
           AWSKey: something
           AWSSecret: something
           StripeKey: something
+          FeedbackSNSTopic: !GetAtt FeedbackTopic.Arn
       Events:
         PutResource:
           Type: Api
