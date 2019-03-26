@@ -59,7 +59,7 @@ Resources:
           AWSKey: something
           AWSSecret: something
           StripeKey: something
-          FeedbackSNSTopic: !GetAtt FeedbackTopic.Arn
+          FeedbackSNSTopic: !GetAtt FeedbackTopic
       Events:
         PutResource:
           Type: Api
