@@ -166,7 +166,7 @@ namespace CoreApp
 			services.AddScoped<IMileageService, MileageService>();
 			services.AddScoped<IStorageService, StorageService>();
 			services.AddScoped<IPaymentService, PaymentService>();
-			services.AddScoped<IWorkItemService,WorkItemService>();
+			services.AddScoped<IFeedbackService, FeedbackService>();
 			services.AddScoped<IWorkItemService, WorkItemService>();
 			services.AddScoped<IPasswordService, PasswordService>();
 			services.AddScoped<ITokenService, Services.TokenService>();
