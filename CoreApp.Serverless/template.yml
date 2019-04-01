@@ -26,6 +26,13 @@ Conditions:
     - !Ref BucketName
     - ''
 Resources:
+  RDSCluster:
+    Type: AWS::RDS::DBCluster
+    Properties:
+      DBClusterIdentifier: "Mechie-DB-Cluster"
+      MasterUsername: "mechie"
+      MasterUserPassword: "password"
+      
   FeedbackTopic:
     Type: AWS::SNS::Topic
     Properties:
