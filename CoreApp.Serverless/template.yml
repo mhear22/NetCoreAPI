@@ -33,6 +33,8 @@ Resources:
       DBClusterIdentifier: "Mechie-DB-Cluster"
       MasterUsername: "mechie"
       MasterUserPassword: "password"
+      Engine: aurora
+      
   RDSPrimaryInstance:
     Type: AWS::RDS::DBInstance
     Properties:
