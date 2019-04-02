@@ -37,7 +37,7 @@ Resources:
     Type: AWS::RDS::DBInstance
     Properties:
       Engine: aurora
-      DBClusterIdentifier: !Ref 
+      DBClusterIdentifier: !Ref RDSCluster
       DBInstanceClass: db.t2.small
       
   FeedbackTopic:
