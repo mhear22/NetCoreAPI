@@ -91,9 +91,7 @@ Resources:
             - CreateS3Bucket
             - !Ref Bucket
             - !Ref BucketName
-          DefaultConnection: !Sub
-            - server={Endpoint};userid=root;pwd=password;port=3306;database=test;
-            - { Endpoint: !GetAtt RDSCluster.Endpoint.Address }
+          DefaultConnection: !Sub server={!GetAtt RDSCluster.Endpoint.Address};userid=root;pwd=password;port=3306;database=test;
           AWSKey: something
           AWSSecret: something
           StripeKey: something
