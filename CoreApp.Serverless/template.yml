@@ -40,7 +40,8 @@ Resources:
     Type: AWS::IAM::Policy
     Properties:
       PolicyName: AspNetCorePolicy-Mechie
-      Roles: !Ref AspNetCoreRole
+      Roles: 
+        - !Ref AspNetCoreRole
       PolicyDocument:
         Statement:
           - Effect: "Allow"
