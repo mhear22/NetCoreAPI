@@ -32,12 +32,10 @@ Resources:
       DBClusterIdentifier: "Mechie-DB-Cluster"
       MasterUsername: "mechie"
       MasterUserPassword: "password"
-      
   FeedbackTopic:
     Type: AWS::SNS::Topic
     Properties:
       DisplayName: "FeedbackTopic"
-
   AspNetCoreRole:
     Type: AWS::IAM::Role
     Properties:
@@ -52,9 +50,14 @@ Resources:
             Action: 
               - "sts:AssumeRole"
       Path: "/"
-      Policies: 
-        - AWSLambdaFullAccess
-        - AWSS3FullAccess
+      Policies:
+        - Effect: "Allow"
+          Action: "s3:*"
+          Resource: "*"
+
+        - Effect: "Allow"
+          Action: "ses:*"
+          Resource: "*"
         
   AspNetCoreFunction:
     Type: 'AWS::Serverless::Function'
