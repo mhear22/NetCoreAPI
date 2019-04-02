@@ -93,7 +93,7 @@ Resources:
             - !Ref BucketName
           DefaultConnection: !Sub
             - server={Endpoint};userid=root;pwd=password;port=3306;database=test;
-            - { Endpoint: !Ref RDSCluster.Endpoint.Address }
+            - { Endpoint: !GetAtt RDSCluster.Endpoint.Address }
           AWSKey: something
           AWSSecret: something
           StripeKey: something
