@@ -26,12 +26,20 @@ Conditions:
     - !Ref BucketName
     - ''
 Resources:
-  #RDSCluster:
-  #  Type: AWS::RDS::DBCluster
-  #  Properties:
-  #    DBClusterIdentifier: "Mechie-DB-Cluster"
-  #    MasterUsername: "mechie"
-  #    MasterUserPassword: "password"
+  
+  RDSCluster:
+    Type: AWS::RDS::DBCluster
+    Properties:
+      DBClusterIdentifier: "Mechie-DB-Cluster"
+      MasterUsername: "mechie"
+      MasterUserPassword: "password"
+  RDSPrimaryInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      Engine: aurora
+      DBClusterIdentifier: !Ref 
+      DBInstanceClass: db.t2.small
+      
   FeedbackTopic:
     Type: AWS::SNS::Topic
     Properties:
