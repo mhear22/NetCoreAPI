@@ -36,6 +36,18 @@ Resources:
     Type: AWS::SNS::Topic
     Properties:
       DisplayName: "FeedbackTopic"
+  AspNetCorePolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: AspNetCorePolicy-Mechie
+      PolicyDocument:
+        Statement:
+          - Effect: "Allow"
+            Action: "s3:*"
+            Resource: "*"
+          - Effect: "Allow"
+            Action: "ses:*"
+            Resource: "*"
   AspNetCoreRole:
     Type: AWS::IAM::Role
     Properties:
@@ -50,14 +62,6 @@ Resources:
             Action: 
               - "sts:AssumeRole"
       Path: "/"
-      Policies:
-        - Effect: "Allow"
-          Action: "s3:*"
-          Resource: "*"
-
-        - Effect: "Allow"
-          Action: "ses:*"
-          Resource: "*"
         
   AspNetCoreFunction:
     Type: 'AWS::Serverless::Function'
