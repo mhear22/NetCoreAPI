@@ -12,9 +12,7 @@ Parameters:
     Description: If true then the S3 bucket that will be proxied will be created with the CloudFormation stack.
   BucketName:
     Type: String
-    Description: >-
-      Name of S3 bucket that will be proxied. If left blank a name will be
-      generated.
+    Description: Name of S3 bucket that will be proxied. If left blank a name will be generated.
     MinLength: '0'
 Conditions:
   CreateS3Bucket: !Equals 
@@ -89,7 +87,9 @@ Resources:
             - CreateS3Bucket
             - !Ref Bucket
             - !Ref BucketName
-          DefaultConnection: !Sub server={!GetAtt RDSCluster.Endpoint.Address};userid=root;pwd=password;port=3306;database=test;
+          DefaultConnection: !Sub 
+          - server=${Address};userid=root;pwd=password;port=3306;database=test;
+          - { Address: !GetAtt RDSCluster.Endpoint.Address }
           AWSKey: something
           AWSSecret: something
           StripeKey: something
