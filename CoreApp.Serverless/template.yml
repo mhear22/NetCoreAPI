@@ -9,9 +9,7 @@ Parameters:
     AllowedValues:
       - 'true'
       - 'false'
-    Description: >-
-      If true then the S3 bucket that will be proxied will be created with the
-      CloudFormation stack.
+    Description: If true then the S3 bucket that will be proxied will be created with the CloudFormation stack.
   BucketName:
     Type: String
     Description: >-

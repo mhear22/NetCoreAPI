@@ -1,0 +1,1 @@
+dotnet lambda package-ci -pl CoreApp.Serverless --output-template template.yml --configuration release && aws cloudformation package --template-file template.yml --s3-bucket a----a --output-template-file template.yml && aws cloudformation deploy --template-file template.yml --stack-name Mechie-Backend --capabilities CAPABILITY_NAMED_IAM

@@ -10,6 +10,7 @@ project.assets.json
 *.props
 *.cache
 *.csproj.FileListAbsolute.txt
+template.yml
 
 # Created by https://www.gitignore.io/api/visualstudiocode,visualstudio,macos
 
@@ -17,7 +18,6 @@ project.assets.json
 *.DS_Store
 .AppleDouble
 .LSOverride
-
 # Icon must end with two \r
 Icon
 
