@@ -10,7 +10,7 @@ project.assets.json
 *.props
 *.cache
 *.csproj.FileListAbsolute.txt
-template.yml
+serverless.yml
 
 # Created by https://www.gitignore.io/api/visualstudiocode,visualstudio,macos
 
