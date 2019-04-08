@@ -30,6 +30,7 @@ Resources:
       MasterUsername: "mechie"
       MasterUserPassword: "password"
       Engine: aurora
+      DeletionProtection: true
       
   RDSPrimaryInstance:
     Type: AWS::RDS::DBInstance
