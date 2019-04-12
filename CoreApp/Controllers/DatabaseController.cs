@@ -28,7 +28,7 @@ namespace CoreApp.Controllers
 			if(Context != null)
 				result.ContextExists = true;
 
-			var config = this.Configuration.GetConnectionString("DefaultConnection");
+			var config = this.Configuration.GetSection("DefaultConnection").Value;
 			if(!string.IsNullOrWhiteSpace(config))
 			{
 				var split = config.Split(';');
@@ -41,7 +41,9 @@ namespace CoreApp.Controllers
 				if (Context.VinWMIs.Any())
 					result.DbConnection = true;
 			}
-			catch { }
+			catch (Exception ex) {
+				result.Messages.Add(ex.Message);
+			}
 
 			return Ok(result);
 		}
@@ -52,5 +54,6 @@ namespace CoreApp.Controllers
 		public bool ContextExists = false;
 		public bool DbConnection = false;
 		public string ConfigString;
+		public List<string> Messages = new List<string>();
 	}
 }
