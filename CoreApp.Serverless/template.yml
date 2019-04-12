@@ -15,7 +15,7 @@ Parameters:
     Description: Name of S3 bucket that will be proxied. If left blank a name will be generated.
     MinLength: '0'
 Conditions:
-  CreateS3Bucket: !Equals 
+  CreateS3Bucket: !Equals
     - !Ref ShouldCreateBucket
     - 'true'
   BucketNameGenerated: !Equals 
@@ -38,6 +38,8 @@ Resources:
       Engine: aurora
       DBClusterIdentifier: !Ref RDSCluster
       DBInstanceClass: db.t2.small
+      PubliclyAccessible: true
+
       
   FeedbackTopic:
     Type: AWS::SNS::Topic
