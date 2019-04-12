@@ -91,7 +91,7 @@ Resources:
             - !Ref Bucket
             - !Ref BucketName
           DefaultConnection: !Sub 
-          - server=${Address};userid=root;pwd=password;port=3306;database=mechie;
+          - server=${Address};userid=mechie;pwd=password;port=3306;database=mechie;
           - { Address: !GetAtt RDSCluster.Endpoint.Address }
           AWSKey: something
           AWSSecret: something
