@@ -2,6 +2,7 @@ using Amazon.SimpleNotificationService;
 using CoreApp.Models.Generic;
 using CoreApp.Repositories;
 using Microsoft.Extensions.Configuration;
+using System;
 
 namespace CoreApp.Services
 {
@@ -29,15 +30,23 @@ namespace CoreApp.Services
 		
 		public void SubmitFeedback(FeedbackModel model)
 		{
-			var Arn = this.Config.GetSection("FeedbackSNSTopic").Value;
-			
-			if(string.IsNullOrWhiteSpace(Arn))
+			try
 			{
-				var user = this.userService.GetUser(model.UserId);
+				var Arn = this.Config.GetSection("FeedbackSNSTopic").Value;
+			
+				if(!string.IsNullOrWhiteSpace(Arn))
+				{
+					var user = this.userService.GetUser(model.UserId);
 				
-				var message = $"{user.EmailAddress} said: {model.Feedback} at {model.Url}";
+					var message = $"{user?.EmailAddress??"anon"} said: {model?.Feedback} at {model?.Url}";
 				
-				this.snsService.PublishAsync(Arn, message).Wait();
+					this.snsService.PublishAsync(Arn, message).Wait();
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+				throw ex;
 			}
 		}
 	}
