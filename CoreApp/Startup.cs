@@ -86,7 +86,7 @@ namespace CoreApp
 				opt.Credentials = creds = new BasicAWSCredentials(key, secret);
 			}
 			catch {
-				LambdaLogger.Log("Using no key")
+				LambdaLogger.Log("Using no key");
 			}
 			
 			StripeConfiguration.SetApiKey(Configuration.GetSection("StripeKey").Value);
