@@ -80,7 +80,7 @@ namespace CoreApp
 				creds = new BasicAWSCredentials(key, secret);
 			}
 			catch {
-				creds = new AnonymousAWSCredentials();
+				creds = new InstanceProfileAWSCredentials();
 			}
 
 			var opt = Configuration.GetAWSOptions();
