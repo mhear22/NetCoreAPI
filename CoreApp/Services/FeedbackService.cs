@@ -1,3 +1,4 @@
+using Amazon.Lambda.Core;
 using Amazon.SimpleNotificationService;
 using CoreApp.Models.Generic;
 using CoreApp.Repositories;
@@ -45,7 +46,7 @@ namespace CoreApp.Services
 			}
 			catch (Exception ex)
 			{
-				Console.WriteLine(ex.Message);
+				LambdaLogger.Log(ex.Message);
 				throw ex;
 			}
 		}
