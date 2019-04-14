@@ -50,7 +50,7 @@ namespace CoreApp
 		}
 
 		public IConfigurationRoot Configuration { get; private set; }
-		internal static BasicAWSCredentials creds;
+		internal static AWSCredentials creds;
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
@@ -79,7 +79,9 @@ namespace CoreApp
 				var secret = Configuration.GetSection("AWSSecret").Value;
 				creds = new BasicAWSCredentials(key, secret);
 			}
-			catch { }
+			catch {
+				creds = new AnonymousAWSCredentials();
+			}
 
 			var opt = Configuration.GetAWSOptions();
 			opt.Region = RegionEndpoint.APSoutheast2;
