@@ -78,16 +78,15 @@ namespace CoreApp
 			var opt = Configuration.GetAWSOptions();
 			opt.Region = RegionEndpoint.APSoutheast2;
 
-			try
+			var key = Configuration.GetSection("AWSKey").Value;
+			var secret = Configuration.GetSection("AWSSecret").Value;
+			if(!string.IsNullOrWhiteSpace(key))
 			{
-				var key = Configuration.GetSection("AWSKey").Value;
-				var secret = Configuration.GetSection("AWSSecret").Value;
 				LambdaLogger.Log("Using Key and secret");
 				opt.Credentials = creds = new BasicAWSCredentials(key, secret);
 			}
-			catch {
+			else
 				LambdaLogger.Log("Using no key");
-			}
 			
 			StripeConfiguration.SetApiKey(Configuration.GetSection("StripeKey").Value);
 			services.AddScoped<IStripeService, StripeService>();
