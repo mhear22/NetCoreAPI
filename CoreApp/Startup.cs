@@ -1,4 +1,5 @@
 ﻿using Amazon;
+using Amazon.Lambda.Core;
 using Amazon.Runtime;
 using Amazon.S3;
 using Amazon.SimpleEmail;
@@ -73,20 +74,21 @@ namespace CoreApp
 
 				services.AddDbContext<DatabaseContext>(options => options.UseMySql(connectionString));
 			}
+
+			var opt = Configuration.GetAWSOptions();
+			opt.Region = RegionEndpoint.APSoutheast2;
+
 			try
 			{
 				var key = Configuration.GetSection("AWSKey").Value;
 				var secret = Configuration.GetSection("AWSSecret").Value;
-				creds = new BasicAWSCredentials(key, secret);
+				LambdaLogger.Log("Using Key and secret");
+				opt.Credentials = creds = new BasicAWSCredentials(key, secret);
 			}
 			catch {
-				creds = new InstanceProfileAWSCredentials();
+				LambdaLogger.Log("Using no key")
 			}
-
-			var opt = Configuration.GetAWSOptions();
-			opt.Region = RegionEndpoint.APSoutheast2;
-			opt.Credentials = creds;
-
+			
 			StripeConfiguration.SetApiKey(Configuration.GetSection("StripeKey").Value);
 			services.AddScoped<IStripeService, StripeService>();
 
