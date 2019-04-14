@@ -96,7 +96,9 @@ Resources:
           DefaultConnection: !Sub 
           - server=${Address};userid=mechie;pwd=password;port=3306;database=mechie;
           - { Address: !GetAtt RDSCluster.Endpoint.Address }
-          StripeKey: null
+          AWSKey: something
+          AWSSecret: something
+          StripeKey: something
           FeedbackSNSTopic: !Ref FeedbackTopic
       Events:
         PutResource:
