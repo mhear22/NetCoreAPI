@@ -47,7 +47,6 @@ namespace CoreApp.Services
 			catch (Exception ex)
 			{
 				LambdaLogger.Log(ex.Message);
-				throw ex;
 			}
 		}
 	}
