@@ -14,7 +14,7 @@
     <PackageReference Include="AWSSDK.S3" Version="3.3.31.18" />
     <PackageReference Include="AWSSDK.SimpleEmail" Version="3.3.7.33" />
     <PackageReference Include="AWSSDK.SimpleNotificationService" Version="3.3.3.21" />
-    <PackageReference Include="DinkToPdfIncludesDependencies" Version="1.0.8" />
+    <PackageReference Include="DinkToPdf" Version="1.0.8" />
     <PackageReference Include="Handlebars.Net" Version="1.9.5" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.5.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="2.1.4" />
