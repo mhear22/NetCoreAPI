@@ -31,10 +31,12 @@ namespace CoreApp.Services
 			}
 		}
 
-		public string GetDocumentType(string Type)
+		private string GetDocumentType(string Type)
 		{
 			var dir = Root + "/Forms/";
-			return Directory.GetFiles(dir).Where(x => x.ToLower() == Type.ToLower()).FirstOrDefault();
+			var files = Directory.GetDirectories(dir).Select(x=>x.Split("/").Last());
+			var filenames = files.Where(x => x.ToLower() == Type.ToLower());
+			return filenames.FirstOrDefault();
 		}
 
 		public string GetDocument(string Type)
