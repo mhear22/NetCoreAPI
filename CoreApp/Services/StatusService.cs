@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Amazon.S3;
@@ -57,7 +58,7 @@ namespace CoreApp.Services
 			try
 			{
 				var service = GetService<IHtmlDocumentService>();
-				result.LocalFileSystem = service.GetDocumentNames();
+				result.LocalFileSystem = DirSearch(Directory.GetCurrentDirectory());
 			}
 			catch { }
 
@@ -72,6 +73,20 @@ namespace CoreApp.Services
 			catch (Exception ex) { result.S3Buckets.Add(ex.Message); }
 
 			return result;
+		}
+
+		static List<string> DirSearch(string sDir)
+		{
+			var dirs = new List<string>();
+			foreach (string d in Directory.GetDirectories(sDir))
+			{
+				foreach (string f in Directory.GetFiles(d))
+				{
+					dirs.Add(f);
+				}
+				dirs.AddRange(DirSearch(d).Select(x => x));
+			}
+			return dirs;
 		}
 	}
 
