@@ -65,16 +65,10 @@ namespace CoreApp
 
 			services.AddCors(x => x.AddPolicy("cors", z => z.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials()));
 			if (IsTesting)
-			{
 				services.AddDbContext<DatabaseContext>(options => options.UseInMemoryDatabase("Test"), ServiceLifetime.Transient);
-
-			}
 			else
-			{
-
 				services.AddDbContext<DatabaseContext>(options => options.UseMySql(connectionString));
-			}
-
+			
 			var opt = Configuration.GetAWSOptions();
 			opt.Region = RegionEndpoint.APSoutheast2;
 
