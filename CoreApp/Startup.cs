@@ -176,7 +176,7 @@ namespace CoreApp
 			services.AddScoped<IEmailTemplateService, EmailTemplateService>();
 			services.AddScoped<IAuthenticationService, AuthenticationService>();
 			services.AddScoped<IReminderReportService, ReminderReportService>();
-			services.AddSingleton<IConverter>(new SynchronizedConverter(new PdfTools()));
+			services.AddSingleton<IConverter>(new BasicConverter(new PdfTools()));
 
 			services.AddRepo<ManufacturerDto>();
 			services.AddRepo<FilePiecesDto>();
