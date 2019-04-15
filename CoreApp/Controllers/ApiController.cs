@@ -61,7 +61,7 @@ namespace CoreApp.Controllers
 				return StatusCode(500, ex.Message);
 			}
 		}
-
+		
 		protected string GetAPIKey()
 		{
 			StringValues prim = "";

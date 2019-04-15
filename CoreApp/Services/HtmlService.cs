@@ -77,7 +77,7 @@ namespace CoreApp.Services
 			}
 			catch(Exception ex)
 			{
-				throw new ArgumentException("Could not Run Report", ex);
+				throw new ArgumentException($"Could not Run Report, {ex.Message}", ex);
 			}
 		}
 	}

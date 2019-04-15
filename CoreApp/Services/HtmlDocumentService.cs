@@ -31,9 +31,15 @@ namespace CoreApp.Services
 			}
 		}
 
+		public string GetDocumentType(string Type)
+		{
+			var dir = Root + "/Forms/";
+			return Directory.GetFiles(dir).Where(x => x.ToLower() == Type.ToLower()).FirstOrDefault();
+		}
+
 		public string GetDocument(string Type)
 		{
-			var dir = Root + $"/Forms/{Type}/";
+			var dir = Root + $"/Forms/{GetDocumentType(Type)}/";
 			var files = Directory.GetFiles(dir);
 
 			var CSSList = files.Where(x => x.EndsWith(".css"));
