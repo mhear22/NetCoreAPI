@@ -13,7 +13,6 @@ namespace CoreApp.Services
 		IActionResult GenerateForm(string Type, string Format, IQueryCollection Data = null);
 		IActionResult FormTypes();
 		IActionResult FormFormats();
-		
 	}
 
 	public class FormService : ServiceBase, IFormService

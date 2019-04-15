@@ -22,7 +22,6 @@ Conditions:
     - !Ref BucketName
     - ''
 Resources:
-  
   RDSCluster:
     Type: AWS::RDS::DBCluster
     Properties:
@@ -31,7 +30,6 @@ Resources:
       MasterUserPassword: "password"
       Engine: aurora
       DeletionProtection: true
-      
   RDSPrimaryInstance:
     Type: AWS::RDS::DBInstance
     Properties:
@@ -39,8 +37,6 @@ Resources:
       DBClusterIdentifier: !Ref RDSCluster
       DBInstanceClass: db.t2.small
       PubliclyAccessible: true
-
-      
   FeedbackTopic:
     Type: AWS::SNS::Topic
     Properties:
@@ -76,7 +72,6 @@ Resources:
             Action: 
               - "sts:AssumeRole"
       Path: "/"
-        
   AspNetCoreFunction:
     Type: 'AWS::Serverless::Function'
     Properties:

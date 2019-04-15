@@ -49,10 +49,17 @@ namespace CoreApp.Services
 		{
 			var result = new ServiceStatusModel()
 			{
-				CarReport = TryGetService<CarReport>(),
-				SignUpReport = TryGetService<SignUpReport>(),
+				CarReportService = TryGetService<CarReport>(),
+				SignUpReportService = TryGetService<SignUpReport>(),
 				HostedService = TryGetService<IHostedService>(),
 			};
+
+			try
+			{
+				var service = GetService<IHtmlDocumentService>();
+				result.LocalFileSystem = service.GetDocumentNames();
+			}
+			catch { }
 
 			try
 			{
@@ -70,8 +77,9 @@ namespace CoreApp.Services
 
 	public class ServiceStatusModel
 	{
-		public bool CarReport;
-		public bool SignUpReport;
+		public bool CarReportService;
+		public bool SignUpReportService;
+		public List<string> LocalFileSystem = new List<string>();
 		public bool HostedService;
 		public List<string> S3Buckets = new List<string>();
 	}
