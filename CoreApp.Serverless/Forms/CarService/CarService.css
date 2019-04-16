@@ -1,0 +1,41 @@
+﻿body {
+	display: block;
+	font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.column {
+	height: 200px;
+	width: 20px;
+	float: left;
+}
+
+.column-item {
+	background-color: green;
+	text-orientation: sideways;
+}
+
+.column-item > .text {
+	width: 40px;
+	height: 40px;
+	transform: rotate(-90.0deg);
+	font-size:10px;
+}
+
+.recordings {
+	overflow:hidden;
+	max-width:100%;
+}
+
+.mileage-table, .end-card {
+	clear:both;
+}
+
+.service-reminder, .recordings,.title-card, .end-card {
+	padding:15px;
+	background-color:gainsboro;
+	border:5px solid white;
+}
+
+.psudo-body {
+	padding:15px;
+}

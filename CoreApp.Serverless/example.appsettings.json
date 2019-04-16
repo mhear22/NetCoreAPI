@@ -1,0 +1,7 @@
+﻿{
+	//"DefaultConnection": "server=localhost;userid=root;pwd=password;port=3306;database=test;",
+	"DefaultConnection": "server=mechie-db-cluster.cluster-cf2qdzmwfo0n.ap-southeast-2.rds.amazonaws.com;userid=mechie;pwd=password;port=3306;database=mechie;",
+	"AWSKey": "AKIAJUA4RN4FLMEYBQXQ",
+	"AWSSecret": "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",
+	"StripeKey": "sk_test_qOZ3NhkLGoGlKxaka6VMubgd"
+}

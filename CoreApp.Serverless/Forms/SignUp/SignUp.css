@@ -1,0 +1,10 @@
+﻿body {
+	display: block;
+	font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.card {
+	margin:15px;
+	background-color:gainsboro;
+	padding:15px;
+}
