@@ -94,7 +94,7 @@ namespace CoreApp
 			services.AddScoped<IContext, DatabaseContext>();
 			services.AddScoped<IEmailSendService, EmailSendService>();
 			var ctx = new CustomAssemblyLoader();
-			ctx.LoadUnmanagedLibrary(Directory.GetCurrentDirectory() + "/libwkhtmltox.dll");
+			ctx.LoadUnmanagedLibrary(Directory.GetCurrentDirectory() + "/libwkhtmltox.so");
 			services = StartupHelpers.RegisterService(services);
 			
 			services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
