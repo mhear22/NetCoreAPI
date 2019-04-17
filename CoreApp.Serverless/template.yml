@@ -58,6 +58,9 @@ Resources:
           - Effect: "Allow"
             Action: "sns:*"
             Resource: "*"
+          - Effect: "Allow"
+            Action: "logs:*"
+            Resource: "*"
   AspNetCoreRole:
     Type: AWS::IAM::Role
     Properties:
