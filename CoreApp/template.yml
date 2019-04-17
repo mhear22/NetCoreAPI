@@ -79,7 +79,7 @@ Resources:
     Type: 'AWS::Serverless::Function'
     Properties:
       Handler: >-
-        CoreApp.Serverless::CoreApp.Serverless.LambdaEntryPoint::FunctionHandlerAsync
+        CoreApp::CoreApp.LambdaEntryPoint::FunctionHandlerAsync
       Runtime: dotnetcore2.1
       CodeUri: ''
       MemorySize: 256

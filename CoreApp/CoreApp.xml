@@ -1,19 +1,19 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>CoreApp.Serverless</name>
+        <name>CoreApp</name>
     </assembly>
     <members>
-        <member name="T:CoreApp.Serverless.LambdaEntryPoint">
+        <member name="T:CoreApp.LambdaEntryPoint">
             <summary>
             This class extends from APIGatewayProxyFunction which contains the method FunctionHandlerAsync which is the 
             actual Lambda function entry point. The Lambda handler field should be set to
             
-            CoreApp.Serverless::CoreApp.Serverless.LambdaEntryPoint::FunctionHandlerAsync
+            CoreApp::CoreApp.LambdaEntryPoint::FunctionHandlerAsync
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:CoreApp.Serverless.LambdaEntryPoint.Init(Microsoft.AspNetCore.Hosting.IWebHostBuilder)" -->
-        <member name="T:CoreApp.Serverless.LocalEntryPoint">
+        <!-- Badly formed XML comment ignored for member "M:CoreApp.LambdaEntryPoint.Init(Microsoft.AspNetCore.Hosting.IWebHostBuilder)" -->
+        <member name="T:CoreApp.LocalEntryPoint">
             <summary>
             The Main function can be used to run the ASP.NET Core application locally using the Kestrel webserver.
             </summary>
