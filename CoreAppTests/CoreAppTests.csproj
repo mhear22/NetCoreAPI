@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CoreApp.Serverless\CoreApp.csproj" />
+    <ProjectReference Include="..\CoreApp\CoreApp.csproj" />
   </ItemGroup>
 
   <ItemGroup>

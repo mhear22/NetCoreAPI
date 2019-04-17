@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreAppTests", "CoreAppTests\CoreAppTests.csproj", "{FCEB890C-7FC1-4581-805A-7D8188761D4A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreApp", "CoreApp.Serverless\CoreApp.csproj", "{8A6BCED3-1A56-4BDF-A7AE-86A994C98EA2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreApp", "CoreApp\CoreApp.csproj", "{8A6BCED3-1A56-4BDF-A7AE-86A994C98EA2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
