@@ -41,7 +41,7 @@ namespace CoreApp.Services
 			switch (Format.ToLower())
 			{
 				case "pdf":
-					return new FileContentResult(this.pdfService.GeneratePDF(Type, Data),"application/octet-stream");
+					return new FileContentResult(this.pdfService.GeneratePDF(Type, Data),"application/pdf");
 				case "email":
 					return new ContentResult()
 					{
