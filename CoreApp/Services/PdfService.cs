@@ -50,7 +50,8 @@ namespace CoreApp.Services
 			});
 
 			var pdf = converter.Convert(doc);
-			
+			var first = new string(Convert.ToBase64String(pdf).Take(10).ToArray());
+			LambdaLogger.Log(first);
 			return pdf;
 		}
 	}
