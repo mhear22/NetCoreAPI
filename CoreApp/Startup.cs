@@ -28,6 +28,7 @@ using Stripe;
 using Swashbuckle.AspNetCore.Swagger;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace CoreApp
 {
@@ -95,7 +96,12 @@ namespace CoreApp
 			services.AddScoped<IContext, DatabaseContext>();
 			services.AddScoped<IEmailSendService, EmailSendService>();
 			var ctx = new CustomAssemblyLoader();
-			ctx.LoadUnmanagedLibrary(Directory.GetCurrentDirectory() + "/libwkhtmltox.dll");
+
+			if(RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+				ctx.LoadUnmanagedLibrary(Directory.GetCurrentDirectory() + "/libwkhtmltox.dll");
+			else
+				ctx.LoadUnmanagedLibrary(Directory.GetCurrentDirectory() + "/libwkhtmltox.so");
+
 			services = StartupHelpers.RegisterService(services);
 			
 			services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
