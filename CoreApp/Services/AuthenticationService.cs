@@ -71,7 +71,10 @@ namespace CoreApp.Services
 		public string Login(LoginModel model)
 		{
 			var user = GetDto(model.Username);
-			if(user == null) { return null; }
+			if(user == null)
+				return null;
+			if (!user.EmailVerified)
+				throw new ArgumentException("Please verify your email address");
 			if(_passwordService.CheckPassword(user.Id, model.Password))
 			{
 				var token = _tokenService.Create(user.Id);
