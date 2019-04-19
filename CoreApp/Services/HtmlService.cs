@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using CoreApp.Forms;
 using CoreApp.Forms.SignUp;
+using CoreApp.Forms.Test;
 using CoreApp.Repositories;
 using HandlebarsDotNet;
 using Microsoft.AspNetCore.Http;
@@ -51,7 +52,8 @@ namespace CoreApp.Services
 		
 		private static List<ServiceMap> SMap = new List<ServiceMap>() {
 			new SM<CarReport>("carservice"),
-			new SM<SignUpReport>("signup")
+			new SM<SignUpReport>("signup"),
+			new SM<TestReport>("test")
 		};
 		
 		private object BuildReportData(string ReportType, IEnumerable<KeyValuePair<string, StringValues>> Data = null)
@@ -60,6 +62,9 @@ namespace CoreApp.Services
 			if (reportType == null)
 				throw new ArgumentException($"Service Map Doesnt contain a {ReportType}");
 			var service = (ReportBase)this.serviceProvider.GetService(reportType.type);
+
+			if (service == null)
+				throw new ArgumentException("Could not get the report, is it added to the IOC container?");
 			return service.Build(Data);
 		}
 		

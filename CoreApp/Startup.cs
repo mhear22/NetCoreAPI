@@ -6,6 +6,7 @@ using Amazon.SimpleEmail;
 using Amazon.SimpleNotificationService;
 using CoreApp.Forms;
 using CoreApp.Forms.SignUp;
+using CoreApp.Forms.Test;
 using CoreApp.Models.Repositories;
 using CoreApp.Models.Repositories.Vehicle;
 using CoreApp.Repositories;
@@ -94,7 +95,7 @@ namespace CoreApp
 			services.AddScoped<IContext, DatabaseContext>();
 			services.AddScoped<IEmailSendService, EmailSendService>();
 			var ctx = new CustomAssemblyLoader();
-			ctx.LoadUnmanagedLibrary(Directory.GetCurrentDirectory() + "/libwkhtmltox.so");
+			ctx.LoadUnmanagedLibrary(Directory.GetCurrentDirectory() + "/libwkhtmltox.dll");
 			services = StartupHelpers.RegisterService(services);
 			
 			services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -151,6 +152,7 @@ namespace CoreApp
 		{
 			services.AddSingleton<CarReport>();
 			services.AddSingleton<SignUpReport>();
+			services.AddSingleton<TestReport>();
 
 			services.AddScoped<ICarService, CarService>();
 			services.AddScoped<IVinService, VinService>();
