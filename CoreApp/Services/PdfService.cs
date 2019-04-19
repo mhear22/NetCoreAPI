@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using CoreApp.Repositories;
 using DinkToPdf;
@@ -46,6 +47,7 @@ namespace CoreApp.Services
 			});
 
 			var pdf = converter.Convert(doc);
+			
 			return pdf;
 		}
 	}
