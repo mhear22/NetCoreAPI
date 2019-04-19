@@ -43,8 +43,6 @@ namespace CoreApp.Services
 					}
 				}
 			};
-			if (Startup.creds.GetCredentials() == null)
-				return;
 
 			using (var client = new AmazonSimpleEmailServiceClient(RegionEndpoint.USEast1))
 			{
