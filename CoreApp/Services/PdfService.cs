@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Threading.Tasks;
+using Amazon.Lambda.Core;
 using CoreApp.Repositories;
 using DinkToPdf;
 using DinkToPdf.Contracts;
@@ -47,7 +50,13 @@ namespace CoreApp.Services
 			});
 
 			var pdf = converter.Convert(doc);
-			
+
+			if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+			{
+				var bstring = Encoding.UTF8.GetString(pdf);
+				var result = Convert.FromBase64String(bstring);
+				return result;
+			}
 			return pdf;
 		}
 	}
