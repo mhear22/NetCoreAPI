@@ -50,13 +50,7 @@ namespace CoreApp.Services
 			});
 
 			var pdf = converter.Convert(doc);
-
-			if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-			{
-				var bstring = Encoding.UTF8.GetString(pdf);
-				var result = Convert.FromBase64String(bstring);
-				return result;
-			}
+			
 			return pdf;
 		}
 	}
