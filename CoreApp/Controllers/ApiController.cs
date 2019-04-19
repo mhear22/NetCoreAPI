@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Amazon.Lambda.Core;
 using CoreApp.Repositories;
 using CoreApp.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -36,6 +37,7 @@ namespace CoreApp.Controllers
 				return resp;
 			}
 			catch(Exception ex) {
+				LambdaLogger.Log(ex.Message);
 				return StatusCode(500, ex.Message);
 			}
 		}
@@ -58,6 +60,7 @@ namespace CoreApp.Controllers
 				return resp;
 			}
 			catch(Exception ex) {
+				LambdaLogger.Log(ex.Message);
 				return StatusCode(500, ex.Message);
 			}
 		}

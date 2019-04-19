@@ -46,7 +46,7 @@ namespace CoreApp.Services
 			if (Startup.creds.GetCredentials() == null)
 				return;
 
-			using (var client = new AmazonSimpleEmailServiceClient(Startup.creds, RegionEndpoint.USEast1))
+			using (var client = new AmazonSimpleEmailServiceClient(RegionEndpoint.USEast1))
 			{
 				var result = client.SendEmailAsync(email).Result;
 			}
