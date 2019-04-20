@@ -68,6 +68,11 @@ namespace CoreApp.Services
 				});
 			}
 			
+			if(model.NextService != null)
+			{
+				//Fill out reminder here
+			}
+
 			Context.SaveChanges();
 			
 			return car.Id;

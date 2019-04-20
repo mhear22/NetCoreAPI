@@ -11,5 +11,6 @@ namespace CoreApp.Models.Vehicle
 		public string Nickname;
 		public DateTime ManufacturedDate;
 		public float? CurrentMileage;
+		public DateTime NextService;
 	}
 }
