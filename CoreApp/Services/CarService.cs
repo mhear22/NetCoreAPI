@@ -24,14 +24,20 @@ namespace CoreApp.Services
 		private ICurrentUserService currentUserService;
 		private IVinService vinService;
 		private IMileageService mileageService;
+		private IRepeatingItemService repeatingItemService;
+		private IWorkItemService workItemService;
 
 		public CarService(
 			IContext context,
 			ICurrentUserService currentUserService,
 			IVinService vinService,
-			IMileageService mileageService
+			IMileageService mileageService,
+			IRepeatingItemService repeatingItemService,
+			IWorkItemService workItemService
 		) : base(context)
 		{
+			this.workItemService = workItemService;
+			this.repeatingItemService = repeatingItemService;
 			this.mileageService = mileageService;
 			this.vinService = vinService;
 			this.currentUserService = currentUserService;
@@ -67,13 +73,25 @@ namespace CoreApp.Services
 					OwnedCarId = car.Id
 				});
 			}
-			
-			if(model.NextService != null)
-			{
-				//Fill out reminder here
-			}
-
 			Context.SaveChanges();
+			
+			if(model.NextService != null) {
+				var workId = this.workItemService.AddItem(new AddWorkItem()
+				{
+					ServiceTypeId = ServiceTypeDto.GeneralService,
+					Vin = model.Vin
+				});
+
+				this.repeatingItemService.AddRepeatingItem(new AddRepeatingSettings()
+				{
+					Amount = "12",
+					Id = workId,
+					Offset = model.NextService,
+					TypeId = RepeatTypeDto.Age
+				});
+			}
+			
+
 			
 			return car.Id;
 		}
@@ -112,20 +130,19 @@ namespace CoreApp.Services
 
 		public Page<OwnedCarModel> GetForUser(string UserId)
 		{
-			var results = Context.OwnedCars
+			var userCars = Context.OwnedCars
 				.Where(x => x.UserId == UserId)
-				.ToList()
+				.ToList();
+			var results = userCars
 				.Select(x =>
 				{
-
-					return new OwnedCarModel()
-					{
-						Base = this.vinService.GetCar(x.Vin),
-						Vin = x.Vin,
-						Mileage = x.MileageRecordings?.OrderByDescending(z => z.RecordingDate).FirstOrDefault()?.Mileage ?? "0",
-						Nickname = x.Nickname??"",
-						EstimatedCurrentMileage = this.mileageService.EstimateCurrent(x.Vin)
-					};
+					var car = new OwnedCarModel();
+					car.Base = this.vinService.GetCar(x.Vin);
+					car.Vin = x.Vin;
+					car.Mileage = x.MileageRecordings?.OrderByDescending(z => z.RecordingDate)?.FirstOrDefault()?.Mileage ?? "0";
+					car.Nickname = x.Nickname ?? "";
+					car.EstimatedCurrentMileage = this.mileageService.EstimateCurrent(x.Vin);
+					return car;
 				})
 				.ToList();
 

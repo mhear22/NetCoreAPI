@@ -108,6 +108,9 @@ namespace CoreApp.Services
 
 			var recordings = ownedCar.MileageRecordings.OrderByDescending(x => x.RecordingDate);
 
+			if (recordings.Count() == 0)
+				return "0";
+
 			var lastRecording = recordings.FirstOrDefault();
 
 			var last3Average = recordings.Take(4).Skip(1).Select(x=> {
