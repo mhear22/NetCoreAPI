@@ -25,6 +25,7 @@
 		<DocumentationFile>obj\CoreApp.xml</DocumentationFile>
 		<NoWarn>1701;1702;1705;1591;</NoWarn>
 	</PropertyGroup>
+	<Target Name="DontDeleteTransientObjects" BeforeTargets="_SplitProjectReferencesByFileExistence" DependsOnTargets="AssignProjectConfiguration" />
 
 	<ItemGroup>
 		<PackageReference Include="Amazon.Lambda.AspNetCoreServer" Version="3.0.1" />
@@ -60,22 +61,22 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Forms\CarService\CarService.css">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</None>
 		<None Update="Forms\CarService\CarService.html">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</None>
 		<None Update="Forms\SignUp\SignUp.css">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</None>
 		<None Update="Forms\SignUp\SignUp.html">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</None>
 		<None Update="Forms\Test\Test.css">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</None>
 		<None Update="Forms\Test\Test.html">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</None>
 		<None Update="libwkhtmltox.dll">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -90,5 +91,9 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+	  <Exec Command="xcopy &quot;$(SolutionDir)CoreApp\Forms\*.html&quot; &quot;$(TargetDir)Forms\&quot; /e /Y&#xD;&#xA;xcopy &quot;$(SolutionDir)CoreApp\Forms\*.css&quot; &quot;$(TargetDir)Forms\&quot; /e /Y" />
+	</Target>
 
 </Project>

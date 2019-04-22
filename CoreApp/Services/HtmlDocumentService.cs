@@ -10,24 +10,26 @@ namespace CoreApp.Services
 {
 	public interface IHtmlDocumentService
 	{
-		string GetStaticContent();
 		string GetDocument(string Type);
 		List<string> GetDocumentNames();
 	}
 
 	public class HtmlDocumentService : ServiceBase, IHtmlDocumentService
 	{
-		public HtmlDocumentService(IContext context)
-			: base(context)
+		private ILocalFileSystemService localFileSystemService;
+		public HtmlDocumentService(
+			IContext context,
+			ILocalFileSystemService localFileSystemService
+		) : base(context)
 		{
-
+			this.localFileSystemService = localFileSystemService;
 		}
 
 		private string Root
 		{
 			get
 			{
-				return Directory.GetCurrentDirectory();
+				return this.localFileSystemService.GetLocalDir();
 			}
 		}
 
@@ -57,13 +59,6 @@ namespace CoreApp.Services
 			return Regex.Replace(html, "<head>", $"<head><style>{css}</style>");
 		}
 		
-		public string GetStaticContent()
-		{
-			var dir = Root + $"/StaticContent/Bootstrap/css/bootstrap.min.css";
-			var css = File.ReadAllText(dir);
-			return css;
-		}
-
 		public List<string> GetDocumentNames()
 		{
 			var dir = Root + $"/Forms/";
