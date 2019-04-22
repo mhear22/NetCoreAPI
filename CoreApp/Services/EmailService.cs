@@ -22,21 +22,18 @@ namespace CoreApp.Services
 	{
 		private ICurrentUserService currentUserService;
 		private IEmailTemplateService emailTemplateService;
-		private IAmazonSimpleEmailService simpleEmail;
 		private IEmailSendService emailSendService;
 
 		public EmailService(
 			IContext context,
 			ICurrentUserService currentUserService,
 			IEmailTemplateService emailTemplateService,
-			IAmazonSimpleEmailService simpleEmail,
 			IEmailSendService emailSendService
 		) : base(context)
 		{
 			this.emailSendService = emailSendService;
 			this.currentUserService = currentUserService;
 			this.emailTemplateService = emailTemplateService;
-			this.simpleEmail = simpleEmail;
 		}
 		
 		public void SendServiceEmail(string Vin, string Reason)

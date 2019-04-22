@@ -40,8 +40,9 @@ namespace CoreApp.Services
 					var user = this.userService.GetUser(model.UserId);
 				
 					var message = $"{user?.EmailAddress??"anon"} said: {model?.Feedback} at {model?.Url}";
-				
+#if !DEBUG
 					this.snsService.PublishAsync(Arn, message).Wait();
+#endif
 				}
 			}
 			catch (Exception ex)

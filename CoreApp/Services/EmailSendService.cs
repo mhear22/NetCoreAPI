@@ -43,11 +43,12 @@ namespace CoreApp.Services
 					}
 				}
 			};
-
+#if !DEBUG
 			using (var client = new AmazonSimpleEmailServiceClient(RegionEndpoint.USEast1))
 			{
 				var result = client.SendEmailAsync(email).Result;
 			}
+#endif
 		}
 	}
 }
