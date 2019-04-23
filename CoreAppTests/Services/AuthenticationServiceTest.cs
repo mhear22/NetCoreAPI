@@ -52,7 +52,8 @@ namespace CoreAppTests.Services
 		[Fact]
 		public void AuthService_WithValidCreds_CanLogin()
 		{
-			_service.CreateUser(TestModel);
+			var usr = _service.CreateUser(TestModel);
+			this.Get<IUserService>().VerifyUser(usr.Id);
 			
 			var response = _service.Login(new LoginModel(){
 				Username = TestModel.EmailAddress,

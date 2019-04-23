@@ -95,8 +95,8 @@ namespace CoreApp
 			services.AddSingleton<IConfiguration>(Configuration);
 			services.AddScoped<IContext, DatabaseContext>();
 			services.AddScoped<IEmailSendService, EmailSendService>();
-			
 
+			services.AddSingleton<IConverter>(new SynchronizedConverter(new PdfTools()));
 			services = StartupHelpers.RegisterService(services);
 			
 			services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -151,13 +151,6 @@ namespace CoreApp
 
 		public static IServiceCollection RegisterService(this IServiceCollection services)
 		{
-			var ctx = new CustomAssemblyLoader();
-
-			if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-				ctx.LoadUnmanagedLibrary(Directory.GetCurrentDirectory() + "/libwkhtmltox.dll");
-			else
-				ctx.LoadUnmanagedLibrary(Directory.GetCurrentDirectory() + "/libwkhtmltox.so");
-
 			services.AddSingleton<CarReport>();
 			services.AddSingleton<SignUpReport>();
 			services.AddSingleton<TestReport>();
@@ -188,7 +181,6 @@ namespace CoreApp
 			services.AddScoped<IAuthenticationService, AuthenticationService>();
 			services.AddScoped<IReminderReportService, ReminderReportService>();
 			services.AddScoped<ILocalFileSystemService, LocalFileSystemService>();
-			services.AddSingleton<IConverter>(new SynchronizedConverter(new PdfTools()));
 
 			services.AddRepo<ManufacturerDto>();
 			services.AddRepo<FilePiecesDto>();

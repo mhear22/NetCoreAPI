@@ -113,14 +113,15 @@ namespace CoreApp.Services
 
 			var lastRecording = recordings.FirstOrDefault();
 
-			var last3Average = recordings.Take(4).Skip(1).Select(x=> {
+
+			var last3Average = recordings.Count()>4?recordings.Take(4).Skip(1).Select(x=> {
 				var timeSpan = lastRecording.RecordingDate - x.RecordingDate;
 				var distanceSplit = int.Parse(lastRecording.Mileage) - int.Parse(x.Mileage);
 
 				var dailySplit = distanceSplit / timeSpan.TotalDays;
 
 				return dailySplit;
-			}).Average();
+			}).Average():0;
 
 			var days = Math.Abs((lastRecording.RecordingDate - DateTime.UtcNow).Days);
 

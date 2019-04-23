@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using CoreAppTests.Fixtures;
 using Stripe;
 using CoreAppTests.Mocks;
+using DinkToPdf.Contracts;
 
 namespace CoreAppTests.Services
 {
@@ -46,6 +47,7 @@ namespace CoreAppTests.Services
 				.AddScoped<IStripeService, MockStripeService>()
 				.AddScoped<IEmailSendService, MockEmailSendService>()
 				.AddScoped<ILocalFileSystemService, MockLocalFileSystemService>()
+				.AddSingleton<IConverter, MockConverter>()
 				.BuildServiceProvider();
 
 			var builder = new DbContextOptionsBuilder<DatabaseContext>();
