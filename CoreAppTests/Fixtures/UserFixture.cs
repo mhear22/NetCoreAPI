@@ -24,7 +24,12 @@ namespace CoreAppTests.Fixtures
 		{
 			return Get("/users/" + UserId);
 		}
-		
+
+		private HttpResponseMessage VerifyUser(string UserId)
+		{
+			return Get($"/verify/{UserId}");
+		}
+
 		public HttpResponseMessage UpdateUserRequest(string UserId, UserModel model)
 		{
 			var url = "/users/" + UserId;
@@ -50,6 +55,8 @@ namespace CoreAppTests.Fixtures
 			var responseModel = JsonConvert.DeserializeObject<UserModel>(
 				request.Content.ReadAsStringAsync().Result
 			);
+
+			VerifyUser(responseModel.Id);
 			
 			Assert.True(responseModel.EmailAddress == model.EmailAddress);
 			Assert.True(responseModel.Username == model.Username);
@@ -58,6 +65,7 @@ namespace CoreAppTests.Fixtures
 			
 			return model; 
 		}
+
 		public CreateUserModel Generate()
 		{
 			var model = new CreateUserModel()

@@ -26,18 +26,13 @@ using Microsoft.Extensions.PlatformAbstractions;
 using Newtonsoft.Json.Serialization;
 using Stripe;
 using Swashbuckle.AspNetCore.Swagger;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 
 namespace CoreApp
 {
-	public class TestStartup : Startup
-	{
-		public TestStartup(Microsoft.AspNetCore.Hosting.IHostingEnvironment env)
-			: base(env, true)
-		{ }
-	}
 	public class Startup
 	{
 		private bool IsTesting = false;
@@ -54,6 +49,8 @@ namespace CoreApp
 
 		public IConfigurationRoot Configuration { get; private set; }
 		internal static AWSCredentials creds;
+
+		public Func<IServiceCollection, IServiceCollection> AddServices = null; 
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
@@ -97,7 +94,12 @@ namespace CoreApp
 			services.AddScoped<IEmailSendService, EmailSendService>();
 
 			services.AddSingleton<IConverter>(new SynchronizedConverter(new PdfTools()));
-			services = StartupHelpers.RegisterService(services);
+
+			if(IsTesting)
+				services = this.AddServices(services);
+			else
+				services = StartupHelpers.RegisterService(services);
+				
 			
 			services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
